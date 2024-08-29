@@ -1,17 +1,14 @@
-import CredentialsProvider from "next-auth/providers/credentials";
+import NextAuth from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
 
-providers: [
-    CredentialsProvider({
-        name: "Credentials",
-
-        credentials: {
-            username: {
-                label: "Username", placeholder: "John Doe", type: "text"
+export default NextAuth({
+    providers: [
+        CredentialsProvider({
+            name: "Credentials",
+            credentials: {
+                username: { label: "Username", placeholder: "John Doe", type: "text" },
+                password: { label: "Password", type: "password", placeholder: "********" },
             },
-            password: {
-                label: "Password", type: "********"
-            },
-
             async authorize(credentials, req) {
                 const user = { id: 1, name: "John Doe", email: "johndoe@gmail.com" }
 
@@ -21,11 +18,8 @@ providers: [
                     return null
                 }
             }
-
-        },
-    })
-
-    // additional providers
-
-
-]
+        }),
+        // additional providers
+    ],
+    // additional NextAuth configuration (e.g., pages, callbacks)
+})
