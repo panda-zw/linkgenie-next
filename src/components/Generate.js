@@ -134,6 +134,8 @@ function Generate() {
                             <option value="finance">Finance</option>
                             <option value="education">Education</option>
                             <option value="marketing">Marketing</option>
+                            <option value="tourism">Tourism</option>
+                            <option value="nature">Nature</option>
                         </select>
                     </div>
 
