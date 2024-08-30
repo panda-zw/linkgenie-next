@@ -1,6 +1,48 @@
+"use client";
 
+import { useState } from 'react';
 
 function Generate() {
+    const [userMessage, setUserMessage] = useState('');
+    const [response, setResponse] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [postCount, setPostCount] = useState(1); // State for number of posts
+    const [writingStyle, setWritingStyle] = useState('professional'); // State for writing style
+    const [voiceType, setVoiceType] = useState('authoritative'); // State for voice type
+    const [topic, setTopic] = useState(''); // State for topic
+    const [field, setField] = useState('tech'); // State for field
+    const [includeHashtags, setIncludeHashtags] = useState(false); // State for hashtags
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        // Construct the user message based on the form inputs
+        const messageContent = `
+            ${userMessage}
+            Writing Style: ${writingStyle}
+            Voice Type: ${voiceType}
+            Topic: ${topic}
+            Field: ${field}
+            Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
+        `;
+
+        try {
+            const res = await fetch('/api/groq', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userMessage: messageContent }),
+            });
+            const data = await res.json();
+            setResponse(data.content);
+        } catch (error) {
+            console.error('Error fetching GROQ response:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className='min-h-screen px-4 lg:px-10 bg-gray-900'>
@@ -16,13 +58,16 @@ function Generate() {
                     <p className='text-lg lg:text-xl tracking-wider'>3. Choose your topic, field, and whether to include hashtags</p>
                 </div>
 
-                <div className='mt-10 space-y-6 lg:space-y-8'>
+                <form onSubmit={handleSubmit} className='mt-10 space-y-6 lg:space-y-8'>
                     <div>
                         <h2 className='text-lg lg:text-xl text-gray-300'>Describe your post in a clear and detailed manner</h2>
                         <input
                             type="text"
+                            value={userMessage}
+                            onChange={(e) => setUserMessage(e.target.value)}
                             className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
                             placeholder='E.g., Sharing my journey in software development...'
+                            required
                         />
                     </div>
 
@@ -30,6 +75,8 @@ function Generate() {
                         <h2 className='text-lg lg:text-xl text-gray-300'>How many posts do you want (1 credit per post)</h2>
                         <input
                             type="number"
+                            value={postCount}
+                            onChange={(e) => setPostCount(e.target.value)}
                             className='mt-2 w-full lg:w-1/4 p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
                             min="1"
                         />
@@ -38,6 +85,8 @@ function Generate() {
                     <div>
                         <h2 className='text-lg lg:text-xl text-gray-300'>Select your desired writing style</h2>
                         <select
+                            value={writingStyle}
+                            onChange={(e) => setWritingStyle(e.target.value)}
                             className='mt-2 w-full p-3 bg-gray-800 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-green-500'
                         >
                             <option value="professional">Professional</option>
@@ -50,6 +99,8 @@ function Generate() {
                     <div>
                         <h2 className='text-lg lg:text-xl text-gray-300'>Select the type of voice</h2>
                         <select
+                            value={voiceType}
+                            onChange={(e) => setVoiceType(e.target.value)}
                             className='mt-2 w-full p-3 bg-gray-800 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-green-500'
                         >
                             <option value="authoritative">Authoritative</option>
@@ -63,14 +114,19 @@ function Generate() {
                         <h2 className='text-lg lg:text-xl text-gray-300'>Select the topic of your post</h2>
                         <input
                             type="text"
+                            value={topic}
+                            onChange={(e) => setTopic(e.target.value)}
                             className='mt-2 w-full p-3 text-gray-200 bg-gray-800 rounded focus:outline-none focus:ring-2 focus:ring-green-500'
                             placeholder='E.g., AI advancements, personal growth...'
+                            required
                         />
                     </div>
 
                     <div>
                         <h2 className='text-lg lg:text-xl text-gray-300'>Select the field</h2>
                         <select
+                            value={field}
+                            onChange={(e) => setField(e.target.value)}
                             className='mt-2 w-full p-3 bg-gray-800 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-green-500'
                         >
                             <option value="tech">Tech</option>
@@ -85,18 +141,33 @@ function Generate() {
                         <label className='flex items-center text-lg lg:text-xl text-gray-300'>
                             <input
                                 type="checkbox"
+                                checked={includeHashtags}
+                                onChange={(e) => setIncludeHashtags(e.target.checked)}
                                 className='mr-2 rounded focus:outline-none text-gray-200 bg-gray-800 focus:ring-2 focus:ring-green-500'
                             />
                             Include hashtags in the post
                         </label>
                     </div>
 
-                    <button className='mt-5 w-full py-3 bg-green-500 text-white text-lg lg:text-xl rounded hover:bg-green-600 transition'>
+                    <button type="submit" className='mt-5 w-full py-3 bg-green-500 text-white text-lg lg:text-xl rounded hover:bg-green-600 transition'>
                         Generate Post
                     </button>
+                </form>
+
+                <div className='mt-10'>
+                    {loading ? (
+                        <div className='flex justify-center items-center'>
+                            <p className='text-gray-200 text-lg'>Loading...</p>
+                        </div>
+                    ) : (
+                        <div className='p-4 bg-gray-800 rounded-lg shadow-lg'>
+                            <h2 className='text-xl text-gray-300 mb-2'>Generated Post:</h2>
+                            <p className='text-gray-200'>{response || "No content generated."}</p>
+                        </div>
+                    )}
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
 

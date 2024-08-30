@@ -4,8 +4,14 @@ const groq = new Groq({ apiKey: "gsk_G0YdQSYwgLTSgUERJ3UBWGdyb3FYRdsAmkc8ji7fAof
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
+        const { userMessage } = req.body;
+
+        if (!userMessage) {
+            return res.status(400).json({ error: 'Message is required' });
+        }
+
         try {
-            const chatCompletion = await getGroqChatCompletion();
+            const chatCompletion = await getGroqChatCompletion(userMessage);
             res.status(200).json({ content: chatCompletion.choices[0]?.message?.content || "" });
         } catch (error) {
             res.status(500).json({ error: 'Failed to fetch data from GROQ' });
@@ -16,12 +22,12 @@ export default async function handler(req, res) {
     }
 }
 
-async function getGroqChatCompletion() {
+async function getGroqChatCompletion(userMessage) {
     return groq.chat.completions.create({
         messages: [
             {
                 role: "user",
-                content: "write a short linkedln post about connections with hashtags and emojis",
+                content: userMessage,
             },
         ],
         model: "llama3-8b-8192",
