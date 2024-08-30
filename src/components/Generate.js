@@ -1,13 +1,6 @@
-import React, { useState } from 'react';
+
 
 function Generate() {
-    const [description, setDescription] = useState('');
-    const [postCount, setPostCount] = useState(1);
-    const [writingStyle, setWritingStyle] = useState('professional');
-    const [voiceType, setVoiceType] = useState('authoritative');
-    const [topic, setTopic] = useState('');
-    const [field, setField] = useState('tech');
-    const [includeHashtags, setIncludeHashtags] = useState(false);
 
     return (
         <div className='min-h-screen px-4 lg:px-10 bg-gray-900'>
@@ -28,8 +21,6 @@ function Generate() {
                         <h2 className='text-lg lg:text-xl text-gray-300'>Describe your post in a clear and detailed manner</h2>
                         <input
                             type="text"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
                             className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
                             placeholder='E.g., Sharing my journey in software development...'
                         />
@@ -39,8 +30,6 @@ function Generate() {
                         <h2 className='text-lg lg:text-xl text-gray-300'>How many posts do you want (1 credit per post)</h2>
                         <input
                             type="number"
-                            value={postCount}
-                            onChange={(e) => setPostCount(e.target.value)}
                             className='mt-2 w-full lg:w-1/4 p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
                             min="1"
                         />
@@ -49,8 +38,6 @@ function Generate() {
                     <div>
                         <h2 className='text-lg lg:text-xl text-gray-300'>Select your desired writing style</h2>
                         <select
-                            value={writingStyle}
-                            onChange={(e) => setWritingStyle(e.target.value)}
                             className='mt-2 w-full p-3 bg-gray-800 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-green-500'
                         >
                             <option value="professional">Professional</option>
@@ -63,8 +50,6 @@ function Generate() {
                     <div>
                         <h2 className='text-lg lg:text-xl text-gray-300'>Select the type of voice</h2>
                         <select
-                            value={voiceType}
-                            onChange={(e) => setVoiceType(e.target.value)}
                             className='mt-2 w-full p-3 bg-gray-800 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-green-500'
                         >
                             <option value="authoritative">Authoritative</option>
@@ -78,8 +63,6 @@ function Generate() {
                         <h2 className='text-lg lg:text-xl text-gray-300'>Select the topic of your post</h2>
                         <input
                             type="text"
-                            value={topic}
-                            onChange={(e) => setTopic(e.target.value)}
                             className='mt-2 w-full p-3 text-gray-200 bg-gray-800 rounded focus:outline-none focus:ring-2 focus:ring-green-500'
                             placeholder='E.g., AI advancements, personal growth...'
                         />
@@ -88,8 +71,6 @@ function Generate() {
                     <div>
                         <h2 className='text-lg lg:text-xl text-gray-300'>Select the field</h2>
                         <select
-                            value={field}
-                            onChange={(e) => setField(e.target.value)}
                             className='mt-2 w-full p-3 bg-gray-800 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-green-500'
                         >
                             <option value="tech">Tech</option>
@@ -104,8 +85,6 @@ function Generate() {
                         <label className='flex items-center text-lg lg:text-xl text-gray-300'>
                             <input
                                 type="checkbox"
-                                checked={includeHashtags}
-                                onChange={(e) => setIncludeHashtags(e.target.checked)}
                                 className='mr-2 rounded focus:outline-none text-gray-200 bg-gray-800 focus:ring-2 focus:ring-green-500'
                             />
                             Include hashtags in the post

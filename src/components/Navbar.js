@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 function Navbar() {
     return (
         <div className='flex flex-wrap justify-between items-center px-4 py-4'>
@@ -9,8 +10,8 @@ function Navbar() {
                     <h1 className='text-2xl sm:text-3xl md:text-4xl font-black text-gray-200'>Ge<span className='text-green-500'>nie</span></h1>
                 </a>
                 <nav className='hidden sm:flex space-x-4 sm:space-x-6 pl-2 sm:pl-5'>
-                    <a href="/generate" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>Generate</a>
-                    <a href="/community" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>Community</a>
+                    <a href="/Generate" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>Generate</a>
+                    <a href="/Community" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>Community</a>
                 </nav>
             </div>
             <div className='flex items-center space-x-2 sm:space-x-4 mt-4 sm:mt-0'>

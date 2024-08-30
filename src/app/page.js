@@ -1,15 +1,13 @@
-"use client";
+import Main from '@/components/Main';
+import About from '@/components/About';
+import Review from '@/components/Reviews';
 
-import Main from "@/components/Main";
-import About from "@/components/About";
-import Reviews from "@/components/Reviews";
-
-export default function Home() {
+export default function HomePage() {
     return (
         <>
             <Main />
             <About />
-            <Reviews />
+            <Review />
         </>
     );
 }

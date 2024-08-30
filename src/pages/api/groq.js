@@ -1,4 +1,3 @@
-// pages/api/groq.js
 import Groq from "groq-sdk";
 
 const groq = new Groq({ apiKey: "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" });
