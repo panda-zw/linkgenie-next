@@ -9,9 +9,7 @@ export default function RootLayout({ children }) {
         <title>linkgenie</title>
       </head>
       <body className="bg-gray-900">
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );
