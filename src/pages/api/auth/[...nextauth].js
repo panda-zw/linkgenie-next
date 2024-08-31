@@ -30,4 +30,7 @@ export default NextAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET
         })
     ],
+    pages: {
+        signIn: '/auth/signin', // Ensure this points to your custom sign-in page
+    },
 });
