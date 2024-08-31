@@ -6,18 +6,17 @@ function Generate() {
     const [userMessage, setUserMessage] = useState('');
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
-    const [postCount, setPostCount] = useState(1); // State for number of posts
-    const [writingStyle, setWritingStyle] = useState('professional'); // State for writing style
-    const [voiceType, setVoiceType] = useState('authoritative'); // State for voice type
-    const [topic, setTopic] = useState(''); // State for topic
-    const [field, setField] = useState('tech'); // State for field
-    const [includeHashtags, setIncludeHashtags] = useState(false); // State for hashtags
+    const [postCount, setPostCount] = useState(1);
+    const [writingStyle, setWritingStyle] = useState('professional');
+    const [voiceType, setVoiceType] = useState('authoritative');
+    const [topic, setTopic] = useState('');
+    const [field, setField] = useState('tech');
+    const [includeHashtags, setIncludeHashtags] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
-        // Construct the user message based on the form inputs
         const messageContent = `
             ${userMessage}
             Writing Style: ${writingStyle}
