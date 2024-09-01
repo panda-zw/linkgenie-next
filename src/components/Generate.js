@@ -164,7 +164,6 @@ function Generate() {
                     ) : (
                         <div className='p-4 bg-gray-800 rounded-lg shadow-lg'>
                             <h2 className='text-xl text-gray-300 mb-2'>Generated Post:</h2>
-                            {/* Use ReactMarkdown to render Markdown content */}
                             <ReactMarkdown className='text-gray-200'>{response || "No content generated."}</ReactMarkdown>
                         </div>
                     )}

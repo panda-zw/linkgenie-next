@@ -5,9 +5,9 @@ import Footer from "@/components/Footer";
 export default function CommunityPage() {
     return (
         <>
-        <Navbar/>
+            <Navbar />
             <Community />
-            <Footer/>
+            <Footer />
         </>
     );
 }

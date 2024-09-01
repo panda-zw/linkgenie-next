@@ -31,6 +31,6 @@ export default NextAuth({
         })
     ],
     pages: {
-        signIn: '/auth/signin', // Ensure this points to your custom sign-in page
+        signIn: '/SignIn',
     },
 });
