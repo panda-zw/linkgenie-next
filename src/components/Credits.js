@@ -21,17 +21,17 @@ function Credits() {
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="flex-shrink-0 w-6 h-6 text-emerald-400" aria-hidden="true">
                                 <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg><span class="ml-3 text-gray-100">10 Credits</span></li>
+                            </svg><span class="ml-3 text-gray-100">5 Credits</span></li>
                             <li class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="flex-shrink-0 w-6 h-6 text-emerald-400" aria-hidden="true">
                                 <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg><span class="ml-3 text-gray-100">Generate video (2 credits)</span></li>
+                            </svg><span class="ml-3 text-gray-100">Generate post (1 credit)</span></li>
                             <li class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="flex-shrink-0 w-6 h-6 text-emerald-400" aria-hidden="true">
                                 <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg><span class="ml-3 text-gray-100">Quizz (1 credit)</span></li>
+                            </svg><span class="ml-3 text-gray-100">Community Access</span></li>
                         </ul>
                     </div>
                     <a class="bg-emerald-600 text-white hover:bg-emerald-700 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
@@ -47,7 +47,7 @@ function Credits() {
                             <span class="text-5xl font-extrabold tracking-tight">$5</span>
                             <span class="ml-1 text-xl font-semibold text-gray-400">/month</span>
                         </p>
-                        <p class="mt-6 text-gray-400">You want to learn and have a personal assistant</p>
+                        <p class="mt-6 text-gray-400">You want to grow your linkedln profile  swiftly</p>
                         <ul role="list" class="mt-6 space-y-6">
                             <li class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -63,7 +63,7 @@ function Credits() {
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="flex-shrink-0 w-6 h-6 text-emerald-400" aria-hidden="true">
                                 <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg><span class="ml-3 text-gray-100">Generate video (2 credits)</span></li>
+                            </svg><span class="ml-3 text-gray-100">Generate post (1 credit)</span></li>
                             <li class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="flex-shrink-0 w-6 h-6 text-emerald-400" aria-hidden="true">
