@@ -24,7 +24,7 @@ export default function SignIn() {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <section className="w-full max-w-md p-8 bg-gray-800 rounded shadow-md">
-        <h1 className="py-3 text-center text-2xl font-black text-white">Genie</h1>
+        <h1 className="py-3 text-center text-2xl font-black text-white"><span className="text-green-400">Genie</span> - Sign In</h1>
         <button className="mb-4 w-full flex items-center justify-center rounded bg-gray-700 px-4 py-2 text-sm text-white transition hover:bg-gray-600">
           <FontAwesomeIcon icon={faGoogle} className="mr-2" />
           Sign in with Google
@@ -73,7 +73,7 @@ export default function SignIn() {
         </form>
         <p className="mt-6 text-center text-sm text-gray-400">
           Don’t have an account?{" "}
-          <Link href="#" className="text-blue-500 hover:underline">
+          <Link href="/signup" className="text-blue-500 hover:underline">
             Sign up
           </Link>
         </p>

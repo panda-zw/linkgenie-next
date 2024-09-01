@@ -32,5 +32,6 @@ export default NextAuth({
     ],
     pages: {
         signIn: '/SignIn',
+        signUp: '/SignUp'
     },
 });
