@@ -1,8 +1,9 @@
-"use client"
+"use client"; // This line makes this file a client component
 
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react"; // Import signIn from next-auth
 import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -13,18 +14,30 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add sign-in logic here
-    try {
-      router.push("/");
-    } catch (error) {
-      console.log("Failed to sign in:", error);
+    // Use NextAuth's signIn function
+    const result = await signIn("credentials", {
+      redirect: false, // Prevent automatic redirect
+      username: email, // Use email as username
+      password: password,
+    });
+
+    // Log the result to see if authentication was successful
+    console.log("SignIn Result:", result);
+
+    if (result?.error) {
+      console.log("Failed to sign in:", result.error);
+    } else {
+      console.log("Successfully signed in:", result);
+      router.push("/"); // Redirect to home after successful sign in
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen">
       <section className="w-full max-w-md p-8 bg-gray-800 rounded shadow-md">
-        <h1 className="py-3 text-center text-2xl font-black text-white"><span className="text-green-400">Genie</span> - Sign In</h1>
+        <h1 className="py-3 text-center text-2xl font-black text-white">
+          <span className="text-green-400">Genie</span> - Sign In
+        </h1>
         <button className="mb-4 w-full flex items-center justify-center rounded bg-gray-700 px-4 py-2 text-sm text-white transition hover:bg-gray-600">
           <FontAwesomeIcon icon={faGoogle} className="mr-2" />
           Sign in with Google
