@@ -13,7 +13,7 @@ function Review() {
                     <p className='text-gray-200 text-lg mb-4 italic'>
                         "LinkGenie has completely transformed how I approach LinkedIn. The AI-generated posts are spot-on and really capture my voice. I've seen a significant increase in engagement since I started using it."
                     </p>
-                    <h3 className='text-gray-400 text-xl font-semibold'>Alex R.</h3>
+                    <h3 className='text-gray-400 text-xl font-semibold'>Kundisai M.</h3>
                 </div>
 
                 <div className='bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full md:w-1/3'>
@@ -38,7 +38,7 @@ function Review() {
                     <p className='text-gray-200 text-lg mb-4'>
                         "I can't believe the difference LinkGenie has made! My LinkedIn posts now get so much more attention. It's like having a secret weapon for networking!"
                     </p>
-                    <h3 className='text-gray-400 text-xl font-semibold'>Emily S.</h3>
+                    <h3 className='text-gray-400 text-xl font-semibold'>Machokoto A.</h3>
 
                 </div>
 
@@ -54,7 +54,7 @@ function Review() {
                     <p className='text-gray-200 text-lg mb-4'>
                         "I’ve tried several tools, but LinkGenie stands out! The content suggestions are tailored to my style, and I’ve noticed a boost in engagement. Truly a fantastic tool!"
                     </p>
-                    <h3 className='text-gray-400 text-xl font-semibold'>Sarah P.</h3>
+                    <h3 className='text-gray-400 text-xl font-semibold'>Aresho G.</h3>
 
                 </div>
             </div>
