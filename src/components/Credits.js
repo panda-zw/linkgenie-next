@@ -31,7 +31,7 @@ function Credits() {
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="flex-shrink-0 w-6 h-6 text-emerald-400" aria-hidden="true">
                                 <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg><span class="ml-3 text-gray-100">Community Access</span></li>
+                            </svg><span class="ml-3 text-gray-100">View Community Posts</span></li>
                         </ul>
                     </div>
                     <a class="bg-emerald-600 text-white hover:bg-emerald-700 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
@@ -68,12 +68,12 @@ function Credits() {
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="flex-shrink-0 w-6 h-6 text-emerald-400" aria-hidden="true">
                                 <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg><span class="ml-3 text-gray-100">Quizz (1 credit)</span></li>
+                            </svg><span class="ml-3 text-gray-100">Community Access</span></li>
                             <li class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="flex-shrink-0 w-6 h-6 text-emerald-400" aria-hidden="true">
                                 <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg><span class="ml-3 text-gray-100">Analytics on the quiz</span></li>
+                            </svg><span class="ml-3 text-gray-100">Post To Community</span></li>
                         </ul>
                     </div>
                     <a class="bg-emerald-500 text-white hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
