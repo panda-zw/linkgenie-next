@@ -6,20 +6,10 @@ import GoogleProvider from "next-auth/providers/google";
 export default NextAuth({
     providers: [
         CredentialsProvider({
-            name: "Credentials",
             credentials: {
-                username: { label: "Username", placeholder: "John Doe", type: "text" },
-                password: { label: "Password", type: "password", placeholder: "********" },
+                email: { label: "Email", type: "text" },
+                password: { label: "Password", type: "password" },
             },
-            async authorize(credentials, req) {
-                const user = { id: 1, name: "John Doe", email: "johndoe@gmail.com" };
-
-                if (user) {
-                    return user;
-                } else {
-                    return null;
-                }
-            }
         }),
         GithubProvider({
             clientId: process.env.GITHUB_ID,

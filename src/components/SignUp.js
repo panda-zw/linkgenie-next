@@ -33,8 +33,26 @@ export default function SignUp() {
         localStorage.setItem("userData", JSON.stringify(userData));
         localStorage.setItem("userCredits", JSON.stringify(initialCredits));
 
-        // Redirect to home or sign in page
-        router.push("/signin");
+        try {
+            // Make an API request to store the user data in MongoDB
+            const response = await fetch("/api/auth/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            });
+
+            if (response.ok) {
+                // Redirect to the home or sign-in page
+                router.push("/");
+            } else {
+                // Handle any errors from the API request
+                console.error("Error signing up:", await response.json());
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
     };
 
     return (
