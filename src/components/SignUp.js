@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -14,18 +14,35 @@ export default function SignUp() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Add sign-up logic here
-        try {
-            router.push("/");
-        } catch (error) {
-            console.log("Failed to sign up:", error);
+
+        // Basic validation
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
         }
+
+        // Store user data temporarily
+        const userData = {
+            username,
+            email,
+            password, // Note: In a real app, never store passwords like this
+        };
+
+        // Set initial credits
+        const initialCredits = 5;
+        localStorage.setItem("userData", JSON.stringify(userData));
+        localStorage.setItem("userCredits", JSON.stringify(initialCredits));
+
+        // Redirect to home or sign in page
+        router.push("/signin");
     };
 
     return (
         <div className="flex items-center justify-center min-h-screen">
             <section className="w-full max-w-md p-8 bg-gray-800 rounded shadow-md">
-                <h1 className="py-3 text-center text-2xl font-black text-white"><span className="text-green-400">Genie</span>  - Sign Up</h1>
+                <h1 className="py-3 text-center text-2xl font-black text-white">
+                    <span className="text-green-400">Genie</span> - Sign Up
+                </h1>
                 <button className="mb-4 w-full flex items-center justify-center rounded bg-gray-700 px-4 py-2 text-sm text-white transition hover:bg-gray-600">
                     <FontAwesomeIcon icon={faGoogle} className="mr-2" />
                     Sign up with Google

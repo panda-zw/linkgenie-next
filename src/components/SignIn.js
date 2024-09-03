@@ -3,7 +3,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react"; // Import signIn from next-auth
 import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -11,24 +10,20 @@ export default function SignIn() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // Use NextAuth's signIn function
-    const result = await signIn("credentials", {
-      redirect: false, // Prevent automatic redirect
-      username: email, // Use email as username
-      password: password,
-    });
 
-    // Log the result to see if authentication was successful
-    console.log("SignIn Result:", result);
+    // Retrieve user data from localStorage
+    const storedUser = JSON.parse(localStorage.getItem("userData"));
 
-    if (result?.error) {
-      console.log("Failed to sign in:", result.error);
+    // Check if the stored user exists and if the credentials match
+    if (storedUser && storedUser.email === email && storedUser.password === password) {
+      console.log("Successfully signed in");
+      router.push("/"); // Redirect to home page
     } else {
-      console.log("Successfully signed in:", result);
-      router.push("/"); // Redirect to home after successful sign in
+      setError("Invalid email or password");
     }
   };
 
@@ -70,6 +65,11 @@ export default function SignIn() {
               className="w-full px-4 py-2 text-sm text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+          {error && (
+            <div className="mb-4 text-red-500 text-sm">
+              {error}
+            </div>
+          )}
           <div className="mb-4 text-right">
             <a href="#0" className="text-sm text-blue-500 hover:underline">
               Forgot Password?

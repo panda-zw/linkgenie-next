@@ -18,29 +18,42 @@ function Generate() {
         e.preventDefault();
         setLoading(true);
 
-        const messageContent = `
-            ${userMessage}
-            Writing Style: ${writingStyle}
-            Voice Type: ${voiceType}
-            Topic: ${topic}
-            Field: ${field}
-            Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
-        `;
+        // Retrieve user credits from localStorage
+        let credits = JSON.parse(localStorage.getItem("userCredits")) || 0;
 
-        try {
-            const res = await fetch('/api/groq', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ userMessage: messageContent }),
-            });
-            const data = await res.json();
-            setResponse(data.content);
-        } catch (error) {
-            console.error('Error fetching GROQ response:', error);
-        } finally {
-            setLoading(false);
+        // Check if the user has enough credits
+        if (credits >= postCount) {
+            const messageContent = `
+                ${userMessage}
+                Writing Style: ${writingStyle}
+                Voice Type: ${voiceType}
+                Topic: ${topic}
+                Field: ${field}
+                Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
+            `;
+
+            try {
+                const res = await fetch('/api/groq', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userMessage: messageContent }),
+                });
+                const data = await res.json();
+                setResponse(data.content);
+
+                // Deduct credits
+                credits -= postCount;
+                localStorage.setItem("userCredits", JSON.stringify(credits));
+            } catch (error) {
+                console.error('Error fetching GROQ response:', error);
+            } finally {
+                setLoading(false);
+            }
+        } else {
+            console.error("Not enough credits.");
+            // Handle insufficient credits, e.g., show a message to the user
         }
     };
 
@@ -76,7 +89,7 @@ function Generate() {
                         <input
                             type="number"
                             value={postCount}
-                            onChange={(e) => setPostCount(e.target.value)}
+                            onChange={(e) => setPostCount(Number(e.target.value))}
                             className='mt-2 w-full lg:w-1/4 p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
                             min="1"
                         />
@@ -168,8 +181,8 @@ function Generate() {
                         </div>
                     )}
                 </div>
-            </div >
-        </div >
+            </div>
+        </div>
     );
 }
 
