@@ -13,41 +13,37 @@ export default function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const handleSubmit = async (e) => {
+        console.log("Executed")
         e.preventDefault();
 
-        // Basic validation
         if (password !== confirmPassword) {
             alert("Passwords do not match");
             return;
         }
 
-        // Store user data temporarily
         const userData = {
             username,
             email,
-            password, // Note: In a real app, never store passwords like this
+            password,
         };
 
-        // Set initial credits
-        const initialCredits = 5;
-        localStorage.setItem("userData", JSON.stringify(userData));
-        localStorage.setItem("userCredits", JSON.stringify(initialCredits));
+        // const initialCredits = 5;
+        // localStorage.setItem("userData", JSON.stringify(userData));
+        // localStorage.setItem("userCredits", JSON.stringify(initialCredits));
 
         try {
-            // Make an API request to store the user data in MongoDB
-            const response = await fetch("/api/auth/signup", {
+            const response = await fetch("/api/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(userData),
+
             });
 
             if (response.ok) {
-                // Redirect to the home or sign-in page
                 router.push("/");
             } else {
-                // Handle any errors from the API request
                 console.error("Error signing up:", await response.json());
             }
         } catch (error) {
@@ -124,7 +120,7 @@ export default function SignUp() {
                 </form>
                 <p className="mt-6 text-center text-sm text-gray-400">
                     Already have an account?{" "}
-                    <Link href="/signin" className="text-blue-500 hover:underline">
+                    <Link href="/auth/signin" className="text-blue-500 hover:underline">
                         Sign in
                     </Link>
                 </p>
