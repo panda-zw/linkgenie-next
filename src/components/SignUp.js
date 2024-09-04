@@ -27,10 +27,6 @@ export default function SignUp() {
             password,
         };
 
-        // const initialCredits = 5;
-        // localStorage.setItem("userData", JSON.stringify(userData));
-        // localStorage.setItem("userCredits", JSON.stringify(initialCredits));
-
         try {
             const response = await fetch("/api/register", {
                 method: "POST",
@@ -42,7 +38,7 @@ export default function SignUp() {
             });
 
             if (response.ok) {
-                router.push("/");
+                router.push("/auth/signin");
             } else {
                 console.error("Error signing up:", await response.json());
             }
