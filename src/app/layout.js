@@ -1,5 +1,6 @@
 "use client";
 
+import { AuthProvider } from '@/Provider';
 import './globals.css';
 
 export default function RootLayout({ children }) {
@@ -9,7 +10,9 @@ export default function RootLayout({ children }) {
         <title>linkgenie</title>
       </head>
       <body className="bg-gray-900">
-        {children}
+        < AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

@@ -3,7 +3,7 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import User from "../../../../models/User";
+import User from "../../../../../models/User";
 import bcrypt from 'bcrypt';
 
 async function login(credentials) {
@@ -65,14 +65,14 @@ export const authOptions = {
                 session.user.id = token.id
             }
             return session;
-
         }
-
     },
     pages: {
         signIn: '/SignIn',
         signUp: '/SignUp'
     },
+
+    secret: process.env.NEXTAUTH_SECRET,
 }
 
 const handler = NextAuth(authOptions);
