@@ -1,7 +1,7 @@
 import { connectDB } from "@/utils/connect";
 import User from "../../../../models/User";
 import { NextResponse } from 'next/server';
-import bcrypt from 'bcrypt'; // Correct the import
+import bcrypt from 'bcrypt';
 
 export async function POST(req) {
     try {
@@ -14,6 +14,7 @@ export async function POST(req) {
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         await User.create({ username, email, password: hashedPassword });
+        console.log(User);
         return NextResponse.json({ message: "User Registered" }, { status: 201 });
 
     } catch (error) {
