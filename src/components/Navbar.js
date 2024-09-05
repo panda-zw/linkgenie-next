@@ -1,27 +1,14 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 function Navbar() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [credits, setCredits] = useState(0);
+    const { data: session, status } = useSession();
     const router = useRouter();
-
-    useEffect(() => {
-        const storedUser = JSON.parse(localStorage.getItem("userData"));
-        setIsLoggedIn(!!storedUser);
-
-
-        const storedCredits = JSON.parse(localStorage.getItem("userCredits")) || 0;
-        setCredits(storedCredits);
-    }, []);
-
     const handleSignOut = () => {
-        localStorage.removeItem("userData");
-        localStorage.removeItem("userCredits");
-        setIsLoggedIn(false);
-        router.push("/");
+        signOut({ callbackUrl: '/' });
     };
 
     return (
@@ -37,13 +24,13 @@ function Navbar() {
                 </nav>
             </div>
             <div className='flex items-center space-x-2 sm:space-x-4 mt-4 sm:mt-0'>
-                <span className='text-white'>{credits} Credits</span>
+                <span className='text-white'>0 Credits</span>
                 <Link href="/credits">
                     <button className='w-28 sm:w-32 h-8 sm:h-10 text-sm sm:text-base text-white bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-lg hover:from-green-500 hover:to-green-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
                         Buy Credits
                     </button>
                 </Link>
-                {isLoggedIn ? (
+                {status === 'authenticated' ? (
                     <button
                         onClick={handleSignOut}
                         className='w-28 sm:w-32 h-8 sm:h-10 text-sm sm:text-base text-white bg-gradient-to-r from-red-400 to-red-600 rounded-full shadow-lg hover:from-red-500 hover:to-red-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'
