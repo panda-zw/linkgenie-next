@@ -13,8 +13,10 @@ export async function POST(req) {
             return NextResponse.json({ message: "Username or email already exists." }, { status: 409 });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create the user with default credits
         await User.create({ username, email, password: hashedPassword });
-        console.log(User);
+
         return NextResponse.json({ message: "User Registered" }, { status: 201 });
 
     } catch (error) {

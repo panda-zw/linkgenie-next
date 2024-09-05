@@ -14,12 +14,15 @@ const UserSchema = mongoose.Schema({
     password: {
         type: String,
         required: [true, "Must provide a password."],
+    },
+    credits: {
+        type: Number,
+        default: 5,
     }
 },
     {
         timestamps: true
-    }
-);
+    });
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
