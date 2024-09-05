@@ -13,6 +13,8 @@ function Generate() {
     const [topic, setTopic] = useState('');
     const [field, setField] = useState('tech');
     const [includeHashtags, setIncludeHashtags] = useState(false);
+    const [postLength, setPostLength] = useState('medium');
+    const [postFormat, setPostFormat] = useState('paragraph');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,6 +26,8 @@ function Generate() {
             Voice Type: ${voiceType}
             Topic: ${topic}
             Field: ${field}
+            Post Length: ${postLength}
+            Post Format: ${postFormat}
             Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
         `;
 
@@ -42,6 +46,12 @@ function Generate() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(response || 'No content generated.')
+            .then(() => alert('Post copied to clipboard!'))
+            .catch(err => console.error('Failed to copy post:', err));
     };
 
     return (
@@ -140,6 +150,31 @@ function Generate() {
                     </div>
 
                     <div>
+                        <h2 className='text-lg lg:text-xl text-gray-300'>Select the length of the post</h2>
+                        <select
+                            value={postLength}
+                            onChange={(e) => setPostLength(e.target.value)}
+                            className='mt-2 w-full p-3 bg-gray-800 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-green-500'
+                        >
+                            <option value="short">Short</option>
+                            <option value="medium">Medium</option>
+                            <option value="long">Long</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <h2 className='text-lg lg:text-xl text-gray-300'>Select the format of the post</h2>
+                        <select
+                            value={postFormat}
+                            onChange={(e) => setPostFormat(e.target.value)}
+                            className='mt-2 w-full p-3 bg-gray-800 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-green-500'
+                        >
+                            <option value="paragraph">Paragraph</option>
+                            <option value="point">Point</option>
+                        </select>
+                    </div>
+
+                    <div>
                         <label className='flex items-center text-lg lg:text-xl text-gray-300'>
                             <input
                                 type="checkbox"
@@ -165,6 +200,12 @@ function Generate() {
                         <div className='p-4 bg-gray-800 rounded-lg shadow-lg'>
                             <h2 className='text-xl text-gray-300 mb-2'>Generated Post:</h2>
                             <ReactMarkdown className='text-gray-200'>{response || "No content generated."}</ReactMarkdown>
+                            <button
+                                onClick={handleCopy}
+                                className='mt-4 py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition'
+                            >
+                                Copy Post
+                            </button>
                         </div>
                     )}
                 </div>

@@ -1,23 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useSession } from 'next-auth/react';
 
 function Credits() {
-    const [currentUser, setCurrentUser] = useState(null); // State to hold the current user
-
-    // Simulate fetching the current user (replace this with your actual user fetching logic)
-    useEffect(() => {
-        // Example of fetching user data (you might replace this with your authentication logic)
-        const fetchCurrentUser = async () => {
-            const response = await fetch('/api/auth/currentUser'); // Adjust the endpoint as necessary
-            if (response.ok) {
-                const userData = await response.json();
-                setCurrentUser(userData);
-            }
-        };
-
-        fetchCurrentUser();
-    }, []);
+    const { data: session, status } = useSession(); // Use NextAuth.js session
+    const currentUser = session?.user; // Get the current user from the session
 
     const handleUpgrade = async () => {
         if (!currentUser) {
@@ -38,7 +26,7 @@ function Credits() {
                 // Handle successful credit increment
                 console.log('Credits incremented successfully');
                 // Optionally, you can update the current user's credits in the state
-                setCurrentUser(prevUser => ({ ...prevUser, credits: prevUser.credits + 10 }));
+                // This will require local state management for credits
             } else {
                 const error = await response.json();
                 console.error('Error incrementing credits:', error.message);
@@ -149,12 +137,12 @@ function Credits() {
                             </li>
                         </ul>
                     </div>
-                    <a
+                    <button
                         className="bg-emerald-500 text-white hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                         onClick={handleUpgrade} // Call handleUpgrade on click
                     >
                         Upgrade
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -162,8 +150,6 @@ function Credits() {
 }
 
 export default Credits;
-
-
 
 
 

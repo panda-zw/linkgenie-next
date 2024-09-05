@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect, useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -7,6 +6,7 @@ import Link from 'next/link';
 function Navbar() {
     const { data: session, status } = useSession();
     const router = useRouter();
+
     const handleSignOut = () => {
         signOut({ callbackUrl: '/' });
     };
@@ -24,19 +24,16 @@ function Navbar() {
                 </nav>
             </div>
             <div className='flex items-center space-x-2 sm:space-x-4 mt-4 sm:mt-0'>
-                <span className='text-white'>0 Credits</span>
-                <Link href="/credits">
-                    <button className='w-28 sm:w-32 h-8 sm:h-10 text-sm sm:text-base text-white bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-lg hover:from-green-500 hover:to-green-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
-                        Buy Credits
-                    </button>
-                </Link>
                 {status === 'authenticated' ? (
-                    <button
-                        onClick={handleSignOut}
-                        className='w-28 sm:w-32 h-8 sm:h-10 text-sm sm:text-base text-white bg-gradient-to-r from-red-400 to-red-600 rounded-full shadow-lg hover:from-red-500 hover:to-red-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'
-                    >
-                        Sign Out
-                    </button>
+                    <>
+                        <span className='text-white'>{session.user.credits} Credits</span>
+                        <button
+                            onClick={handleSignOut}
+                            className='w-28 sm:w-32 h-8 sm:h-10 text-sm sm:text-base text-white bg-gradient-to-r from-red-400 to-red-600 rounded-full shadow-lg hover:from-red-500 hover:to-red-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'
+                        >
+                            Sign Out
+                        </button>
+                    </>
                 ) : (
                     <Link href="/auth/signin">
                         <button className='w-28 sm:w-32 h-8 sm:h-10 text-sm sm:text-base text-white bg-gradient-to-r from-blue-400 to-blue-600 rounded-full shadow-lg hover:from-blue-500 hover:to-blue-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
@@ -44,6 +41,11 @@ function Navbar() {
                         </button>
                     </Link>
                 )}
+                <Link href="/credits">
+                    <button className='w-28 sm:w-32 h-8 sm:h-10 text-sm sm:text-base text-white bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-lg hover:from-green-500 hover:to-green-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
+                        Buy Credits
+                    </button>
+                </Link>
             </div>
         </div>
     );
