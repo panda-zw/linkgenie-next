@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import ReactMarkdown from 'react-markdown';
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Generate() {
     const [userMessage, setUserMessage] = useState('');
@@ -32,7 +34,7 @@ function Generate() {
         setLoading(true);
 
         if (credits < postCount) {
-            alert("Not enough credits to generate posts.");
+            toast.error("Not enough credits to generate posts.");
             setLoading(false);
             return;
         }
@@ -72,9 +74,9 @@ function Generate() {
             const creditData = await creditRes.json();
             if (creditRes.ok) {
                 setCredits(creditData.credits); // Update the number of credits
-                alert(`Post generated! ${postCount} credit(s) deducted.`);
+                toast.success(`Post generated! ${postCount} credit(s) deducted.`);
             } else {
-                alert(creditData.message || "Error deducting credits.");
+                toast.error(creditData.message || "Error deducting credits.");
                 if (creditData.message === "Unauthorized") {
                     router.push("/SignIn");
                 }
@@ -82,7 +84,7 @@ function Generate() {
 
         } catch (error) {
             console.error('Error generating post or deducting credits:', error);
-            alert("Failed to generate post.");
+            toast.error("Failed to generate post.");
         } finally {
             setLoading(false);
         }
@@ -90,7 +92,7 @@ function Generate() {
 
     const handleCopy = () => {
         navigator.clipboard.writeText(response || 'No content generated.')
-            .then(() => alert('Post copied to clipboard!'))
+            .then(() => toast.success('Post copied to clipboard!'))
             .catch(err => console.error('Failed to copy post:', err));
     };
 
