@@ -1,34 +1,39 @@
-import { getSession } from 'next-auth/react';
-import User from '../../../../models/User';
+import { connectDB } from "@/utils/connect";
+import User from "../../../../models/User";
+import { NextResponse } from 'next/server';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req) {
-    const session = await getSession({ req });
-
-    if (!session) {
-        return new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 401 });
-    }
-
     try {
-        const user = await User.findOne({ email: session.user.email });
+        await connectDB();
+
+        // Attempt to get session
+        const session = await getServerSession(req, authOptions);
+        console.log("Session retrieved:", session);
+
+        if (!session) {
+            return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        }
+
+        const userId = session.user.id; // Use 'id' from the session
+        const user = await User.findById(userId);
+
         if (!user) {
-            console.error('User not found:', session.user.email);
-            return new Response(JSON.stringify({ message: 'User not found' }), { status: 404 });
+            return NextResponse.json({ message: "User not found" }, { status: 404 });
         }
 
-        const { postCount = 1 } = await req.json();
-        console.log('Post count:', postCount);
+        if (user.credits > 0) {
+            user.credits -= 1;
+            await user.save();
 
-        if (user.credits < postCount) {
-            console.error('Not enough credits:', user.credits);
-            return new Response(JSON.stringify({ message: 'Not enough credits' }), { status: 400 });
+            return NextResponse.json({ message: "Credit deducted successfully", credits: user.credits }, { status: 200 });
+        } else {
+            return NextResponse.json({ message: "Insufficient credits" }, { status: 400 });
         }
 
-        user.credits -= postCount;
-        await user.save();
-
-        return new Response(JSON.stringify({ credits: user.credits }), { status: 200 });
     } catch (error) {
-        console.error('Error deducting credits:', error);
-        return new Response(JSON.stringify({ message: 'Internal server error' }), { status: 500 });
+        console.error("Error while deducting credit:", error.message);
+        return NextResponse.json({ message: "Error deducting credit", error: error.message }, { status: 500 });
     }
 }
