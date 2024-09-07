@@ -23,7 +23,7 @@ function Generate() {
 
     useEffect(() => {
         if (session) {
-            setCredits(session.user.credits || 0); // Retrieve user's credits from session
+            setCredits(session.user.credits || 0);
         }
     }, [session]);
 
