@@ -1,24 +1,13 @@
 import { connectDB } from "@/utils/connect";
 import User from "../../../../../models/User";
 import { NextResponse } from 'next/server';
-// import { getServerSession } from "next-auth/next";
-// import { authOptions } from "../auth/[...nextauth]";
+
 
 export async function POST(req, params) {
     try {
         await connectDB();
-
-        // Attempt to get session
-        // const session = await getServerSession(req, authOptions);
-        // console.log("Session retrieved:", session);
-
         console.log("user id: ", params.params.id);
 
-        // if (!session) {
-        //     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-        // }
-
-        //const userId = session.user.id; // Use 'id' from the session
         const user = await User.findById(params.params.id);
 
 

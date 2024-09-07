@@ -20,7 +20,7 @@ function Generate() {
     const [postLength, setPostLength] = useState('medium');
     const [postFormat, setPostFormat] = useState('paragraph');
     const [credits, setCredits] = useState(0);
-    const { data: session } = useSession();
+    const { data: session, update } = useSession();
     const router = useRouter();
 
     useEffect(() => {
@@ -73,8 +73,12 @@ function Generate() {
 
             const creditData = await creditRes.json();
             if (creditRes.ok) {
-                setCredits(creditData.credits); // Update the number of credits
+                setCredits(creditData.credits); // Update the local state credits
                 toast.success(`Post generated! ${postCount} credit(s) deducted.`);
+
+                // Trigger session update to reflect new credits in Navbar
+                await update();  // Updates the session with the new credit count
+
             } else {
                 toast.error(creditData.message || "Error deducting credits.");
                 if (creditData.message === "Unauthorized") {
