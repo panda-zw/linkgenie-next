@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
+
 
 function Credits() {
     const { data: session, status } = useSession();
@@ -10,6 +12,7 @@ function Credits() {
     const handleUpgrade = async () => {
         if (!currentUser) {
             console.error('No user is currently logged in.');
+            toast.error('No user is currently logged in.');
             return;
         }
 
@@ -24,9 +27,11 @@ function Credits() {
 
             if (response.ok) {
                 console.log('Credits incremented successfully');
+                toast.success('Credits incremented successfully!');
             } else {
                 const error = await response.json();
                 console.error('Error incrementing credits:', error.message);
+                toast.error('An error occurred while buying credits.');
             }
         } catch (error) {
             console.error('Error:', error);
