@@ -8,7 +8,7 @@ export async function GET(req, { params }) {
         const { id } = params; // Use 'id' instead of 'userId'
 
         const user = await User.findById(id); // Now it will look for the correct user ID
-        console.log(user);
+        //console.log(user);
 
         if (!user) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });

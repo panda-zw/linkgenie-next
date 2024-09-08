@@ -51,7 +51,7 @@ export const authOptions = {
                 token.id = user._id ? user._id.toString() : null;
                 token.credits = user.credits || 0;
             }
-            console.log("JWT token:", token);
+            //console.log("JWT token:", token);
             return token;
         },
         async session({ session, token }) {
