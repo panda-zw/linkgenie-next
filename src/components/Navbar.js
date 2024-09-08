@@ -95,25 +95,23 @@ function Navbar() {
                 <div className='relative'>
                     <button
                         onClick={toggleDropdown}
-                        className='w-10 h-10 sm:w-10 sm:h-10 px-1 py-1 rounded-full bg-green-500 overflow-hidden focus:outline-none'
+                        className='w-10 h-10 sm:w-10 sm:h-10 px-1 py-1 rounded-full ring-2 ring-white bg-green-500 overflow-hidden focus:outline-none'
                     >
                         <h1 className='text-white'>G</h1>
                     </button>
                     <div className={`absolute top-12 right-0 w-36 sm:w-40 bg-gray-800 rounded-lg shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
-                        <Link href="/dashboard">
+                        <Link href="/auth/dashboard">
                             <button className='block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700'>
                                 Dashboard
                             </button>
                         </Link>
-                        <Link href="/profile">
+                        <Link href="/auth/profile">
                             <button className='block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700'>
                                 Profile
                             </button>
                         </Link>
                     </div>
                 </div>
-
-
             </div>
         </div>
     );

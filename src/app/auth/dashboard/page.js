@@ -1,5 +1,13 @@
-import Profile from "@/components/Profile";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Dashboard from "@/components/Dashboard";
 
-export default function Dashboard() {
-    return <Profile />
+export default function DashboardPage() {
+    return (
+        <>
+            <Navbar />
+            <Dashboard />
+            <Footer />
+        </>
+    );
 }
