@@ -72,14 +72,13 @@ function Generate() {
 
             const creditData = await creditRes.json();
             if (creditRes.ok) {
-                setCredits(creditData.credits); // Update the local state credits
+                setCredits(creditData.credits);
                 toast.success(`Post generated! ${postCount} credit(s) deducted.`);
                 await update();
-
             } else {
                 toast.error(creditData.message || "Error deducting credits.");
                 if (creditData.message === "Unauthorized") {
-                    router.push("/SignIn");
+                    router.push("/auth/signin");
                 }
             }
 
