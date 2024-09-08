@@ -10,6 +10,7 @@ function Navbar() {
     const { data: session, status } = useSession();
     const router = useRouter();
     const [credits, setCredits] = useState(0);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
         if (session) {
@@ -33,8 +34,13 @@ function Navbar() {
 
     const handleSignOut = async () => {
         await signOut({ callbackUrl: '/' });
-        fetchCredits(); // Fetch updated credits
+        fetchCredits();
     };
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
 
     return (
         <div className='flex flex-wrap justify-between items-center px-4 py-4'>
@@ -87,10 +93,13 @@ function Navbar() {
 
 
                 <div className='relative'>
-                    <button className='w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-green-500 overflow-hidden focus:outline-none'>
-                        <h1 className='text-white'>FM</h1>
+                    <button
+                        onClick={toggleDropdown}
+                        className='w-10 h-10 sm:w-10 sm:h-10 px-1 py-1 rounded-full bg-green-500 overflow-hidden focus:outline-none'
+                    >
+                        <h1 className='text-white'>G</h1>
                     </button>
-                    <div className='absolute top-12 right-0 w-36 sm:w-40 bg-gray-800 rounded-lg shadow-lg hidden'>
+                    <div className={`absolute top-12 right-0 w-36 sm:w-40 bg-gray-800 rounded-lg shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
                         <Link href="/dashboard">
                             <button className='block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700'>
                                 Dashboard
@@ -103,7 +112,6 @@ function Navbar() {
                         </Link>
                     </div>
                 </div>
-
 
 
             </div>

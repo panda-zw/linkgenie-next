@@ -153,6 +153,7 @@ function Generate() {
                             <option value="professional">Professional</option>
                             <option value="informal">Informal</option>
                             <option value="persuasive">Persuasive</option>
+                            <option value="disruptive">Disruptive</option>
                         </select>
                     </div>
 
@@ -166,6 +167,8 @@ function Generate() {
                             <option value="authoritative">Authoritative</option>
                             <option value="friendly">Friendly</option>
                             <option value="enthusiastic">Enthusiastic</option>
+                            <option value="neutral">Neutral</option>
+
                         </select>
                     </div>
 
@@ -191,6 +194,13 @@ function Generate() {
                             <option value="health">Health</option>
                             <option value="finance">Finance</option>
                             <option value="education">Education</option>
+                            <option value="business">Business</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="science">Science</option>
+                            <option value="art">Art</option>
+                            <option value="sports">Sports</option>
+                            <option value="travel">Travel</option>
+                            <option value="lifestyle">Lifestyle</option>
                         </select>
                     </div>
 
