@@ -40,13 +40,6 @@ export default function SignIn() {
           <FontAwesomeIcon icon={faGoogle} className="mr-2" />
           Sign in with Google
         </button>
-        <button
-          onClick={() => signIn("github")}
-          className="mb-4 w-full flex items-center justify-center rounded bg-gray-700 px-4 py-2 text-sm text-white transition hover:bg-gray-600"
-        >
-          <FontAwesomeIcon icon={faGithub} className="mr-2" />
-          Sign in with GitHub
-        </button>
         <div className="mb-6 text-center">
           <p className="text-gray-400 text-sm">Or, sign in with your email</p>
         </div>

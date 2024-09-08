@@ -14,7 +14,6 @@ export async function POST(req) {
         }
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create the user with default credits
         await User.create({ username, email, password: hashedPassword });
 
         return NextResponse.json({ message: "User Registered" }, { status: 201 });

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { signIn } from "next-auth/react";
 
 export default function SignUp() {
     const router = useRouter();
@@ -11,6 +12,8 @@ export default function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+
 
     const handleSubmit = async (e) => {
         console.log("Executed")
@@ -53,13 +56,11 @@ export default function SignUp() {
                 <h1 className="py-3 text-center text-2xl font-black text-white">
                     <span className="text-green-400">Genie</span> - Sign Up
                 </h1>
-                <button className="mb-4 w-full flex items-center justify-center rounded bg-gray-700 px-4 py-2 text-sm text-white transition hover:bg-gray-600">
+                <button
+                    onClick={() => signIn("google")}
+                    className="mb-4 w-full flex items-center justify-center rounded bg-gray-700 px-4 py-2 text-sm text-white transition hover:bg-gray-600">
                     <FontAwesomeIcon icon={faGoogle} className="mr-2" />
                     Sign up with Google
-                </button>
-                <button className="mb-4 w-full flex items-center justify-center rounded bg-gray-700 px-4 py-2 text-sm text-white transition hover:bg-gray-600">
-                    <FontAwesomeIcon icon={faGithub} className="mr-2" />
-                    Sign up with GitHub
                 </button>
                 <div className="mb-6 text-center">
                     <p className="text-gray-400 text-sm">Or, sign up with your email</p>

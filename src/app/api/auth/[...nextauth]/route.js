@@ -37,10 +37,6 @@ export const authOptions = {
                 }
             }
         }),
-        GithubProvider({
-            clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET,
-        }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -50,24 +46,28 @@ export const authOptions = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.username = user.username;
-                token.email = user.email;
-                token.id = user._id.toString(); // Ensure ID is a string
-                token.credits = user.credits;
+                token.username = user.username || null;
+                token.email = user.email || null;
+                token.id = user._id ? user._id.toString() : null;
+                token.credits = user.credits || 0;
             }
             console.log("JWT token:", token);
             return token;
         },
         async session({ session, token }) {
             if (session) {
-                session.user.username = token.username;
-                session.user.email = token.email;
-                session.user.id = token.id;
-                session.user.credits = token.credits;
+                session.user.username = token.username || null;
+                session.user.email = token.email || null;
+                session.user.id = token.id || null;
+                session.user.credits = token.credits || 0;
             }
             return session;
-        }
+        },
+        async redirect({ url, baseUrl }) {
+            return baseUrl;
+        },
     },
+
     pages: {
         signIn: '/SignIn',
         signUp: '/SignUp'

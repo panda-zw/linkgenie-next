@@ -62,7 +62,6 @@ function Generate() {
             const data = await res.json();
             setResponse(data.content);
 
-            // Deduct credits
             const creditRes = await fetch(`/api/deduct-credits/${session.user.id}`, {
                 method: "POST",
                 headers: {
@@ -75,9 +74,7 @@ function Generate() {
             if (creditRes.ok) {
                 setCredits(creditData.credits); // Update the local state credits
                 toast.success(`Post generated! ${postCount} credit(s) deducted.`);
-
-                // Trigger session update to reflect new credits in Navbar
-                await update();  // Updates the session with the new credit count
+                await update();
 
             } else {
                 toast.error(creditData.message || "Error deducting credits.");
