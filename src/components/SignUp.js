@@ -2,8 +2,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signIn } from "next-auth/react";
 
 export default function SignUp() {
@@ -57,10 +55,18 @@ export default function SignUp() {
                     <span className="text-green-400">Genie</span> - Sign Up
                 </h1>
                 <button
-                    onClick={() => signIn("google")}
-                    className="mb-4 w-full flex items-center justify-center rounded bg-gray-700 px-4 py-2 text-sm text-white transition hover:bg-gray-600">
-                    <FontAwesomeIcon icon={faGoogle} className="mr-2" />
-                    Sign up with Google
+                    onClick={() => signIn('google')}
+                    className="mb-4 w-full flex items-center justify-center rounded bg-gray-700 px-4 py-2 text-sm text-white transition hover:bg-gray-600"
+                >
+                    <div className="mr-2">
+                        <Image
+                            src="/igoogle.png"
+                            alt="Google logo"
+                            width={24}
+                            height={24}
+                        />
+                    </div>
+                    Sign in with Google
                 </button>
                 <div className="mb-6 text-center">
                     <p className="text-gray-400 text-sm">Or, sign up with your email</p>
