@@ -1,7 +1,14 @@
 import React from 'react'
+import Post from '../../models/Post'
+import Navbar from './Navbar'
+import Footer from './Footer'
 
 export default function PostsPage() {
     return (
-        <div>pages</div>
+        <>
+            <Navbar />
+            <Post />
+            <Footer />
+        </>
     )
 }
