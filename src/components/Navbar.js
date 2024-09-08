@@ -84,6 +84,28 @@ function Navbar() {
                         Buy Credits
                     </button>
                 </Link>
+
+
+                <div className='relative'>
+                    <button className='w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-green-500 overflow-hidden focus:outline-none'>
+                        <h1 className='text-white'>FM</h1>
+                    </button>
+                    <div className='absolute top-12 right-0 w-36 sm:w-40 bg-gray-800 rounded-lg shadow-lg hidden'>
+                        <Link href="/dashboard">
+                            <button className='block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700'>
+                                Dashboard
+                            </button>
+                        </Link>
+                        <Link href="/profile">
+                            <button className='block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700'>
+                                Profile
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
     );
