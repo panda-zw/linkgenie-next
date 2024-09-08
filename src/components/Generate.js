@@ -25,9 +25,23 @@ function Generate() {
 
     useEffect(() => {
         if (session) {
-            setCredits(session.user.credits || 0);
+            fetchCredits(); // Fetch credits when session is available
         }
     }, [session]);
+    const fetchCredits = async () => {
+        if (session) {
+            try {
+                const res = await fetch(`/api/user/${session.user.id}/`);
+                if (!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await res.json();
+                setCredits(data.credits);
+            } catch (error) {
+                console.error('Failed to fetch credits:', error);
+            }
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
