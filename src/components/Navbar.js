@@ -100,11 +100,6 @@ function Navbar() {
                         <h1 className='text-white'>G</h1>
                     </button>
                     <div className={`absolute top-12 right-0 w-36 sm:w-40 bg-gray-800 rounded-lg shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
-                        <Link href="/auth/dashboard">
-                            <button className='block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700'>
-                                Dashboard
-                            </button>
-                        </Link>
                         <Link href="/auth/profile">
                             <button className='block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700'>
                                 Profile
