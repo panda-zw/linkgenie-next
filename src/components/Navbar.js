@@ -14,7 +14,7 @@ function Navbar() {
 
     useEffect(() => {
         if (session) {
-            fetchCredits(); // Fetch credits when session is available
+            fetchCredits();
         }
     }, [session]);
     const fetchCredits = async () => {

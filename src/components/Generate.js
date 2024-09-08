@@ -25,7 +25,7 @@ function Generate() {
 
     useEffect(() => {
         if (session) {
-            fetchCredits(); // Fetch credits when session is available
+            fetchCredits();
         }
     }, [session]);
     const fetchCredits = async () => {
@@ -77,11 +77,11 @@ function Generate() {
             setResponse(data.content);
 
             const postRes = await fetch(`/api/posts`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ post: response, id: session.user.id }),
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ post: data.content, id: session.user.id }),
             });
 
             const creditRes = await fetch(`/api/deduct-credits/${session.user.id}`, {
@@ -111,6 +111,8 @@ function Generate() {
             setLoading(false);
         }
     };
+
+
 
     const handleCopy = () => {
         navigator.clipboard.writeText(response || 'No content generated.')

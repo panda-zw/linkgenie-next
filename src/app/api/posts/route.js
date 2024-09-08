@@ -26,6 +26,8 @@ export async function POST(req) {
     userExists.posts.push(newPost._id);
     await userExists.save();
 
+    console.log("user posts", userExists);
+
     if (newPost) {
       console.log("post saved");
     }
