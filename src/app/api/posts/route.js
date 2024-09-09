@@ -41,3 +41,30 @@ export async function POST(req) {
     );
   }
 }
+
+export async function GET(req) {
+  try {
+    await connectDB();
+
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get('id'); // Extract ID from the query parameters
+
+    const userExists = await User.findById(id).populate("posts");
+
+    if (!userExists) {
+      return NextResponse.json(
+        { message: "User doesn't exist" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(userExists.posts, { status: 200 });
+  } catch (error) {
+    console.error("Error while fetching posts", error);
+    return NextResponse.json(
+      { message: "Error while fetching posts" },
+      { status: 500 }
+    );
+  }
+}
+

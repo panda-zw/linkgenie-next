@@ -58,6 +58,9 @@ function Navbar() {
                     <Link href="/Community" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
                         Community
                     </Link>
+                    <Link href="/posts" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
+                        Posts
+                    </Link>
                 </nav>
             </div>
             <div className='flex items-center space-x-2 sm:space-x-4 mt-4 sm:mt-0'>
