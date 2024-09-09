@@ -14,8 +14,8 @@ export default function RootLayout({ children }) {
       <body className="bg-gray-900">
         <AuthProvider>
           {children}
+          <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
         </AuthProvider>
-        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
       </body>
     </html>
   );
