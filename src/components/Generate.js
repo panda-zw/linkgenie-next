@@ -142,7 +142,7 @@ function Generate() {
                         />
                     </div>
 
-                    <div>
+                    {/* <div>
                         <h2 className='text-lg lg:text-xl text-gray-300'>How many posts do you want (1 credit per post)</h2>
                         <input
                             type="number"
@@ -151,7 +151,7 @@ function Generate() {
                             className='mt-2 w-full lg:w-1/4 p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
                             min="1"
                         />
-                    </div>
+                    </div> */}
 
                     <div>
                         <h2 className='text-lg lg:text-xl text-gray-300'>Writing Style</h2>
