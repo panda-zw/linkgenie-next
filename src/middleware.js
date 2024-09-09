@@ -4,7 +4,7 @@ import { getToken } from 'next-auth/jwt';
 export { default } from 'next-auth/middleware';
 
 export const config = {
-  matcher: ["/Generate", "/Community", "/credits"],
+  matcher: ["/Generate", "/Community", "/credits", "/posts"],
 };
 
 export async function middleware(req) {
