@@ -52,7 +52,6 @@ function Credits() {
                         <h3 className="text-xl font-semibold text-gray-100">Free</h3>
                         <p className="mt-4 flex items-baseline text-gray-100">
                             <span className="text-5xl font-extrabold tracking-tight">$0</span>
-                            <span className="ml-1 text-xl font-semibold text-gray-400">/month</span>
                         </p>
                         <p className="mt-6 text-gray-400">You just want to discover</p>
                         <ul role="list" className="mt-6 space-y-6">
@@ -83,7 +82,7 @@ function Credits() {
                         </ul>
                     </div>
                     <a className="bg-emerald-600 text-white hover:bg-emerald-700 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
-                        href="/auth/login">Signup for free</a>
+                        href="/auth/login">Free</a>
                 </div>
                 <div className="relative p-8 border border-gray-700 rounded-2xl shadow-sm flex flex-col bg-gray-800">
                     <div className="flex-1">
@@ -93,7 +92,6 @@ function Credits() {
                         </p>
                         <p className="mt-4 flex items-baseline text-gray-100">
                             <span className="text-5xl font-extrabold tracking-tight">$5</span>
-                            <span className="ml-1 text-xl font-semibold text-gray-400">/month</span>
                         </p>
                         <p className="mt-6 text-gray-400">You want to grow your LinkedIn profile swiftly</p>
                         <ul role="list" className="mt-6 space-y-6">
