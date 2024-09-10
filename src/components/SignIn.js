@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from 'next/image';
 import { signIn } from "next-auth/react";
+import { toast } from 'react-toastify';
 
 export default function SignIn() {
   const router = useRouter();
@@ -21,6 +22,8 @@ export default function SignIn() {
 
     if (result?.error) {
       console.error("Error signing in:", result.error);
+      toast.error("Failed to login Incrorect email or password");
+
     } else {
       router.push("/");
     }
