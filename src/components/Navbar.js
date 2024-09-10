@@ -50,14 +50,14 @@ function Navbar() {
     };
 
     return (
-        <div className='flex flex-wrap justify-between items-center px-4 py-4 bg-gray-900'>
+        <div className='flex flex-wrap justify-between items-center px-10 py-4 bg-gray-900'>
             <div className='flex items-center space-x-1'>
                 <Image
                     src="/favicon/logo.png"
                     alt="logo"
                     loading='lazy'
-                    width={16}
-                    height={16} />
+                    width={44}
+                    height={44} />
                 <Link href="/">
                     <h1 className='text-2xl sm:text-3xl md:text-4xl font-black text-gray-200'>
                         Ge<span className='text-green-500'>nie</span>
