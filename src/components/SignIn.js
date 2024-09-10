@@ -21,8 +21,8 @@ export default function SignIn() {
     });
 
     if (result?.error) {
-      console.error("Error signing in:", result.error);
       toast.error("Failed to login Incrorect email or password");
+      console.error("Error signing in:", result.error);
 
     } else {
       router.push("/");

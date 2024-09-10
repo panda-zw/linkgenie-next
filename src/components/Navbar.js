@@ -113,12 +113,9 @@ function Navbar() {
                 </nav>
             )}
 
-            <div className='flex items-center space-x-2 sm:space-x-4 mt-4 sm:mt-0'>
+            <div className='flex items-center space-x-2 sm:space-x-4'>
                 {status === 'authenticated' ? (
                     <>
-                        <button className='text-white' onClick={fetchCredits}>
-                            <FontAwesomeIcon icon={faRotate} className='text-white' />
-                        </button>
                         <span className='text-white'>{credits} Credits</span>
                         <div className='relative'>
                             <button
