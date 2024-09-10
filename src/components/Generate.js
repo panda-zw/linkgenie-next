@@ -50,14 +50,14 @@ function Generate() {
         }
         const messageContent = ` ${userMessage} Writing Style: ${writingStyle} Voice Type: ${voiceType} Topic: ${topic} Field: ${field} Post Length: ${postLength} Post Format: ${postFormat} Include Hashtags: ${includeHashtags ? 'Yes' : 'No'} `;
         try {
-            const res = await fetch('https://linkgenie.netlify.app/api/groq ', {
+            const res = await fetch('/api/groq ', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', },
                 body: JSON.stringify({ userMessage: messageContent }),
             });
             const data = await res.json();
             setResponse(data.content);
-            const postRes = await fetch(`ttps://linkgenie.netlify.app/api/posts`, {
+            const postRes = await fetch(`/api/posts`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", },
                 body: JSON.stringify({ post: data.content, id: session.user.id }),
