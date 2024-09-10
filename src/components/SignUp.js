@@ -55,7 +55,7 @@ export default function SignUp() {
                 <h1 className="py-3 text-center text-2xl font-black text-white">
                     <span className="text-green-400">Genie</span> - Sign Up
                 </h1>
-                <button
+                {/* <button
                     onClick={() => signIn('google')}
                     className="mb-4 w-full flex items-center justify-center rounded bg-gray-700 px-4 py-2 text-sm text-white transition hover:bg-gray-600"
                 >
@@ -68,7 +68,7 @@ export default function SignUp() {
                         />
                     </div>
                     Sign in with Google
-                </button>
+                </button> */}
                 <div className="mb-6 text-center">
                     <p className="text-gray-400 text-sm">Or, sign up with your email</p>
                 </div>
