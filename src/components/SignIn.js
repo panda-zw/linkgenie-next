@@ -29,7 +29,7 @@ export default function SignIn() {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <section className="w-full max-w-md p-8 bg-gray-800 rounded shadow-md">
-        <h1 className="py-3 text-center text-2xl font-black text-white">
+        <h1 className="py-3 text-center text-3xl font-black text-white">
           <span className="text-green-400">Genie</span> - Sign In
         </h1>
         {/* <button
@@ -45,10 +45,10 @@ export default function SignIn() {
             />
           </div>
           Sign in with Google
-        </button> */}
+        </button>
         <div className="mb-6 text-center">
           <p className="text-gray-400 text-sm">Or, sign in with your email</p>
-        </div>
+        </div> */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <input
@@ -57,7 +57,7 @@ export default function SignIn() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
-              className="w-full px-4 py-2 text-sm text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-sm text-white h-12 bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="mb-4">
@@ -67,13 +67,13 @@ export default function SignIn() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-full px-4 py-2 text-sm text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-sm text-white h-12 bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
             <button
               type="submit"
-              className="w-full px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-400"
+              className="w-full px-4 py-2 h-12 text-lg text-white bg-blue-500 rounded hover:bg-blue-400"
             >
               Sign In
             </button>

@@ -52,7 +52,7 @@ export default function SignUp() {
     return (
         <div className="flex items-center justify-center min-h-screen">
             <section className="w-full max-w-md p-8 bg-gray-800 rounded shadow-md">
-                <h1 className="py-3 text-center text-2xl font-black text-white">
+                <h1 className="py-3 text-center text-3xl font-black text-white">
                     <span className="text-green-400">Genie</span> - Sign Up
                 </h1>
                 {/* <button
@@ -80,7 +80,7 @@ export default function SignUp() {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="Username"
-                            className="w-full px-4 py-2 text-sm text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 text-sm h-12 text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <div className="mb-4">
@@ -90,7 +90,7 @@ export default function SignUp() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Email"
-                            className="w-full px-4 py-2 text-sm text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 text-sm h-12 text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <div className="mb-4">
@@ -100,7 +100,7 @@ export default function SignUp() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
-                            className="w-full px-4 py-2 text-sm text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 text-sm text-white h-12 bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <div className="mb-4">
@@ -116,7 +116,7 @@ export default function SignUp() {
                     <div>
                         <button
                             type="submit"
-                            className="w-full px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-400"
+                            className="w-full px-4 py-2 text-lg text-white h-12 bg-blue-500 rounded hover:bg-blue-400"
                         >
                             Sign Up
                         </button>
