@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotate, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import Image from 'next/image';
 
 function Navbar() {
     const { data: session, status } = useSession();
@@ -51,7 +52,12 @@ function Navbar() {
     return (
         <div className='flex flex-wrap justify-between items-center px-4 py-4 bg-gray-900'>
             <div className='flex items-center space-x-1'>
-                <img src="/favicon/logo.png" alt="logo" loading='lazy' className='w-12 sm:w-16' />
+                <Image
+                    src="/favicon/logo.png"
+                    alt="logo"
+                    loading='lazy'
+                    width={16}
+                    height={16} />
                 <Link href="/">
                     <h1 className='text-2xl sm:text-3xl md:text-4xl font-black text-gray-200'>
                         Ge<span className='text-green-500'>nie</span>
@@ -89,6 +95,7 @@ function Navbar() {
                     </nav>
                 </div>
             )}
+
 
             <nav className='hidden sm:flex items-center space-x-4 sm:space-x-6 pl-2 sm:pl-5'>
                 <Link href="/Generate" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Image from 'next/image';
 
 
 const Community = () => {
@@ -10,17 +11,22 @@ const Community = () => {
                 <p className='text-lg mt-4 text-gray-200'>(updated periodically)</p>
             </div>
             <div className='flex space-x-5 mt-10'>
-                <img
 
+                <Image
                     src="/linkd/first.jpeg"
-                    alt="First post"
-                    className='w-44 rounded'
+                    loading='lazy'
+                    alt="Creative LinkedIn Post 1"
+                    width={192}
+                    height={192}
+                    className='w-48 md:w-52'
                 />
-                <img
-
+                <Image
                     src="/linkd/second.jpeg"
-                    alt="Second post"
-                    className='w-44 rounded'
+                    loading='lazy'
+                    alt="Creative LinkedIn Post 2"
+                    width={192}
+                    height={192}
+                    className='w-48 md:w-52'
                 />
             </div>
         </div>

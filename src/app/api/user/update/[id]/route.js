@@ -1,5 +1,5 @@
 import { connectDB } from "@/utils/connect";
-import User from "../../../../../models/User";
+import User from '../../../../../../models/User'
 import { NextResponse } from 'next/server';
 
 export async function PUT(req, { params }) {
@@ -7,7 +7,7 @@ export async function PUT(req, { params }) {
         await connectDB();
         const { id } = params; // Use 'id' instead of 'userId'
 
-        const userInfo= await req.json();
+        const userInfo = await req.json();
         const user = await User.findByIdAndUpdate(id, userInfo, { new: true });
         //console.log(user);
 

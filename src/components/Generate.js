@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import ReactMarkdown from 'react-markdown';
@@ -25,73 +24,49 @@ function Generate() {
 
     useEffect(() => {
         if (session) {
+            const fetchCredits = async () => {
+                try {
+                    const res = await fetch(`/api/user/${session.user.id}/`);
+                    if (!res.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const data = await res.json();
+                    setCredits(data.credits);
+                } catch (error) {
+                    console.error('Failed to fetch credits:', error);
+                }
+            };
             fetchCredits();
         }
     }, [session]);
-    const fetchCredits = async () => {
-        if (session) {
-            try {
-                const res = await fetch(`/api/user/${session.user.id}/`);
-                if (!res.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await res.json();
-                setCredits(data.credits);
-            } catch (error) {
-                console.error('Failed to fetch credits:', error);
-            }
-        }
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
         if (credits < postCount) {
             toast.error("Not enough credits to generate posts.");
             setLoading(false);
             return;
         }
-
-        const messageContent = `
-            ${userMessage}
-            Writing Style: ${writingStyle}
-            Voice Type: ${voiceType}
-            Topic: ${topic}
-            Field: ${field}
-            Post Length: ${postLength}
-            Post Format: ${postFormat}
-            Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
-        `;
-
+        const messageContent = ` ${userMessage} Writing Style: ${writingStyle} Voice Type: ${voiceType} Topic: ${topic} Field: ${field} Post Length: ${postLength} Post Format: ${postFormat} Include Hashtags: ${includeHashtags ? 'Yes' : 'No'} `;
         try {
             const res = await fetch('/api/groq/', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json', },
                 body: JSON.stringify({ userMessage: messageContent }),
             });
-
             const data = await res.json();
             setResponse(data.content);
-
             const postRes = await fetch(`/api/posts`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json", },
                 body: JSON.stringify({ post: data.content, id: session.user.id }),
             });
-
             const creditRes = await fetch(`/api/deduct-credits/${session.user.id}`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json", },
                 body: JSON.stringify({ postCount }),
             });
-
             const creditData = await creditRes.json();
             if (creditRes.ok) {
                 setCredits(creditData.credits);
@@ -103,7 +78,6 @@ function Generate() {
                     router.push("/auth/signin");
                 }
             }
-
         } catch (error) {
             console.error('Error generating post or deducting credits:', error);
             toast.error("Failed to generate post.");
@@ -111,8 +85,6 @@ function Generate() {
             setLoading(false);
         }
     };
-
-
 
     const handleCopy = () => {
         navigator.clipboard.writeText(response || 'No content generated.')
@@ -123,7 +95,7 @@ function Generate() {
     return (
         <div className='min-h-screen px-4 lg:px-10 bg-gray-900'>
             <div className='mt-10 max-w-full lg:max-w-3xl mx-auto'>
-                <h1 className='text-3xl lg:text-5xl text-gray-200 text-center lg:text-left'>Let's generate your LinkedIn post</h1>
+                <h1 className='text-3xl lg:text-5xl text-gray-200 text-center lg:text-left'>Let&apos;s generate your LinkedIn post</h1>
                 <p className='mt-5 text-gray-200 text-center lg:text-left text-lg'>
                     Your results may vary. We are working on fine-tuning results to match your style.
                     Here are some tips to create better posts.

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 function About() {
     return (
@@ -21,12 +22,22 @@ function About() {
                     </a>
                 </div>
                 <div className='flex flex-wrap justify-center w-full md:w-6/12 space-y-4 md:space-y-0 md:space-x-4'>
-                    <img
-
-                        src="/linkd/first.jpeg" loading='lazy' alt="Creative LinkedIn Post Example 1" className='w-48 md:w-52' />
-                    <img
-
-                        src="/linkd/second.jpeg" loading='lazy' alt="Creative LinkedIn Post Example 2" className='w-48 md:w-52' />
+                    <Image
+                        src="/linkd/first.jpeg"
+                        loading='lazy'
+                        alt="Creative LinkedIn Post Example 1"
+                        width={192}
+                        height={192}
+                        className='w-48 md:w-52'
+                    />
+                    <Image
+                        src="/linkd/second.jpeg"
+                        loading='lazy'
+                        alt="Creative LinkedIn Post Example 2"
+                        width={192}
+                        height={192}
+                        className='w-48 md:w-52'
+                    />
                 </div>
             </div>
         </div>
