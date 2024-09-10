@@ -1,19 +1,18 @@
 import { connectDB } from "@/utils/connect";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import User from "../../../../../models/User";
 import bcrypt from 'bcrypt';
 
 async function login(credentials) {
     try {
-        await connectDB(); // Ensure you await the connection
+        await connectDB();
         const user = await User.findOne({ email: credentials.email });
         if (!user) throw new Error("Wrong Credentials.");
         const isMatch = await bcrypt.compare(credentials.password, user.password);
         if (!isMatch) throw new Error("Wrong Credentials.");
-        return user; // Return the user instance, not the User model
+        return user;
     } catch (error) {
         console.log("Error logging in:", error);
         throw new Error("Something went wrong");
@@ -30,7 +29,7 @@ export const authOptions = {
             async authorize(credentials) {
                 try {
                     const user = await login(credentials);
-                    return user; // Return the user object if authentication is successful
+                    return user;
                 } catch (error) {
                     console.error("Authentication failed:", error.message);
                     throw new Error("Failed to login.");
@@ -51,7 +50,6 @@ export const authOptions = {
                 token.id = user._id ? user._id.toString() : null;
                 token.credits = user.credits || 0;
             }
-            //console.log("JWT token:", token);
             return token;
         },
         async session({ session, token }) {
