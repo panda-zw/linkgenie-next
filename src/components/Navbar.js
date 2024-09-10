@@ -37,7 +37,7 @@ function Navbar() {
     };
 
     const handleSignOut = async () => {
-        await signOut({ callbackUrl: 'https://linkgenie.netlify.app/' });
+        await signOut({ callbackUrl: '/' });
         fetchCredits();
     };
 
