@@ -10,10 +10,7 @@ export const config = {
 export async function middleware(req) {
   console.log('Middleware is running for:', req.nextUrl.pathname);
 
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET, secureCookie: process.env.NODE_ENV === "production" });
-
-
-  // const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   if (!token) {
     const signInUrl = new URL('/auth/signin', req.nextUrl.origin);
