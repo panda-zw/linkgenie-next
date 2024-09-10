@@ -65,49 +65,53 @@ function Navbar() {
                 </Link>
             </div>
 
-            <button onClick={toggleMobileNav} className='sm:hidden text-white'>
-                <FontAwesomeIcon icon={isMobileNavOpen ? faTimes : faBars} size="lg" />
-            </button>
+            {status === 'authenticated' && (
+                <button onClick={toggleMobileNav} className='sm:hidden text-white'>
+                    <FontAwesomeIcon icon={isMobileNavOpen ? faTimes : faBars} size="lg" />
+                </button>
+            )}
+
 
             {isMobileNavOpen && (
                 <div className="fixed inset-0 bg-gray-900 bg-opacity-90 flex flex-col items-center justify-center z-50">
                     <button onClick={toggleMobileNav} className="absolute top-5 right-5 text-white">
                         <FontAwesomeIcon icon={faTimes} size="lg" />
                     </button>
-                    <nav className="flex flex-col space-y-6 text-center">
-                        <Link href="/Generate" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
-                            Generate
-                        </Link>
-                        <Link href="/Community" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
-                            Community
-                        </Link>
-                        <Link href="/posts" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
-                            Posts
-                        </Link>
-                        {status === 'authenticated' && (
+                    {status === 'authenticated' && (
+                        <nav className="flex flex-col space-y-6 text-center">
+                            <Link href="/Generate" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
+                                Generate
+                            </Link>
+                            <Link href="/Community" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
+                                Community
+                            </Link>
+                            <Link href="/posts" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
+                                Posts
+                            </Link>
                             <button
                                 onClick={handleSignOut}
                                 className='w-28 h-10 text-sm sm:text-base text-white bg-gradient-to-r from-red-400 to-red-600 rounded-full shadow-lg hover:from-red-500 hover:to-red-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'
                             >
                                 Sign Out
                             </button>
-                        )}
-                    </nav>
+                        </nav>
+                    )}
                 </div>
             )}
 
-
-            <nav className='hidden sm:flex items-center space-x-4 sm:space-x-6 pl-2 sm:pl-5'>
-                <Link href="/Generate" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
-                    Generate
-                </Link>
-                <Link href="/Community" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
-                    Community
-                </Link>
-                <Link href="/posts" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
-                    Posts
-                </Link>
-            </nav>
+            {status === 'authenticated' && (
+                <nav className='hidden sm:flex items-center space-x-4 sm:space-x-6 pl-2 sm:pl-5'>
+                    <Link href="/Generate" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
+                        Generate
+                    </Link>
+                    <Link href="/Community" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
+                        Community
+                    </Link>
+                    <Link href="/posts" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
+                        Posts
+                    </Link>
+                </nav>
+            )}
 
             <div className='flex items-center space-x-2 sm:space-x-4 mt-4 sm:mt-0'>
                 {status === 'authenticated' ? (

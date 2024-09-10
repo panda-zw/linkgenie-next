@@ -4,7 +4,7 @@ import { URL } from 'url';
 
 export { default } from 'next-auth/middleware';
 export const config = {
-  matcher: ["/Generate", "/Community"],
+  matcher: ["/Generate", "/Community", "/posts"],
 };
 
 export async function middleware(req) {
