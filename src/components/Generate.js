@@ -50,11 +50,17 @@ function Generate() {
         }
         const messageContent = ` ${userMessage} Writing Style: ${writingStyle} Voice Type: ${voiceType} Topic: ${topic} Field: ${field} Post Length: ${postLength} Post Format: ${postFormat} Include Hashtags: ${includeHashtags ? 'Yes' : 'No'} `;
         try {
-            const res = await fetch('/api/groq ', {
+            // const res = await fetch('/api/groq ', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json', },
+            //     body: JSON.stringify({ userMessage: messageContent }),
+            // });
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/groq`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userMessage: messageContent }),
             });
+
             const data = await res.json();
             setResponse(data.content);
             const postRes = await fetch(`/api/posts`, {
