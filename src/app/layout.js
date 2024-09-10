@@ -10,6 +10,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <title>linkgenie</title>
+        <link rel="icon" href="/favicon/favicon.png" type="image/x-icon" />
       </head>
       <body className="bg-gray-900">
         <AuthProvider>
