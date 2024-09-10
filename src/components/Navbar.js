@@ -90,7 +90,6 @@ function Navbar() {
                 </div>
             )}
 
-            {/* Desktop Navigation */}
             <nav className='hidden sm:flex items-center space-x-4 sm:space-x-6 pl-2 sm:pl-5'>
                 <Link href="/Generate" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
                     Generate
