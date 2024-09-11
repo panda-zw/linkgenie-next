@@ -14,6 +14,7 @@ function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [username, setUsername] = useState(session?.user?.username || "");
+    const [loading, setLoading] = useState(false); // Add loading state
 
     useEffect(() => {
         if (session) {
@@ -37,8 +38,15 @@ function Navbar() {
     };
 
     const handleSignOut = async () => {
+        setLoading(true);
         await signOut({ callbackUrl: '/' });
-        fetchCredits();
+        setLoading(false);
+    };
+
+    const handleProfile = () => {
+        setLoading(true);
+        router.push('/auth/profile');
+        setLoading(false);
     };
 
     const toggleDropdown = () => {
@@ -71,7 +79,6 @@ function Navbar() {
                 </button>
             )}
 
-
             {isMobileNavOpen && (
                 <div className="fixed inset-0 bg-gray-900 bg-opacity-90 flex flex-col items-center justify-center z-50">
                     <button onClick={toggleMobileNav} className="absolute top-5 right-5 text-white">
@@ -90,9 +97,17 @@ function Navbar() {
                             </Link>
                             <button
                                 onClick={handleSignOut}
-                                className='w-28 h-10 text-sm sm:text-base text-white bg-gradient-to-r from-red-400 to-red-600 rounded-full shadow-lg hover:from-red-500 hover:to-red-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'
+                                className={`w-28 h-10 text-sm sm:text-base text-white bg-gradient-to-r from-red-400 to-red-600 rounded-full shadow-lg hover:from-red-500 hover:to-red-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                disabled={loading}
                             >
-                                Sign Out
+                                {loading ? (
+                                    <span className='flex items-center justify-center'>
+                                        <FontAwesomeIcon icon={faRotate} className='animate-spin mr-2' />
+                                        Loading...
+                                    </span>
+                                ) : (
+                                    'Sign Out'
+                                )}
                             </button>
                         </nav>
                     )}
@@ -127,15 +142,33 @@ function Navbar() {
                                 </h1>
                             </button>
                             <div className={`absolute top-12 right-0 w-36 sm:w-40 bg-gray-800 rounded-lg shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
-                                <Link href="/auth/profile">
-                                    <button className='block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700'>
-                                        Profile
-                                    </button>
-                                </Link>
+                                <button
+                                    onClick={handleProfile}
+                                    className={`block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    disabled={loading} // Disable button while loading
+                                >
+                                    {loading ? (
+                                        <span className='flex items-center justify-center'>
+                                            <FontAwesomeIcon icon={faRotate} className='animate-spin mr-2' />
+                                            Loading...
+                                        </span>
+                                    ) : (
+                                        'Profile'
+                                    )}
+                                </button>
                                 <button
                                     onClick={handleSignOut}
-                                    className='block w-full py-2 px-4 text-left text-white hover:text-red-500 hover:bg-gray-700'>
-                                    Sign Out
+                                    className={`block w-full py-2 px-4 text-left text-white hover:text-red-500 hover:bg-gray-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    disabled={loading} // Disable button while loading
+                                >
+                                    {loading ? (
+                                        <span className='flex items-center justify-center'>
+                                            <FontAwesomeIcon icon={faRotate} className='animate-spin mr-2' />
+                                            Loading...
+                                        </span>
+                                    ) : (
+                                        'Sign Out'
+                                    )}
                                 </button>
                             </div>
                         </div>

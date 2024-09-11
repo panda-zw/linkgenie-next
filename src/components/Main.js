@@ -1,7 +1,22 @@
+"use client";
+
 import React from 'react';
-import Image from 'next/image'; // Import the Image component
+import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 function Main() {
+    const { data: session } = useSession();
+    const router = useRouter();
+
+    const handleGenerateClick = () => {
+        if (session) {
+            router.push('/Generate');
+        } else {
+            router.push('/auth/signin');
+        }
+    };
+
     return (
         <div className='px-4 py-8 md:px-8 md:py-12 mt-10'>
             <div id='images' className='flex flex-wrap justify-center space-x-4 space-y-4 md:space-y-0'>
@@ -9,8 +24,8 @@ function Main() {
                     src="/notes/note1.png"
                     loading='lazy'
                     alt="Note 1"
-                    width={192} // Specify the width
-                    height={192} // Specify the height
+                    width={192}
+                    height={192}
                     className='w-48 md:w-60'
                 />
                 <Image
@@ -58,11 +73,12 @@ function Main() {
                     helping you stand out and make a lasting impression.
                 </p>
                 <div className='flex justify-center'>
-                    <a href='/auth/signin'>
-                        <button className='w-32 h-10 md:w-36 md:h-12 text-white text-sm md:text-xl bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-lg hover:from-green-500 hover:to-green-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
-                            Generate
-                        </button>
-                    </a>
+                    <button
+                        onClick={handleGenerateClick}
+                        className='w-32 h-10 md:w-36 md:h-12 text-white text-sm md:text-xl bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-lg hover:from-green-500 hover:to-green-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'
+                    >
+                        Generate
+                    </button>
                 </div>
             </div>
         </div>

@@ -15,11 +15,7 @@ function About() {
                     <p className='text-gray-200 max-w-full md:max-w-3xl text-base md:text-lg tracking-wider font-light mt-4 md:mt-6'>
                         LinkGenie helps you craft personalized, high-engagement LinkedIn posts that resonate with your audience, enabling you to expand your professional network effortlessly.
                     </p>
-                    <a href='/Generate'>
-                        <button className='mt-3 w-36 h-12 text-white text-xl bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-lg hover:from-green-500 hover:to-green-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
-                            Start Now
-                        </button>
-                    </a>
+
                 </div>
                 <div className='flex flex-wrap justify-center w-full md:w-6/12 space-y-4 md:space-y-0 md:space-x-4'>
                     <Image
