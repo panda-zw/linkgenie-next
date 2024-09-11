@@ -58,7 +58,7 @@ function Main() {
                     helping you stand out and make a lasting impression.
                 </p>
                 <div className='flex justify-center'>
-                    <a href='/Generate'>
+                    <a href='/auth/signin'>
                         <button className='w-32 h-10 md:w-36 md:h-12 text-white text-sm md:text-xl bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-lg hover:from-green-500 hover:to-green-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
                             Generate
                         </button>

@@ -2,8 +2,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
-import Image from 'next/image';
 
 export default function SignUp() {
     const router = useRouter();
@@ -11,15 +9,15 @@ export default function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-
-
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
-        console.log("Executed")
         e.preventDefault();
+        setLoading(true); // Step 2: Set loading to true
 
         if (password !== confirmPassword) {
             alert("Passwords do not match");
+            setLoading(false);
             return;
         }
 
@@ -36,7 +34,6 @@ export default function SignUp() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(userData),
-
             });
 
             if (response.ok) {
@@ -46,6 +43,8 @@ export default function SignUp() {
             }
         } catch (error) {
             console.error("Error:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -55,20 +54,6 @@ export default function SignUp() {
                 <h1 className="py-3 text-center text-3xl font-black text-white">
                     <span className="text-green-400">Genie</span> - Sign Up
                 </h1>
-                {/* <button
-                    onClick={() => signIn('google')}
-                    className="mb-4 w-full flex items-center justify-center rounded bg-gray-700 px-4 py-2 text-sm text-white transition hover:bg-gray-600"
-                >
-                    <div className="mr-2">
-                        <Image
-                            src="/igoogle.png"
-                            alt="Google logo"
-                            width={24}
-                            height={24}
-                        />
-                    </div>
-                    Sign in with Google
-                </button> */}
                 <div className="mb-6 text-center">
                     <p className="text-gray-400 text-sm">Or, sign up with your email</p>
                 </div>
@@ -116,9 +101,20 @@ export default function SignUp() {
                     <div>
                         <button
                             type="submit"
-                            className="w-full px-4 py-2 text-lg text-white h-12 bg-blue-500 rounded hover:bg-blue-400"
+                            className={`w-full px-4 py-2 text-lg text-white h-12 bg-blue-500 rounded hover:bg-blue-400 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={loading} // Disable button while loading
                         >
-                            Sign Up
+                            {loading ? (
+                                <span className="flex items-center justify-center">
+                                    <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                    </svg>
+                                    Loading...
+                                </span>
+                            ) : (
+                                'Sign Up'
+                            )}
                         </button>
                     </div>
                 </form>
