@@ -14,7 +14,7 @@ function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [username, setUsername] = useState(session?.user?.username || "");
-    const [loading, setLoading] = useState(false); // Add loading state
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (session) {
