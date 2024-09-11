@@ -1,13 +1,21 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, handleDeletion }) => {
     const truncateContent = (content, maxLength) => {
         if (content.length > maxLength) {
             return content.substring(0, maxLength) + '...';
         }
         return content;
     };
+
+    const handlePostDeletion = async () => {
+        try {
+          handleDeletion(post.id);
+        } catch (error) {
+          console.log("Failed to delete:", error);
+        }
+      };
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(post.post).then(() => {
