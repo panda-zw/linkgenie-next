@@ -48,7 +48,7 @@ function Generate() {
             setLoading(false);
             return;
         }
-        const messageContent = ` ${userMessage} Writing Style: ${writingStyle} Voice Type: ${voiceType} Topic: ${topic} Field: ${field} Post Length: ${postLength} Post Format: ${postFormat} Include Hashtags: ${includeHashtags ? 'Yes' : 'No'} `;
+        const messageContent = ` ${userMessage} Writing Style: ${writingStyle} Voice Type: ${voiceType} Topic: ${topic} Field: ${field} Post Length: ${postLength} Post Format: ${postFormat} Include Hashtags: ${includeHashtags ? 'Yes' : 'No'} LinkedIn Post: Yes`;
         try {
             const res = await fetch('/api/groq', {
                 method: 'POST',
@@ -114,18 +114,6 @@ function Generate() {
                             required
                         />
                     </div>
-
-                    {/* <div>
-                        <h2 className='text-lg lg:text-xl text-gray-300'>How many posts do you want (1 credit per post)</h2>
-                        <input
-                            type="number"
-                            value={postCount}
-                            onChange={(e) => setPostCount(Number(e.target.value))}
-                            className='mt-2 w-full lg:w-1/4 p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
-                            min="1"
-                        />
-                    </div> */}
-
                     <div>
                         <h2 className='text-lg lg:text-xl text-gray-300'>Writing Style</h2>
                         <select
@@ -215,6 +203,7 @@ function Generate() {
                         >
                             <option value="paragraph">Paragraph</option>
                             <option value="point">Point</option>
+                            <option value="number">Number</option>
                         </select>
                     </div>
 
