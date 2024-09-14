@@ -11,7 +11,7 @@ const PostCard = ({ post, handleDeletion }) => {
 
     const handlePostDeletion = async () => {
         try {
-            handleDeletion(post.id);
+            handleDeletion(post._id);
             toast.success('Post deleted suceessfully');
         } catch (error) {
             toast.success('Failed to  delete post');
