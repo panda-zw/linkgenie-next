@@ -49,13 +49,13 @@ export default function SignUp() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <section className="w-full max-w-md p-8 bg-gray-800 rounded shadow-md">
-                <h1 className="py-3 text-center text-3xl font-black text-white">
+        <div className="flex items-center justify-center min-h-screen bg-gray-900 px-4 sm:px-6 lg:px-8">
+            <section className="w-full max-w-sm sm:max-w-md p-6 sm:p-8 bg-gray-800 rounded-lg shadow-md">
+                <h1 className="py-4 text-center text-2xl sm:text-3xl font-extrabold text-white">
                     <span className="text-green-400">Genie</span> - Sign Up
                 </h1>
                 <div className="mb-6 text-center">
-                    <p className="text-gray-400 text-sm">Or, sign up with your email</p>
+                    <p className="text-gray-400 text-sm sm:text-base">Or, sign up with your email</p>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
@@ -65,7 +65,7 @@ export default function SignUp() {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="Username"
-                            className="w-full px-4 py-2 text-sm h-12 text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-3 sm:py-4 text-sm sm:text-base text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <div className="mb-4">
@@ -75,7 +75,7 @@ export default function SignUp() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Email"
-                            className="w-full px-4 py-2 text-sm h-12 text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-3 sm:py-4 text-sm sm:text-base text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <div className="mb-4">
@@ -85,7 +85,7 @@ export default function SignUp() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
-                            className="w-full px-4 py-2 text-sm text-white h-12 bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-3 sm:py-4 text-sm sm:text-base text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <div className="mb-4">
@@ -95,14 +95,14 @@ export default function SignUp() {
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             placeholder="Confirm Password"
-                            className="w-full px-4 py-2 text-sm h-12 text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-3 sm:py-4 text-sm sm:text-base text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <div>
                         <button
                             type="submit"
-                            className={`w-full px-4 py-2 text-lg text-white h-12 bg-blue-500 rounded hover:bg-blue-400 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            disabled={loading} // Disable button while loading
+                            className={`w-full px-4 py-3 sm:py-4 text-base sm:text-lg text-white bg-blue-500 rounded-lg hover:bg-blue-400 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={loading}
                         >
                             {loading ? (
                                 <span className="flex items-center justify-center">
@@ -118,7 +118,7 @@ export default function SignUp() {
                         </button>
                     </div>
                 </form>
-                <p className="mt-6 text-center text-sm text-gray-400">
+                <p className="mt-6 text-center text-sm sm:text-base text-gray-400">
                     Already have an account?{" "}
                     <Link href="/auth/signin" className="text-blue-500 hover:underline">
                         Sign in
@@ -126,5 +126,6 @@ export default function SignUp() {
                 </p>
             </section>
         </div>
+
     );
 }
