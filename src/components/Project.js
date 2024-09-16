@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from 'react';
-import axios from 'axios';
 
 export default function ClientForm() {
     const [projectName, setProjectName] = useState("");
@@ -21,8 +20,9 @@ export default function ClientForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("messageContent:", messageContent);
         try {
-            const response = await axios.post('/api/groq', {
+            const response = await fetch('/api/groq', {
                 method: "post",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userMessage: messageContent })
