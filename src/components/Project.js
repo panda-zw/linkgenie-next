@@ -40,7 +40,9 @@ export default function ClientForm() {
             setResponseData(newData.content);
             toast.success("Project idea generated successfully!");
 
-            resultRef.current?.scrollIntoView({ behavior: 'smooth', top: 100 });
+            setTimeout(() => {
+                resultRef.current?.scrollIntoView({ behavior: "smooth" });
+            }, 100);
         } catch (error) {
             console.error("Error:", error);
             toast.error("Error generating the project idea.");
@@ -124,13 +126,13 @@ export default function ClientForm() {
                     </button>
                 </form>
 
-                <div ref={resultRef} className='mt-10'>
+                <div className='mt-10'>
                     {loading ? (
                         <div className='flex justify-center items-center'>
                             <p className='text-gray-200 text-lg'>Loading...</p>
                         </div>
                     ) : (
-                        <div className='p-4 bg-gray-800 rounded-lg shadow-lg'>
+                        <div ref={resultRef} className='p-4 bg-gray-800 rounded-lg shadow-lg'>
                             <h2 className='text-xl text-gray-300 mb-2'>Generated Post:</h2>
                             <ReactMarkdown className='text-gray-200'>{responseData || "No content generated."}</ReactMarkdown>
                             <button
