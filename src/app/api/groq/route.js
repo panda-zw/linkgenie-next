@@ -4,6 +4,7 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function POST(req) {
     const { userMessage } = await req.json();
+    console.log("userMessage:", userMessage);
 
     if (!userMessage) {
         return new Response(JSON.stringify({ error: 'Message is required' }), {

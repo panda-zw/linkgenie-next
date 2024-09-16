@@ -1,59 +1,137 @@
 "use client";
 import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ClientForm() {
-    const [projectName, setProjectName] = useState("");
-    const [projectInfo, setProjectInfo] = useState("");
-    const [projectDescription, setProjectDescription] = useState("");
-    const [projectTools, setProjectTools] = useState("");
-    const [familiarity, setFamiliarity] = useState("");
+    const [technicalInterests, setTechnicalInterests] = useState("");
+    const [projectScope, setProjectScope] = useState("");
+    const [industryFocus, setIndustryFocus] = useState("");
+    const [learningGoals, setLearningGoals] = useState("");
+    const [targetAudience, setTargetAudience] = useState("");
+    const [difficultyLevel, setDifficultyLevel] = useState("");
     const [loading, setLoading] = useState(false);
     const [responseData, setResponseData] = useState(null);
 
-    const messageContent = {
-        projectName,
-        projectInfo,
-        projectDescription,
-        projectTools,
-        familiarity
-    };
+    const messageContent = `
+    Technical Interests: ${technicalInterests}
+    Project Scope: ${projectScope}
+    Industry Focus: ${industryFocus}
+    Learning Goals: ${learningGoals}
+    Target Audience: ${targetAudience}
+    Difficulty Level: ${difficultyLevel}
+`;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("messageContent:", messageContent);
+        setLoading(true);
         try {
-            const response = await fetch('/api/groq', {
-                method: "post",
+            const res = await fetch('/api/groq', {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userMessage: messageContent })
+                body: JSON.stringify({ userMessage: messageContent }),
             });
-            console.log("Response:", response.data);
-            setResponseData(response.data);
+
+            const newData = await res.json();
+            setResponseData(newData.content);
         } catch (error) {
             console.error("Error:", error);
-            setResponseData(null);
+        } finally {
+            setLoading(false);
         }
     };
 
+    const handleCopy = () => {
+        navigator.clipboard.writeText(response || 'No content generated.')
+            .then(() => toast.success('Post copied to clipboard!'))
+            .catch(err => console.error('Failed to copy post:', err));
+    };
+
     return (
-        <form onSubmit={handleSubmit} className='items-center justify-center flex'>
-            <div className='flex-col flex space-y-10 mt-20'>
-                <input className='h-10' name="projectName" type='text' value={projectName} onChange={(e) => setProjectName(e.target.value)} placeholder="Project Name" />
-                <input className='h-10' name="projectInfo" type='text' value={projectInfo} onChange={(e) => setProjectInfo(e.target.value)} placeholder="Project Info" />
-                <input className='h-10' name="projectDescription" type='text' value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} placeholder="Project Description" />
-                <input className='h-10' name="projectTools" type='text' value={projectTools} onChange={(e) => setProjectTools(e.target.value)} placeholder="Project Tools" />
-                <input className='h-10' name="familiarity" type='text' value={familiarity} onChange={(e) => setFamiliarity(e.target.value)} placeholder="Familiarity" />
-                <button type='submit' className='bg-white text-gray-900 rounded-sm h-10'>
-                    Submit
-                </button>
-            </div>
-            {loading && <p>Loading...</p>}
-            {responseData && (
-                <div className="response mt-4 p-4 border border-gray-300 rounded">
-                    <h2 className="text-lg font-bold">Response:</h2>
-                    <p>{responseData}</p>
+        <div className='min-h-screen px-4 lg:px-10 bg-gray-900'>
+            <div className='mt-5 max-w-full lg:max-w-3xl mx-auto'>
+                <h1 className='text-3xl lg:text-5xl text-gray-200 text-center lg:text-left'>Project Finder</h1>
+                <p className='mt-5 text-gray-200 text-center lg:text-left text-lg'>
+                    Need an idea for your final year project? Pick one that impresses recruiters and boosts your career.
+                </p>
+
+                <form onSubmit={handleSubmit} className='mt-10 space-y-6 lg:space-y-8'>
+                    <div>
+                        <input
+                            type="text"
+                            value={technicalInterests}
+                            onChange={(e) => setTechnicalInterests(e.target.value)}
+                            className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
+                            placeholder="Technical Interests (e.g., AI, Web Dev, Blockchain)"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            value={projectScope}
+                            onChange={(e) => setProjectScope(e.target.value)}
+                            className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
+                            placeholder="Preferred Project Scope (e.g., full-stack, backend only, research)"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            value={industryFocus}
+                            onChange={(e) => setIndustryFocus(e.target.value)}
+                            className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
+                            placeholder="Industry Focus (e.g., fintech, healthcare, gaming)"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            value={learningGoals}
+                            onChange={(e) => setLearningGoals(e.target.value)}
+                            className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
+                            placeholder="Technologies/Skills to Learn (e.g., React, TensorFlow, Docker)"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            value={targetAudience}
+                            onChange={(e) => setTargetAudience(e.target.value)}
+                            className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
+                            placeholder="Target Audience (e.g., developers, students, general public)"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            value={difficultyLevel}
+                            onChange={(e) => setDifficultyLevel(e.target.value)}
+                            className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
+                            placeholder="Preferred Difficulty Level (basic, intermediate, advanced)"
+                        />
+                    </div>
+
+                    <button type='submit' className='mt-5 w-full py-3 bg-green-500 text-white text-lg lg:text-xl rounded hover:bg-green-600 transition'>
+                        Generate
+                    </button>
+                </form>
+
+                <div className='mt-10'>
+                    {loading ? (
+                        <div className='flex justify-center items-center'>
+                            <p className='text-gray-200 text-lg'>Loading...</p>
+                        </div>
+                    ) : (
+                        responseData && (
+                            <div className='p-4 bg-gray-800 rounded-lg shadow-lg'>
+                                <h2 className='text-xl text-gray-300 mb-2'>Generated Response:</h2>
+                                <p className='text-gray-200'>{responseData}</p>
+                            </div>
+                        )
+                    )}
                 </div>
-            )}
-        </form>
+            </div>
+        </div>
     );
 }
