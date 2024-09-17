@@ -11,7 +11,6 @@ export async function uploadImage(imageFile) {
     const fileData = Buffer.from(await imageFile.arrayBuffer());
     await fs.writeFile(filePath, fileData);
 
-    // Use environment variable or default to localhost
     const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
     return `${baseUrl}/uploads/${fileName}`;
 }
