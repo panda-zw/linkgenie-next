@@ -48,8 +48,25 @@ function Generate() {
             setLoading(false);
             return;
         }
-        const messageContent = ` ${userMessage} Writing Style: ${writingStyle} Voice Type: ${voiceType} Topic: ${topic} Field: ${field} Post Length: ${postLength} Post Format: ${postFormat} Include Hashtags: ${includeHashtags ? 'Yes' : 'No'} LinkedIn Post: Yes`;
+
+        const messageContent = `
+        ${userMessage}
+        Writing Style: ${writingStyle}
+        Voice Type: ${voiceType}
+        Topic: ${topic}
+        Field: ${field}
+        Post Length: ${postLength}
+        Post Format: ${postFormat}
+        Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
+        LinkedIn Post: Yes
+        Start with a bold promise.
+        List format with 7-9 items.
+        Keep each item short and punchy.
+        End the post with a question.
+    `;
+
         try {
+
             const res = await fetch('/api/groq', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', },
@@ -189,8 +206,6 @@ function Generate() {
                             <option value="short">Short</option>
                             <option value="medium">Medium</option>
                             <option value="long">Long</option>
-                            <option value="list">List</option>
-                            <option value="quote">Quote</option>
                         </select>
                     </div>
 
