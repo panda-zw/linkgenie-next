@@ -30,7 +30,7 @@ export default function ClientForm() {
         setLoading(true);
         setResponseData(null);
         try {
-            const res = await fetch('/api/groq', {
+            const res = await fetch('/api/finder', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userMessage: messageContent }),
