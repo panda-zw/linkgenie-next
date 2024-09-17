@@ -89,11 +89,14 @@ function Navbar() {
                             <Link href="/Generate" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
                                 Generate
                             </Link>
+                            <Link href="/posts" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
+                                Posts
+                            </Link>
                             <Link href="/Community" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
                                 Community
                             </Link>
-                            <Link href="/posts" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
-                                Posts
+                            <Link href="/Project" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
+                                Project
                             </Link>
                             <button
                                 onClick={handleSignOut}
@@ -119,11 +122,14 @@ function Navbar() {
                     <Link href="/Generate" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
                         Generate
                     </Link>
+                    <Link href="/posts" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
+                        Posts
+                    </Link>
                     <Link href="/Community" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
                         Community
                     </Link>
-                    <Link href="/posts" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
-                        Posts
+                    <Link href="/Project" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
+                        Project
                     </Link>
                 </nav>
             )}
