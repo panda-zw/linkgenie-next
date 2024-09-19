@@ -9,10 +9,20 @@ module.exports = {
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        'oval-gradient': 'radial-gradient(ellipse 50% 40% at center, var(--tw-gradient-stops))',
+        'oval-gradient': 'radial-gradient(ellipse 20% 10% at center, var(--tw-gradient-stops))',
         "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+          "conic-gradient(from 180deg at 20% 0%, var(--tw-gradient-stops))",
       },
+
+      fontFamily: {
+        'mulish': ['Mulish', 'sans-serif'],
+      },
+
+      colors: {
+        "ingray": "#7b8dad",
+        "authgray": "#526485"
+      }
+
     },
   },
   plugins: [],
