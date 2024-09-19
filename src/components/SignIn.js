@@ -43,19 +43,21 @@ export default function SignIn() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-oval-gradient from-[#324d7e] to-[#0e1726]">
-      <section className="w-[692px] absolute top-[60px] border border-opacity-0 rounded-lg bg-authgray opacity-70">
-        <h1 className="text-2xl text-white font-bold font-mulish text-center mt-7">Welcome to <span className="text-green-500">LinkGenie</span></h1>
-        <p className="text-center text text-white mt-3 font-mulish">Hello! We are thrilled to have you onboard</p>
+      <section className="w-full sm:w-[600px] md:w-[692px] absolute p-4 sm:p-8 border border-opacity-0 rounded-lg bg-authgray opacity-70">
+        <h1 className="text-xl sm:text-2xl text-white font-bold font-mulish text-center mt-5 sm:mt-7">
+          Welcome back to <span className="text-green-500">LinkGenie</span>
+        </h1>
+        <p className="text-center text-white mt-2 sm:mt-3 font-mulish">
+          Hello! We are thrilled to have you onboard
+        </p>
         <form onSubmit={handleSubmit} className="font-mulish">
-          <div className="mb-3 items-center justify-center flex">
+          <div className="mb-3 flex items-center justify-center">
             <button
               onClick={handleGoogleSignIn}
-              className="w-10/12 px-4 py-2.5 mt-5 text-base sm:text-lg text-white bg-green-500 border rounded-lg hover:bg-green-400 flex items-center justify-center"
+              className="w-full sm:w-10/12 px-4 py-2.5 mt-4 text-base sm:text-lg text-white bg-green-500 border rounded-lg hover:bg-green-400 flex items-center justify-center"
               disabled={loading}
             >
-              {loading ? (
-                'Loading...'
-              ) : (
+              {loading ? 'Loading...' : (
                 <>
                   <Image
                     src="/social/google.png"
@@ -64,20 +66,18 @@ export default function SignIn() {
                     height={25}
                     className="mr-2"
                   />
-                  Continue with Google
+                  Log in with Google
                 </>
               )}
             </button>
           </div>
-          <div className="mb-4 items-center justify-center flex">
+          <div className="mb-4 flex items-center justify-center">
             <button
               onClick={handleGoogleSignIn}
-              className="w-10/12 px-4 py-2.5 text-base sm:text-lg text-white border rounded-lg hover:bg-green-400 flex items-center justify-center"
+              className="w-full sm:w-10/12 px-4 py-2.5 text-base sm:text-lg text-white border rounded-lg hover:bg-green-400 flex items-center justify-center"
               disabled={loading}
             >
-              {loading ? (
-                'Loading...'
-              ) : (
+              {loading ? 'Loading...' : (
                 <>
                   <Image
                     src="/social/linkedln.png"
@@ -86,7 +86,7 @@ export default function SignIn() {
                     height={25}
                     className="mr-2"
                   />
-                  Continue with LinkedIn
+                  Log in with LinkedIn
                 </>
               )}
             </button>
@@ -95,7 +95,7 @@ export default function SignIn() {
             <p className="text-white text-sm sm:text-base">or</p>
           </div>
           <div className="mb-4 flex flex-col">
-            <label htmlFor="email" className="px-14 mb-3 text-white">Email address<span className="text-red-500">*</span></label>
+            <label htmlFor="email" className="px-4 sm:px-14 mb-2 sm:mb-3 text-white">Email address<span className="text-red-500">*</span></label>
             <div className="flex justify-center">
               <input
                 type="email"
@@ -104,12 +104,12 @@ export default function SignIn() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
-                className="w-10/12 px-4 py-2.5 sm:py-4 text-lg sm:text-base text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-10/12 px-4 py-2.5 sm:py-4 text-sm sm:text-base text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
           <div className="mb-4 flex flex-col">
-            <label htmlFor="password" className="px-14 text-white mb-3">Password<span className="text-red-500">*</span></label>
+            <label htmlFor="password" className="px-4 sm:px-14 text-white mb-2 sm:mb-3">Password<span className="text-red-500">*</span></label>
             <div className="flex justify-center">
               <input
                 type="password"
@@ -118,14 +118,14 @@ export default function SignIn() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className="w-10/12 px-4 py-2.5 sm:py-4 text-lg sm:text-base text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-10/12 px-4 py-2.5 sm:py-4 text-sm sm:text-base text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
-          <div className="mb-4 items-center justify-center flex">
+          <div className="mb-4 mt-7 flex items-center justify-center">
             <button
               type="submit"
-              className={`w-10/12 px-4 py-2.5 sm:py-4 text-base sm:text-lg border-green-500 border text-black bg-white rounded-lg hover:bg-green-400 hover:text-white ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`w-full sm:w-10/12 px-4 py-2.5 sm:py-4 text-sm sm:text-lg border-green-500 border text-black bg-white rounded-lg hover:bg-green-400 hover:text-white ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
               disabled={loading}
             >
               {loading ? (
@@ -136,11 +136,8 @@ export default function SignIn() {
                   </svg>
                   Loading...
                 </span>
-              ) : (
-                'Log In'
-              )}
+              ) : 'Log In'}
             </button>
-
           </div>
           <p className="mt-6 text-center text-sm sm:text-base mb-6 text-white">
             Don&apos;t have an account?{" "}

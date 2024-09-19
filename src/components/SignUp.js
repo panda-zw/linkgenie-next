@@ -2,6 +2,8 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import Image from 'next/image';
 
 export default function SignUp() {
     const router = useRouter();
@@ -13,7 +15,7 @@ export default function SignUp() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true); // Step 2: Set loading to true
+        setLoading(true);
 
         if (password !== confirmPassword) {
             alert("Passwords do not match");
@@ -48,60 +50,140 @@ export default function SignUp() {
         }
     };
 
+    const handleGoogleSignIn = async () => {
+        setLoading(true);
+        await signIn("google", { redirect: true });
+        setLoading(false);
+    };
+
+    const handleLinkedInSignIn = async () => {
+        setLoading(true);
+        await signIn("linkedin", { redirect: true });
+        setLoading(false);
+    };
+
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-900 px-4 sm:px-6 lg:px-8">
-            <section className="w-full max-w-sm sm:max-w-md p-6 sm:p-8 bg-gray-800 rounded-lg shadow-md">
-                <h1 className="py-4 text-center text-2xl sm:text-3xl font-extrabold text-white">
-                    <span className="text-green-400">Genie</span> - Sign Up
+        <div className="flex items-center justify-center min-h-screen bg-oval-gradient from-[#324d7e] to-[#0e1726]">
+            <section className="w-full sm:w-[600px] md:w-[692px] absolute top-16 p-4 sm:p-8 border border-opacity-0 rounded-lg bg-authgray opacity-70">
+                <h1 className="text-xl sm:text-2xl text-white font-bold font-mulish text-center mt-5 sm:mt-7">
+                    Welcome to <span className="text-green-500">LinkGenie</span> - Sign Up
                 </h1>
-                <div className="mb-6 text-center">
-                    <p className="text-gray-400 text-sm sm:text-base">Or, sign up with your email</p>
+                <p className="text-center text-white mt-2 sm:mt-3 font-mulish">
+                    Please fill in your details or sign up using social accounts
+                </p>
+
+                {/* Google and LinkedIn Auth */}
+                <div className="mb-3 items-center justify-center flex">
+                    <button
+                        onClick={handleGoogleSignIn}
+                        className="w-full sm:w-10/12 px-4 py-2.5 mt-5 text-base sm:text-lg text-white bg-green-500 border rounded-lg hover:bg-green-400 flex items-center justify-center"
+                        disabled={loading}
+                    >
+                        {loading ? 'Loading...' : (
+                            <>
+                                <Image
+                                    src="/social/google.png"
+                                    alt="Google Logo"
+                                    width={25}
+                                    height={25}
+                                    className="mr-2"
+                                />
+                                Sign up with Google
+                            </>
+                        )}
+                    </button>
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <input
-                            type="text"
-                            name="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Username"
-                            className="w-full px-4 py-3 sm:py-4 text-sm sm:text-base text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+
+                <div className="mb-4 items-center justify-center flex">
+                    <button
+                        onClick={handleLinkedInSignIn}
+                        className="w-full sm:w-10/12 px-4 py-2.5 text-base sm:text-lg text-white border rounded-lg hover:bg-green-400 flex items-center justify-center"
+                        disabled={loading}
+                    >
+                        {loading ? 'Loading...' : (
+                            <>
+                                <Image
+                                    src="/social/linkedln.png"
+                                    alt="LinkedIn Logo"
+                                    width={25}
+                                    height={25}
+                                    className="mr-2"
+                                />
+                                Sign up with LinkedIn
+                            </>
+                        )}
+                    </button>
+                </div>
+
+                <div className="mb-6 text-center">
+                    <p className="text-white text-sm sm:text-base">or</p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="font-mulish">
+                    <div className="mb-4 flex flex-col">
+                        <label htmlFor="username" className="px-4 sm:px-14 mb-2 sm:mb-3 text-white">Username<span className="text-red-500">*</span></label>
+                        <div className="flex justify-center">
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder="Username"
+                                className="w-full sm:w-10/12 px-4 py-2.5 sm:py-4 text-sm sm:text-base text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
                     </div>
-                    <div className="mb-4">
-                        <input
-                            type="email"
-                            name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Email"
-                            className="w-full px-4 py-3 sm:py-4 text-sm sm:text-base text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+
+                    <div className="mb-4 flex flex-col">
+                        <label htmlFor="email" className="px-4 sm:px-14 mb-2 sm:mb-3 text-white">Email address<span className="text-red-500">*</span></label>
+                        <div className="flex justify-center">
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Email"
+                                className="w-full sm:w-10/12 px-4 py-2.5 sm:py-4 text-sm sm:text-base text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
                     </div>
-                    <div className="mb-4">
-                        <input
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Password"
-                            className="w-full px-4 py-3 sm:py-4 text-sm sm:text-base text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+
+                    <div className="mb-4 flex flex-col">
+                        <label htmlFor="password" className="px-4 sm:px-14 text-white mb-2 sm:mb-3">Password<span className="text-red-500">*</span></label>
+                        <div className="flex justify-center">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Password"
+                                className="w-full sm:w-10/12 px-4 py-2.5 sm:py-4 text-sm sm:text-base text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
                     </div>
-                    <div className="mb-4">
-                        <input
-                            type="password"
-                            name="confirmPassword"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            placeholder="Confirm Password"
-                            className="w-full px-4 py-3 sm:py-4 text-sm sm:text-base text-white bg-gray-900 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+
+                    <div className="mb-4 flex flex-col">
+                        <label htmlFor="confirmPassword" className="px-4 sm:px-14 text-white mb-2 sm:mb-3">Confirm Password<span className="text-red-500">*</span></label>
+                        <div className="flex justify-center">
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                placeholder="Confirm Password"
+                                className="w-full sm:w-10/12 px-4 py-2.5 sm:py-4 text-sm sm:text-base text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
                     </div>
-                    <div>
+
+                    <div className="mb-4 flex items-center justify-center">
                         <button
                             type="submit"
-                            className={`w-full px-4 py-3 sm:py-4 text-base sm:text-lg text-white bg-blue-500 rounded-lg hover:bg-blue-400 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full sm:w-10/12 px-4 py-2.5 sm:py-4 text-sm sm:text-lg border-green-500 border text-black bg-white rounded-lg hover:bg-green-400 hover:text-white ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={loading}
                         >
                             {loading ? (
@@ -112,20 +194,18 @@ export default function SignUp() {
                                     </svg>
                                     Loading...
                                 </span>
-                            ) : (
-                                'Sign Up'
-                            )}
+                            ) : 'Sign Up'}
                         </button>
                     </div>
+
+                    <p className="mt-6 text-center text-sm sm:text-base mb-6 text-white">
+                        Already have an account?{" "}
+                        <Link href="/auth/signin" className="underline hover:underline font-semibold">
+                            Sign in
+                        </Link>
+                    </p>
                 </form>
-                <p className="mt-6 text-center text-sm sm:text-base text-gray-400">
-                    Already have an account?{" "}
-                    <Link href="/auth/signin" className="text-blue-500 hover:underline">
-                        Sign in
-                    </Link>
-                </p>
             </section>
         </div>
-
     );
 }
