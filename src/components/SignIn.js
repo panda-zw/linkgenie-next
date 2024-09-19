@@ -41,12 +41,12 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-oval-gradient from-[#D2D5DB] to-[#1E2D4C]">
+    <div className="flex items-center justify-center min-h-screen bg-oval-gradient from-[#324d7e] to-[#0e1726]">
       <section className="w-[692px] absolute top-[60px] border border-opacity-0 rounded bg-authgray opacity-80">
         <h1 className="text-2xl text-white font-bold font-mulish text-center mt-7">Welcome to <span className="text-green-500">LinkGenie</span></h1>
         <p className="text-center text text-white mt-3 font-mulish">Hello! We are thrilled to have you onboard</p>
         <form onSubmit={handleSubmit} className="font-mulish">
-          <div className="mb-4 items-center justify-center flex">
+          <div className="mb-3 items-center justify-center flex">
             <button
               onClick={handleGoogleSignIn}
               className="w-10/12 px-4 py-2.5 mt-5 text-base sm:text-lg text-white bg-green-500 border rounded-lg hover:bg-green-400"
@@ -58,7 +58,7 @@ export default function SignIn() {
           <div className="mb-4 items-center justify-center flex">
             <button
               onClick={handleGoogleSignIn}
-              className="w-10/12 px-4 py-2.5 mt-1.5 text-base sm:text-lg text-white border rounded-lg hover:bg-green-400"
+              className="w-10/12 px-4 py-2.5 text-base sm:text-lg text-white border rounded-lg hover:bg-green-400"
               disabled={loading}
             >
               {loading ? 'Loading...' : 'Continue with LinkedIn'}
@@ -95,10 +95,10 @@ export default function SignIn() {
               />
             </div>
           </div>
-          <div className="mb-4 items-center justify-center flex ">
+          <div className="mb-4 items-center justify-center flex">
             <button
               type="submit"
-              className={`w-10/12 px-4 py-3 sm:py-4 text-base sm:text-lg border-green-500 text-black bg-white rounded-lg hover:bg-green-400 hover:text-white ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`w-10/12 px-4 py-3 sm:py-4 text-base sm:text-lg border-green-500 border-2 text-black bg-white rounded-lg hover:bg-green-400 hover:text-white ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
               disabled={loading}
             >
               {loading ? (
@@ -113,6 +113,7 @@ export default function SignIn() {
                 'Log In'
               )}
             </button>
+
           </div>
           <p className="mt-6 text-center text-sm sm:text-base mb-6 text-white">
             Don&apos;t have an account?{" "}
