@@ -10,18 +10,11 @@ export default function SignUp() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
-        if (password !== confirmPassword) {
-            alert("Passwords do not match");
-            setLoading(false);
-            return;
-        }
 
         const userData = {
             username,
@@ -64,15 +57,14 @@ export default function SignUp() {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-oval-gradient from-[#324d7e] to-[#0e1726]">
-            <section className="w-full sm:w-[600px] md:w-[692px] absolute top-16 p-4 sm:p-8 border border-opacity-0 rounded-lg bg-authgray opacity-70">
+            <section className="w-full sm:w-[600px] md:w-[600px] absolute px-4 border border-opacity-0 rounded-lg bg-authgray opacity-70">
                 <h1 className="text-xl sm:text-2xl text-white font-bold font-mulish text-center mt-5 sm:mt-7">
-                    Welcome to <span className="text-green-500">LinkGenie</span> - Sign Up
+                    Welcome to <span className="text-green-500">LinkGenie</span>
                 </h1>
                 <p className="text-center text-white mt-2 sm:mt-3 font-mulish">
-                    Please fill in your details or sign up using social accounts
+                    Hello we are thrilled to have you onboard
                 </p>
 
-                {/* Google and LinkedIn Auth */}
                 <div className="mb-3 items-center justify-center flex">
                     <button
                         onClick={handleGoogleSignIn}
@@ -115,13 +107,13 @@ export default function SignUp() {
                     </button>
                 </div>
 
-                <div className="mb-6 text-center">
+                <div className="mb-2 text-center">
                     <p className="text-white text-sm sm:text-base">or</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="font-mulish">
-                    <div className="mb-4 flex flex-col">
-                        <label htmlFor="username" className="px-4 sm:px-14 mb-2 sm:mb-3 text-white">Username<span className="text-red-500">*</span></label>
+                    <div className="flex flex-col">
+                        <label htmlFor="username" className="px-3 sm:px-12 mb-2 sm:mb-3 text-white">Username<span className="text-red-500">*</span></label>
                         <div className="flex justify-center">
                             <input
                                 type="text"
@@ -135,8 +127,8 @@ export default function SignUp() {
                         </div>
                     </div>
 
-                    <div className="mb-4 flex flex-col">
-                        <label htmlFor="email" className="px-4 sm:px-14 mb-2 sm:mb-3 text-white">Email address<span className="text-red-500">*</span></label>
+                    <div className="flex flex-col mt-2">
+                        <label htmlFor="email" className="px-4 sm:px-12 mb-2 sm:mb-3 text-white">Email address<span className="text-red-500">*</span></label>
                         <div className="flex justify-center">
                             <input
                                 type="email"
@@ -150,8 +142,8 @@ export default function SignUp() {
                         </div>
                     </div>
 
-                    <div className="mb-4 flex flex-col">
-                        <label htmlFor="password" className="px-4 sm:px-14 text-white mb-2 sm:mb-3">Password<span className="text-red-500">*</span></label>
+                    <div className="flex flex-col mt-2">
+                        <label htmlFor="password" className="px-4 sm:px-12 text-white mb-2 sm:mb-3">Password<span className="text-red-500">*</span></label>
                         <div className="flex justify-center">
                             <input
                                 type="password"
@@ -165,22 +157,7 @@ export default function SignUp() {
                         </div>
                     </div>
 
-                    <div className="mb-4 flex flex-col">
-                        <label htmlFor="confirmPassword" className="px-4 sm:px-14 text-white mb-2 sm:mb-3">Confirm Password<span className="text-red-500">*</span></label>
-                        <div className="flex justify-center">
-                            <input
-                                type="password"
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                placeholder="Confirm Password"
-                                className="w-full sm:w-10/12 px-4 py-2.5 sm:py-4 text-sm sm:text-base text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="mb-4 flex items-center justify-center">
+                    <div className="flex items-center justify-center mt-4">
                         <button
                             type="submit"
                             className={`w-full sm:w-10/12 px-4 py-2.5 sm:py-4 text-sm sm:text-lg border-green-500 border text-black bg-white rounded-lg hover:bg-green-400 hover:text-white ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
