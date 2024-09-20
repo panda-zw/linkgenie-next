@@ -2,7 +2,8 @@ import Main from "@/components/Main";
 import About from "@/components/About";
 import Review from "@/components/Reviews";
 import Navbar from "@/components/Navbar";
-// import Footer from "@/components/Footer";
+import Team from "@/components/Team";
+
 
 export default function HomePage() {
   return (
@@ -11,7 +12,8 @@ export default function HomePage() {
       <Main />
       <About />
       <Review />
-      {/* <Footer /> */}
+      <Team />
     </div>
   );
 }
+
