@@ -58,17 +58,17 @@ function Navbar() {
     };
 
     return (
-        <div className='flex flex-wrap justify-between items-center px-10 py-4 bg-gray-900'>
+        <div className='flex flex-wrap justify-between items-center px-10 py-4 bg-gray-900 font-mulish'>
             <div className='flex items-center space-x-1'>
-                <Image
+                {/* <Image
                     src="/favicon/logo.png"
                     alt="logo"
                     loading='lazy'
                     width={44}
-                    height={44} />
+                    height={44} /> */}
                 <Link href="/">
-                    <h1 className='text-2xl sm:text-3xl md:text-4xl font-black text-gray-200'>
-                        Ge<span className='text-green-500'>nie</span>
+                    <h1 className='text-xl sm:text-xl md:text-2xl font-black text-gray-200'>
+                        Linkgenie
                     </h1>
                 </Link>
             </div>
@@ -151,7 +151,7 @@ function Navbar() {
                                 <button
                                     onClick={handleProfile}
                                     className={`block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                    disabled={loading} // Disable button while loading
+                                    disabled={loading}
                                 >
                                     {loading ? (
                                         <span className='flex items-center justify-center'>
@@ -165,7 +165,7 @@ function Navbar() {
                                 <button
                                     onClick={handleSignOut}
                                     className={`block w-full py-2 px-4 text-left text-white hover:text-red-500 hover:bg-gray-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                    disabled={loading} // Disable button while loading
+                                    disabled={loading}
                                 >
                                     {loading ? (
                                         <span className='flex items-center justify-center'>
@@ -180,11 +180,18 @@ function Navbar() {
                         </div>
                     </>
                 ) : (
-                    <Link href="/auth/signin">
-                        <button className='w-28 sm:w-32 h-8 sm:h-10 text-sm sm:text-base text-white bg-gradient-to-r from-blue-400 to-blue-600 rounded-full shadow-lg hover:from-blue-500 hover:to-blue-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
-                            Sign In
-                        </button>
-                    </Link>
+                    <div className='flex space-x-4'>
+                        <Link href="/auth/signin">
+                            <button className='w-28 sm:w-28 h-8 sm:h-9 text-sm sm:text-base text-white rounded-lg shadow-lg hover:bg-blue-500 hover:text-white hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
+                                Sign in
+                            </button>
+                        </Link>
+                        <Link href="/auth/signup">
+                            <button className='w-28 sm:w-28 h-8 sm:h-9 text-sm sm:text-base text-black bg-white rounded-lg shadow-lg hover:bg-green-500 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
+                                Sign up
+                            </button>
+                        </Link>
+                    </div>
                 )}
             </div>
         </div>
