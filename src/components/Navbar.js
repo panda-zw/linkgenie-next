@@ -58,14 +58,8 @@ function Navbar() {
     };
 
     return (
-        <div className='flex flex-wrap justify-between items-center px-10 py-4 bg-gray-900 font-mulish'>
+        <div className='flex flex-wrap justify-between items-center px-14 py-4 font-mulish bg-[#0e1726]'>
             <div className='flex items-center space-x-1'>
-                {/* <Image
-                    src="/favicon/logo.png"
-                    alt="logo"
-                    loading='lazy'
-                    width={44}
-                    height={44} /> */}
                 <Link href="/">
                     <h1 className='text-xl sm:text-xl md:text-2xl font-black text-gray-200'>
                         Linkgenie
