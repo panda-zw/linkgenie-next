@@ -2,9 +2,7 @@ import React from 'react'
 
 function Team() {
     return (
-        <div>
-
-        </div>
+        <div></div>
     )
 }
 
