@@ -19,7 +19,6 @@ function Main() {
 
     return (
         <div className='items-center flex flex-col bg-oval-gradient from-[#324d7e] to-[#0e1726] px-4 md:px-10'>
-            {/* Trusted by Over 300 Users */}
             <div className='flex items-center border rounded-lg py-1.5 px-2.5 mt-10 md:mt-20 bg-authgray'>
                 <Image src='/flash/flash.png' width={20} height={20} alt='Hero' />
                 <h1 className='text-sm text-white ml-2'>Trusted by Over 300 Users Worldwide</h1>
@@ -39,7 +38,6 @@ function Main() {
             </div>
 
 
-            {/* Buttons */}
             <div className='mt-5 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4'>
                 <button className='text-white px-10 py-2 bg-green-500 rounded-lg'>
                     Generate Post
