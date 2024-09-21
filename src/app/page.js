@@ -3,6 +3,8 @@ import About from "@/components/About";
 import Review from "@/components/Reviews";
 import Navbar from "@/components/Navbar";
 import Team from "@/components/Team";
+import Customer from "@/components/Customer";
+import Footer from "@/components/Footer";
 
 
 export default function HomePage() {
@@ -13,6 +15,8 @@ export default function HomePage() {
       <About />
       <Review />
       <Team />
+      <Customer />
+      <Footer />
     </div>
   );
 }

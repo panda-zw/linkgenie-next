@@ -6,12 +6,7 @@ function Footer() {
     return (
         <div>
             <footer className='py-20 text-white'>
-                <div className='justify-center items-center flex space-x-5 text-2xl font-semibold  '>
-                    <a href="/Community" className='hover:pulse hover:text-gray-400 transition duration-300 ease-out'>Community</a>
-                    <a href="/Generate" className='hover:pulse hover:text-gray-400 transition duration-300 ease-out'>Generate</a>
-                    <a href="/" className='hover:pulse hover:text-gray-400 transition duration-300 ease-out'>Account</a>
-                </div>
-                <div className='justify-center items-center flex space-x-10 font-semibold py-10 text-5xl '>
+                <div className='justify-center items-center flex space-x-10 font-semibold py-10 text-4xl '>
                     <a href="https://fariraimasocha.github.io/farirai.me">
                         <FontAwesomeIcon icon={faGithub} width='40px' className='hover:text-gray-400' />
                     </a>

@@ -23,7 +23,8 @@ module.exports = {
         "authgray": "#536586",
         "tblack": "#363636",
         "tgray": "#daf1e4",
-        "lgray": "#363636"
+        "lgray": "#363636",
+        "lbg": "#daf1e4"
       }
 
     },
