@@ -21,7 +21,8 @@ module.exports = {
       colors: {
         "ingray": "#7a8aa9",
         "authgray": "#536586",
-        "tblack": "#363636"
+        "tblack": "#363636",
+        "tgray": "#daf1e4"
       }
 
     },
