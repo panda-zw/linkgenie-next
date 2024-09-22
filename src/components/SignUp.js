@@ -56,7 +56,7 @@ export default function SignUp() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-oval-gradient from-[#324d7e] to-[#0e1726]">
+        <div className="flex items-center justify-center min-h-screen bg-[#37558C]">
             <section className="w-[90%] max-w-[400px] border border-opacity-0 rounded-lg bg-authgray opacity-70 p-6">
                 <h1 className="text-lg text-white font-bold text-center">Welcome to <span className="text-green-500">LinkGenie</span></h1>
                 <p className="text-center text-white mt-2">We are thrilled to have you onboard</p>
