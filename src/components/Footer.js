@@ -25,7 +25,7 @@ function Footer() {
                     <p className='mt-5 text-white w-full md:w-6/12'>
                         Effortlessly create engaging LinkedIn posts that showcase your unique style. With just a single click, our AI-powered tool generates content tailored to your voice, helping you stand out and make a lasting impression.
                     </p>
-                    <button className='text-white px-7 py-2 bg-green-500 rounded-lg mt-5'>
+                    <button className='text-white px-7 hover:bg-green-400 transition ease-out  py-2 bg-green-500 rounded-lg mt-5'>
                         Start now
                     </button>
                 </div>

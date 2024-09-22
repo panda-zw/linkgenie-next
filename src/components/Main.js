@@ -39,10 +39,10 @@ function Main() {
 
 
             <div className='mt-5 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4'>
-                <button className='text-white px-10 py-2 bg-green-500 rounded-lg'>
+                <button className='text-white px-10 py-2 hover:bg-green-400 transition ease-out bg-green-500 rounded-lg'>
                     Generate Post
                 </button>
-                <button className='text-white px-7 py-2 border border-white rounded-lg'>
+                <button className='text-white px-7 py-2 border hover:bg-green-400 transition ease-out border-white rounded-lg'>
                     Explore LinkGenie
                 </button>
             </div>

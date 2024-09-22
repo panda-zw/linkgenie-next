@@ -20,7 +20,7 @@ function Review() {
                     <p className='text-white'>
                         industry experts.
                     </p>
-                    <button className='text-white px-7 py-2 bg-green-500 rounded-lg mt-5'>
+                    <button className='text-white px-7 py-2 hover:bg-green-400 transition ease-out bg-green-500 rounded-lg mt-5'>
                         Join us
                     </button>
                 </div>

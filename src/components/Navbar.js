@@ -15,12 +15,12 @@ function Navbar() {
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [username, setUsername] = useState(session?.user?.username || "");
     const [loading, setLoading] = useState(false);
-
     useEffect(() => {
         if (session) {
             fetchCredits();
         }
     }, [session]);
+
 
     const fetchCredits = async () => {
         if (session) {

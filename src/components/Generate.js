@@ -216,7 +216,7 @@ function Generate() {
     };
 
     return (
-        <div className='min-h-screen px-4 lg:px-10 bg-gray-900'>
+        <div className='min-h-screen px-4 lg:px-10 bg-[#37558C]'>
             <div className='mt-10 max-w-full lg:max-w-3xl mx-auto'>
                 <h1 className='text-3xl lg:text-5xl text-gray-200 text-center lg:text-left'>
                     Let&apos;s generate your LinkedIn post
