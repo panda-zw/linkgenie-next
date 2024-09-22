@@ -4,7 +4,7 @@ import Image from 'next/image';
 function Review() {
 
     return (
-        <div className='items-center flex flex-col bg-oval-gradient from-[#324d7e] to-[#0e1726] px-4 md:px-10'>
+        <div className='items-center flex flex-col bg-[#37558C] px-4 md:px-10'>
             <div className='flex flex-col md:flex-row md:space-x-20 py-10 md:py-20 items-center'>
                 <Image src='/landing/hands.png' width={400} height={400} alt='Line' className='flex-shrink-0 mb-8 md:mb-0' />
                 <div className='mt-8 md:mt-12 text-center md:text-left'>
