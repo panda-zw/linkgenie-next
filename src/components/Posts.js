@@ -52,7 +52,9 @@ function Posts() {
 
   return (
     <div>
-      <h1 className="text-black text-4xl px-28 py-10 font-mulish uppercase bg-gray-100">Posts</h1>
+      <h1 className="text-black text-2xl md:text-2xl lg:text-2xl px-4 md:px-10 lg:px-28 py-10 font-mulish uppercase bg-gray-100">
+        All Generated Posts
+      </h1>
       <div className="posts-container flex flex-wrap gap-4 justify-center items-center bg-gray-100">
         {posts.map(post => (
           <PostCard key={post._id} post={post} handleDeletion={handlePostDeletion} />

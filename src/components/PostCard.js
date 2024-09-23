@@ -12,9 +12,9 @@ const PostCard = ({ post, handleDeletion }) => {
     const handlePostDeletion = async () => {
         try {
             handleDeletion(post._id);
-            toast.success('Post deleted suceessfully');
+            toast.success('Post deleted successfully');
         } catch (error) {
-            toast.success('Failed to  delete post');
+            toast.error('Failed to delete post');
             console.log("Failed to delete:", error);
         }
     };
@@ -29,23 +29,23 @@ const PostCard = ({ post, handleDeletion }) => {
     };
 
     return (
-        <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <div className="block max-w-sm p-6 bg-white border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-800">
                 {truncateContent(post.post, 100)}
             </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
+            <p className="font-normal text-gray-600">
                 {new Date(post.createdAt).toLocaleDateString()}
             </p>
-            <div className='flex space-x-2'>
+            <div className='flex space-x-2 mt-4'>
                 <button
                     onClick={copyToClipboard}
-                    className="mt-4 text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                    className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2 transition duration-150"
                 >
                     Copy
                 </button>
                 <button
                     onClick={handlePostDeletion}
-                    className="mt-4 text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-green-800"
+                    className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 transition duration-150"
                 >
                     Delete
                 </button>
