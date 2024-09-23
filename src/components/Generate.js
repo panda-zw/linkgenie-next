@@ -1,76 +1,31 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import ReactMarkdown from 'react-markdown';
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ReactMarkdown from 'react-markdown';
 
-const SelectField = ({ label, value, options, onChange }) => (
-    <div>
-        <h2 className='text-lg lg:text-xl text-gray-300'>{label}</h2>
-        <select
-            value={value}
-            onChange={onChange}
-            className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
-        >
-            {options.map(option => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-            ))}
-        </select>
-    </div>
-);
-
-const TextInput = ({ label, value, onChange, placeholder }) => (
-    <div>
-        <h2 className='text-lg lg:text-xl text-gray-300'>{label}</h2>
-        <input
-            type="text"
-            value={value}
-            onChange={onChange}
-            className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
-            placeholder={placeholder}
-        />
-    </div>
-);
-
-const Checkbox = ({ label, checked, onChange }) => (
-    <div>
-        <h2 className='text-lg lg:text-xl text-gray-300'>{label}</h2>
-        <input
-            type="checkbox"
-            checked={checked}
-            onChange={onChange}
-            className='mt-2'
-        />
-    </div>
-);
-
-function Generate() {
+const Generate = () => {
     const [model, setModel] = useState('llama-3.1-8b-instant');
     const [userMessage, setUserMessage] = useState('');
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
     const [postCount, setPostCount] = useState(1);
     const [writingStyle, setWritingStyle] = useState('professional');
-    const [customWritingStyle, setCustomWritingStyle] = useState('');
     const [voiceType, setVoiceType] = useState('authoritative');
-    const [customVoiceType, setCustomVoiceType] = useState('');
     const [postFormat, setPostFormat] = useState('paragraph');
-    const [customPostFormat, setCustomPostFormat] = useState('');
     const [topic, setTopic] = useState('');
-    const [field, setField] = useState('tech');
-    const [customField, setCustomField] = useState('');
-    const [fields, setFields] = useState(['Tech', 'Health', 'Finance', 'Education', 'Business']);
+    const [field, setField] = useState('Tech');
     const [includeHashtags, setIncludeHashtags] = useState(false);
     const [postLength, setPostLength] = useState('medium');
     const [credits, setCredits] = useState(0);
     const { data: session, update } = useSession();
     const router = useRouter();
 
+
     useEffect(() => {
         if (!session) return;
-
         const fetchCredits = async () => {
             try {
                 const res = await fetch(`/api/user/${session.user.id}/`);
@@ -81,58 +36,8 @@ function Generate() {
                 console.error('Failed to fetch credits:', error);
             }
         };
-
         fetchCredits();
     }, [session]);
-
-    const handleFieldChange = (e) => {
-        const selectedValue = e.target.value;
-        setField(selectedValue);
-        if (selectedValue !== 'other') setCustomField('');
-    };
-
-    const handleAddCustomField = () => {
-        if (customField && !fields.includes(customField)) {
-            setFields([...fields, customField]);
-            setField(customField);
-        }
-    };
-
-    const handleWritingStyleChange = (e) => {
-        const selectedValue = e.target.value;
-        setWritingStyle(selectedValue);
-        if (selectedValue !== 'other') setCustomWritingStyle('');
-    };
-
-    const handleAddCustomWritingStyle = () => {
-        if (customWritingStyle) {
-            setWritingStyle(customWritingStyle);
-        }
-    };
-
-    const handleVoiceTypeChange = (e) => {
-        const selectedValue = e.target.value;
-        setVoiceType(selectedValue);
-        if (selectedValue !== 'other') setCustomVoiceType('');
-    };
-
-    const handleAddCustomVoiceType = () => {
-        if (customVoiceType) {
-            setVoiceType(customVoiceType);
-        }
-    };
-
-    const handlePostFormatChange = (e) => {
-        const selectedValue = e.target.value;
-        setPostFormat(selectedValue);
-        if (selectedValue !== 'other') setCustomPostFormat('');
-    };
-
-    const handleAddCustomPostFormat = () => {
-        if (customPostFormat) {
-            setPostFormat(customPostFormat);
-        }
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -216,206 +121,133 @@ function Generate() {
     };
 
     return (
-        <div className='min-h-screen px-4 lg:px-10 bg-[#37558C]'>
-            <div className='mt-10 max-w-full lg:max-w-3xl mx-auto'>
-                <h1 className='text-3xl lg:text-5xl text-gray-200 text-center lg:text-left'>
-                    Let&apos;s generate your LinkedIn post
-                </h1>
-                <p className='mt-5 text-gray-200 text-center lg:text-left text-lg'>
-                    Your results may vary. We are working on fine-tuning results to match your style.
-                    Here are some tips to create better posts.
-                </p>
-
-                <form onSubmit={handleSubmit} className='mt-10 space-y-6 lg:space-y-8'>
-                    <TextInput
-                        label="Describe your post in a clear and detailed manner"
-                        value={userMessage}
-                        onChange={(e) => setUserMessage(e.target.value)}
-                        placeholder='E.g., Sharing my journey in software development...'
-                    />
-
-                    <div>
-                        <h2 className='text-lg lg:text-xl text-gray-300'>Writing Style</h2>
-                        <SelectField
-                            value={writingStyle}
-                            options={[
-                                { value: "professional", label: "Professional" },
-                                { value: "informal", label: "Informal" },
-                                { value: "persuasive", label: "Persuasive" },
-                                { value: "inspirational", label: "Inspirational" },
-                                { value: "other", label: "Other" }
-                            ]}
-                            onChange={handleWritingStyleChange}
-                        />
-                        {writingStyle === 'other' && (
-                            <div className="mt-4">
-                                <TextInput
-                                    value={customWritingStyle}
-                                    onChange={(e) => setCustomWritingStyle(e.target.value)}
-                                    placeholder="Enter custom writing style"
-                                />
-                                <button
-                                    onClick={handleAddCustomWritingStyle}
-                                    className="mt-2 p-2 bg-green-500 text-white rounded"
-                                >
-                                    Set Custom Writing Style
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    <div>
-                        <h2 className='text-lg lg:text-xl text-gray-300'>Voice Type</h2>
-                        <SelectField
-                            value={voiceType}
-                            options={[
-                                { value: "authoritative", label: "Authoritative" },
-                                { value: "friendly", label: "Friendly" },
-                                { value: "enthusiastic", label: "Enthusiastic" },
-                                { value: "neutral", label: "Neutral" },
-                                { value: "inspirational", label: "Inspirational" },
-                                { value: "other", label: "Other" }
-                            ]}
-                            onChange={handleVoiceTypeChange}
-                        />
-                        {voiceType === 'other' && (
-                            <div className="mt-4">
-                                <TextInput
-                                    value={customVoiceType}
-                                    onChange={(e) => setCustomVoiceType(e.target.value)}
-                                    placeholder="Enter custom voice type"
-                                />
-                                <button
-                                    onClick={handleAddCustomVoiceType}
-                                    className="mt-2 p-2 bg-green-500 text-white rounded"
-                                >
-                                    Set Custom Voice Type
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    <div>
-                        <h2 className='text-lg lg:text-xl text-gray-300'>Post Format</h2>
-                        <SelectField
-                            value={postFormat}
-                            options={[
-                                { value: "paragraph", label: "Paragraph" },
-                                { value: "list", label: "List" },
-                                { value: "bullet", label: "Bullet Points" },
-                                { value: "quote", label: "Quote" },
-                                { value: "other", label: "Other" }
-                            ]}
-                            onChange={handlePostFormatChange}
-                        />
-                        {postFormat === 'other' && (
-                            <div className="mt-4">
-                                <TextInput
-                                    value={customPostFormat}
-                                    onChange={(e) => setCustomPostFormat(e.target.value)}
-                                    placeholder="Enter custom post format"
-                                />
-                                <button
-                                    onClick={handleAddCustomPostFormat}
-                                    className="mt-2 p-2 bg-green-500 text-white rounded"
-                                >
-                                    Set Custom Post Format
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    <TextInput
-                        label="Topic"
-                        value={topic}
-                        onChange={(e) => setTopic(e.target.value)}
-                        placeholder='E.g., AI advancements in healthcare...'
-                    />
-
-                    <div>
-                        <h2 className='text-lg lg:text-xl text-gray-300'>Field</h2>
-                        <SelectField
-                            value={field}
-                            options={[
-                                ...fields.map(f => ({ value: f.toLowerCase(), label: f })),
-                                { value: "other", label: "Other" }
-                            ]}
-                            onChange={handleFieldChange}
-                        />
-                        {field === 'other' && (
-                            <div className="mt-4">
-                                <TextInput
-                                    value={customField}
-                                    onChange={(e) => setCustomField(e.target.value)}
-                                    placeholder="Enter custom field"
-                                />
-                                <button
-                                    onClick={handleAddCustomField}
-                                    className="mt-2 p-2 bg-green-500 text-white rounded"
-                                >
-                                    Add Custom Field
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    <SelectField
-                        label="Post Length"
-                        value={postLength}
-                        options={[
-                            { value: "short", label: "Short" },
-                            { value: "medium", label: "Medium" },
-                            { value: "long", label: "Long" }
-                        ]}
-                        onChange={(e) => setPostLength(e.target.value)}
-                    />
-
-                    <SelectField
-                        label="Select Model"
-                        value={model}
-                        options={[
-                            { value: "gemma-7b-it", label: "Gemma 7B IT" },
-                            { value: "gemma2-9b-it", label: "Gemma2 9B IT" },
-                            { value: "mixtral-8x7b-32768", label: "Mixtral 8x7B" },
-                            { value: "llama-3.1-8b-instant", label: "Llama 3.1 8B Instant" },
-                            { value: "llama-3.1-70b-versatile", label: "Llama 3.1 70B Versatile" }
-                        ]}
-                        onChange={(e) => setModel(e.target.value)}
-                    />
-
-                    <Checkbox
-                        label="Include Hashtags"
-                        checked={includeHashtags}
-                        onChange={(e) => setIncludeHashtags(e.target.checked)}
-                    />
-
-                    <div className='text-center lg:text-left'>
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className='mt-5 w-full py-3 bg-green-500 text-white text-lg lg:text-xl rounded hover:bg-green-600 transition'>
-                            {loading ? 'Generating...' : 'Generate Post'}
-                        </button>
-                    </div>
-                </form>
-
-                <div className='mt-10'>
-                    {response && (
-                        <div className='bg-gray-800 p-5 rounded-lg'>
-                            <h2 className='text-lg text-gray-300'>Generated Post</h2>
-                            <ReactMarkdown className='mt-3 text-gray-200'>{response}</ReactMarkdown>
-                            <button
-                                onClick={handleCopy}
-                                className='mt-5 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none'
-                            >
-                                Copy to Clipboard
-                            </button>
-                        </div>
-                    )}
-                </div>
+        <div className='min-h-screen px-4 lg:px-10 bg-gray-100'>
+            <div className="py-10 px-3 font-mulish">
+                <h1 className=" text-xl font-semibold">Let’s generate your LinkedIn post.</h1>
+                <p>Your results may vary. We are working on fine-tuning results to match your style. Here are some tips to create better posts.</p>
             </div>
+
+            <form onSubmit={handleSubmit} className='border shadow-lg mx-3.5 px-5 py-2 rounded-lg bg-white'>
+                <h1 className="text-xl text-gray-600 mt-5">Generate Post</h1>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-5">
+                    <div>
+                        <label htmlFor="userInput" className="block mb-2">Describe your post</label>
+                        <input
+                            type="text"
+                            value={userMessage}
+                            onChange={(e) => setUserMessage(e.target.value)}
+                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                            placeholder="Describe the post you want to generate"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="writingStyle" className="block mb-2">Writing Style</label>
+                        <select
+                            value={writingStyle}
+                            onChange={(e) => setWritingStyle(e.target.value)}
+                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                        >
+                            <option value="professional">Professional</option>
+                            <option value="casual">Casual</option>
+                            <option value="persuasive">Persuasive</option>
+                            <option value="informative">Informative</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="voiceType" className="block mb-2">Voice Type</label>
+                        <select
+                            value={voiceType}
+                            onChange={(e) => setVoiceType(e.target.value)}
+                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                        >
+                            <option value="authoritative">Authoritative</option>
+                            <option value="friendly">Friendly</option>
+                            <option value="inspirational">Inspirational</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="postFormat" className="block mb-2">Post Format</label>
+                        <select
+                            value={postFormat}
+                            onChange={(e) => setPostFormat(e.target.value)}
+                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                        >
+                            <option value="paragraph">Paragraph</option>
+                            <option value="list">List</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="topic" className="block mb-2">Topic</label>
+                        <input
+                            type="text"
+                            value={topic}
+                            onChange={(e) => setTopic(e.target.value)}
+                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                            placeholder="Enter the topic"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="field" className="block mb-2">Field</label>
+                        <select
+                            value={field}
+                            onChange={(e) => setField(e.target.value)}
+                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                        >
+                            <option value="Tech">Tech</option>
+                            <option value="Health">Health</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Education">Education</option>
+                            <option value="Business">Business</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="includeHashtags" className="block mb-2">Include Hashtags</label>
+                        <select
+                            value={includeHashtags ? 'yes' : 'no'}
+                            onChange={(e) => setIncludeHashtags(e.target.value === 'yes')}
+                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                        >
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="postLength" className="block mb-2">Post Length</label>
+                        <select
+                            value={postLength}
+                            onChange={(e) => setPostLength(e.target.value)}
+                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                        >
+                            <option value="short">Short</option>
+                            <option value="medium">Medium</option>
+                            <option value="long">Long</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className="flex justify-end mt-5">
+                    <button
+                        type="submit"
+                        className="px-5 text-white bg-green-600 hover:bg-green-700 rounded-lg py-2"
+                        disabled={loading}
+                    >
+                        {loading ? 'Generating...' : 'Generate Post'}
+                    </button>
+                </div>
+
+            </form>
+
+            {response && (
+                <div className="py-5">
+                    <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
+                        <h2 className="text-lg font-semibold">Generated Post:</h2>
+                        <ReactMarkdown className="text-gray-700">{response}</ReactMarkdown>
+                        <button onClick={handleCopy} className="px-5 mt-2 text-white bg-green-600 hover:bg-green-700 rounded-lg py-2">Copy to Clipboard</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
-}
+};
 
 export default Generate;

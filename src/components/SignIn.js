@@ -28,7 +28,7 @@ export default function SignIn() {
       toast.error("Failed to login: Incorrect email or password");
       console.error("Error signing in:", result.error);
     } else {
-      router.push("/");
+      router.push("/Generate");
     }
   };
 

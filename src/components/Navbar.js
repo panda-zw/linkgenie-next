@@ -15,12 +15,12 @@ function Navbar() {
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [username, setUsername] = useState(session?.user?.username || "");
     const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (session) {
             fetchCredits();
         }
     }, [session]);
-
 
     const fetchCredits = async () => {
         if (session) {
@@ -57,11 +57,15 @@ function Navbar() {
         setIsMobileNavOpen(!isMobileNavOpen);
     };
 
+    const navbarBackground = status === 'authenticated' ? 'bg-white' : 'bg-[#37558C]';
+
+    const logoBackground = status === 'authenticated' ? 'text-black' : 'text-gray-200';
+
     return (
-        <div className='flex flex-wrap justify-between items-center px-14 py-4 font-mulish bg-[#37558C]'>
+        <div className={`flex flex-wrap justify-between items-center px-14 py-4 font-mulish ${navbarBackground}`}>
             <div className='flex items-center space-x-1'>
                 <Link href="/">
-                    <h1 className='text-xl sm:text-xl md:text-2xl font-black text-gray-200'>
+                    <h1 className={`text-xl sm:text-xl md:text-2xl font-black ${logoBackground}`}>
                         Linkgenie
                     </h1>
                 </Link>
@@ -113,16 +117,16 @@ function Navbar() {
 
             {status === 'authenticated' && (
                 <nav className='hidden sm:flex items-center space-x-4 sm:space-x-6 pl-2 sm:pl-5'>
-                    <Link href="/Generate" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
+                    <Link href="/Generate" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
                         Generate
                     </Link>
-                    <Link href="/posts" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
+                    <Link href="/posts" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
                         Posts
                     </Link>
-                    <Link href="/Community" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
+                    <Link href="/Community" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
                         Community
                     </Link>
-                    <Link href="/Project" className='text-sm sm:text-lg text-gray-200 hover:text-green-500 transition duration-300'>
+                    <Link href="/Project" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
                         Project
                     </Link>
                 </nav>
@@ -131,7 +135,7 @@ function Navbar() {
             <div className='flex items-center space-x-2 sm:space-x-4'>
                 {status === 'authenticated' ? (
                     <>
-                        <span className='text-white'>{credits} Credits</span>
+                        <span className='text-black'>{credits} Credits</span>
                         <div className='relative'>
                             <button
                                 onClick={toggleDropdown}
