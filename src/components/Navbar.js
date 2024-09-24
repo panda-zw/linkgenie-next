@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotate, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
+import { text } from '@fortawesome/fontawesome-svg-core';
 
 function Navbar() {
     const { data: session, status } = useSession();
@@ -58,8 +59,8 @@ function Navbar() {
     };
 
     const navbarBackground = status === 'authenticated' ? 'bg-white' : 'bg-[#37558C]';
-
     const logoBackground = status === 'authenticated' ? 'text-black' : 'text-gray-200';
+    const textColor = status === 'authenticated' ? 'text-black' : 'text-white';
 
     return (
         <div className={`flex flex-wrap justify-between items-center px-14 py-4 font-mulish ${navbarBackground}`}>
@@ -72,7 +73,7 @@ function Navbar() {
             </div>
 
             {status === 'authenticated' && (
-                <button onClick={toggleMobileNav} className='sm:hidden text-white'>
+                <button onClick={toggleMobileNav} className={`sm:hidden ${textColor}`}>
                     <FontAwesomeIcon icon={isMobileNavOpen ? faTimes : faBars} size="lg" />
                 </button>
             )}
