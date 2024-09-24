@@ -18,70 +18,64 @@ function Main() {
     };
 
     return (
-        <div className='px-4 py-8 md:px-8 md:py-12 mt-10'>
-            <div id='images' className='flex flex-wrap justify-center space-x-4 space-y-4 md:space-y-0'>
-                <Image
-                    src="/notes/note1.png"
-                    loading='lazy'
-                    alt="Note 1"
-                    width={192}
-                    height={192}
-                    className='w-48 md:w-60'
-                />
-                <Image
-                    src="/notes/note5.png"
-                    loading='lazy'
-                    alt="Note 5"
-                    width={192}
-                    height={192}
-                    className='w-48 md:w-60'
-                />
-                <Image
-                    src="/notes/note3.png"
-                    loading='lazy'
-                    alt="Note 3"
-                    width={192}
-                    height={192}
-                    className='w-48 md:w-60'
-                />
-                <Image
-                    src="/notes/note4.png"
-                    loading='lazy'
-                    alt="Note 4"
-                    width={192}
-                    height={192}
-                    className='w-48 md:w-60'
-                />
-                <Image
-                    src="/notes/note2.png"
-                    loading='lazy'
-                    alt="Note 2"
-                    width={192}
-                    height={192}
-                    className='w-48 md:w-60'
-                />
+        <div className='items-center flex flex-col bg-[#37558C] px-4 md:px-10'>
+            <div className='flex items-center border rounded-lg py-1.5 px-2.5 mt-10 md:mt-20 bg-authgray'>
+                <Image src='/flash/flash.png' width={20} height={20} alt='Hero' />
+                <h1 className='text-sm text-white ml-2'>Trusted by Over 300 Users Worldwide</h1>
             </div>
 
-            <div id='main' className='flex flex-col items-center mx-auto space-y-8 md:space-y-10 mt-12'>
-                <h1 className='text-4xl md:text-7xl text-center font-black text-gray-200'>
-                    Generate LinkedIn Posts with AI at the Click of a
-                    <span className='text-green-500'> Button</span>
+            <div className='flex flex-col items-center mt-8 md:mt-10'>
+                <h1 className='text-center text-2xl md:text-3xl w-full md:w-8/12 font-bold text-white'>
+                    Create Professional <span className='text-green-500'>LinkedIn Content</span> at the Click of a Button with AI.
                 </h1>
-                <p className='text-center text-gray-200 max-w-lg md:max-w-3xl text-base md:text-lg tracking-wider font-light'>
-                    Effortlessly create engaging LinkedIn posts that showcase your unique style.
-                    With just a single click, our AI-powered tool generates content tailored to your voice,
-                    helping you stand out and make a lasting impression.
+            </div>
+
+
+            <div className='flex flex-col items-center mt-6 md:mt-10'>
+                <p className='text-center text-white w-full md:w-6/12'>
+                    Effortlessly create engaging LinkedIn posts that showcase your unique style. With just one single click, our AI-powered tool generates content tailored to your voice, helping you stand out and make a lasting impression.
                 </p>
-                <div className='flex justify-center'>
-                    <button
-                        onClick={handleGenerateClick}
-                        className='w-32 h-10 md:w-36 md:h-12 text-white text-sm md:text-xl bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-lg hover:from-green-500 hover:to-green-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'
-                    >
-                        Generate
-                    </button>
+            </div>
+
+
+            <div className='mt-5 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4'>
+                <button className='text-white px-10 py-2 hover:bg-green-400 transition ease-out bg-green-500 rounded-lg'>
+                    Generate Post
+                </button>
+                <button className='text-white px-7 py-2 border hover:bg-green-400 transition ease-out border-white rounded-lg'>
+                    Explore LinkGenie
+                </button>
+            </div>
+
+            <div className='mt-16 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-5'>
+                <div className='w-full md:w-[421.3px] py-5 rounded-lg bg-authgray px-6 border items-center'>
+                    <Image src='/card/ranking.png' width={20} height={20} alt='Hero' />
+                    <h1 className='text-white text-lg font-bold mt-2'>AI Post Generation</h1>
+                    <p className='text-white mt-2 text-sm'>
+                        Elevate your LinkedIn presence with personalized posts that speak directly to your audience, crafted by cutting-edge AI technology.
+                    </p>
+                </div>
+
+
+                <div className='w-full md:w-[421.3px] py-5 rounded-lg bg-authgray px-6 border items-center'>
+                    <Image src='/card/profile-2user.png' width={20} height={20} alt='Hero' />
+                    <h1 className='text-white text-lg font-bold mt-2'>Create Engaging Content</h1>
+                    <p className='text-white text-sm mt-2'>
+                        Grow your professional network sharply with AI-generated posts that spark meaningful connections and foster lasting relationships.
+                    </p>
+                </div>
+
+
+                <div className='w-full md:w-[421.3px] py-5 rounded-lg bg-authgray px-6 border items-center'>
+                    <Image src='/card/crown.png' width={20} height={20} alt='Hero' />
+                    <h1 className='text-white text-lg font-bold mt-2'>Network Expansion</h1>
+                    <p className='text-white mt-2 text-sm'>
+                        Watch your LinkedIn engagement soar with AI-crafted posts that spark curiosity, encourage sharing, & drive meaningful interactions.
+                    </p>
                 </div>
             </div>
         </div>
+
     );
 }
 

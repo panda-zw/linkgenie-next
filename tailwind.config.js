@@ -9,9 +9,24 @@ module.exports = {
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        'oval-gradient': 'radial-gradient(ellipse 30% 20% at center, var(--tw-gradient-stops))',
         "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+          "conic-gradient(from 180deg at 20% 0%, var(--tw-gradient-stops))",
       },
+
+      fontFamily: {
+        'mulish': ['Mulish', 'sans-serif'],
+      },
+
+      colors: {
+        "ingray": "#7a8aa9",
+        "authgray": "#536586",
+        "tblack": "#363636",
+        "tgray": "#daf1e4",
+        "lgray": "#363636",
+        "lbg": "#daf1e4"
+      }
+
     },
   },
   plugins: [],

@@ -3,39 +3,79 @@ import Image from 'next/image';
 
 function About() {
     return (
-        <div className='min-h-screen bg-gray-900 text-gray-300 py-10 md:py-20 md:px-10'>
-            <h1 className='text-4xl md:text-5xl text-center font-extrabold text-white mb-8 md:mb-16'>
-                Ab<span className='text-green-500'>out</span>
-            </h1>
-            <div className='flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-10 px-4 md:px-10'>
-                <div className='w-full md:w-6/12'>
-                    <h2 className='font-black text-3xl md:text-6xl text-gray-200 mt-4 md:mt-10'>
-                        Transform Your Ideas into Impactful LinkedIn Posts with the  <span className='text-green-500'>Power of AI.</span>
-                    </h2>
-                    <p className='text-gray-200 max-w-full md:max-w-3xl text-base md:text-lg tracking-wider font-light mt-4 md:mt-6'>
-                        LinkGenie helps you craft personalized, high-engagement LinkedIn posts that resonate with your audience, enabling you to expand your professional network effortlessly.
-                    </p>
+        <div className='min-h-screen bg-white text-gray-300 py-10 border mt-20 flex items-center justify-center'>
 
+            <div className='flex flex-col lg:flex-row lg:space-x-10 px-6 lg:px-16 w-full lg:w-11/12'>
+                <div className='mt-7'>
+                    <h1 className='font-bold text-xl lg:text-2xl text-black'>
+                        Key <span className='text-green-500'>Benefits</span> of Our System for Your Productivity.
+                    </h1>
+                    <p className='text-black mt-5'>Effortless posting, Endless possibilities</p>
+
+
+                    <div className='mt-8 lg:mt-12 flex items-start space-x-4'>
+                        <Image
+                            src='/tick/tick-circle.png'
+                            width={25}
+                            height={20}
+                            alt='Line'
+                            className='flex-shrink-0'
+                        />
+                        <div>
+                            <div className='flex flex-col'>
+                                <h1 className='text-black font-bold mt-0'>Craft a Unique Voice</h1>
+                                <p className='text-black mt-2'>Unlock your unique voice and reach new heights of professional success while consistently elevating your personal brand.</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className='mt-8 lg:mt-12 flex items-start space-x-4'>
+                        <Image
+                            src='/tick/tick-circle.png'
+                            width={25}
+                            height={20}
+                            alt='Line'
+                            className='flex-shrink-0'
+                        />
+                        <div>
+                            <div className='flex flex-col'>
+                                <h1 className='text-black font-bold mt-0'>Topic Idea Generation</h1>
+                                <p className='text-black mt-2'>Break through creative blocks with AI-driven topic idea generation: Fresh perspectives guaranteed.</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className='mt-8 lg:mt-12 flex items-start space-x-4'>
+                        <Image
+                            src='/tick/tick-circle.png'
+                            width={25}
+                            height={20}
+                            alt='Line'
+                            className='flex-shrink-0'
+                        />
+                        <div>
+                            <div className='flex flex-col'>
+                                <h1 className='text-black font-bold mt-0'>Customizable Formats</h1>
+                                <p className='text-black mt-2'>Align your posts with your brand identity using custom formats.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className='flex flex-wrap justify-center w-full md:w-6/12 space-y-4 md:space-y-0 md:space-x-4'>
+
+
+                <div className='w-full lg:w-[95%] mt-10 lg:mt-0'>
                     <Image
-                        src="/linkd/first.jpeg"
-                        loading='lazy'
-                        alt="Creative LinkedIn Post Example 1"
-                        width={192}
-                        height={192}
-                        className='w-48 md:w-52'
-                    />
-                    <Image
-                        src="/linkd/second.jpeg"
-                        loading='lazy'
-                        alt="Creative LinkedIn Post Example 2"
-                        width={192}
-                        height={192}
-                        className='w-48 md:w-52'
+                        src='/landing/laptop.png'
+                        width={670}
+                        height={670}
+                        alt='Laptop'
+                        className='w-full h-auto'
                     />
                 </div>
             </div>
+
         </div>
     );
 }
