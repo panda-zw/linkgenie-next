@@ -17,6 +17,14 @@ function Main() {
         }
     };
 
+    const handleExploreClick = () => {
+        if (session) {
+            router.push('/Community');
+        } else {
+            router.push('/auth/signin');
+        }
+    };
+
     return (
         <div className='items-center flex flex-col bg-[#37558C] px-4 md:px-10'>
             <div className='flex items-center border rounded-lg py-1.5 px-2.5 mt-10 md:mt-20 bg-authgray'>
@@ -30,19 +38,21 @@ function Main() {
                 </h1>
             </div>
 
-
             <div className='flex flex-col items-center mt-6 md:mt-10'>
                 <p className='text-center text-white w-full md:w-6/12'>
                     Effortlessly create engaging LinkedIn posts that showcase your unique style. With just one single click, our AI-powered tool generates content tailored to your voice, helping you stand out and make a lasting impression.
                 </p>
             </div>
 
-
             <div className='mt-5 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4'>
-                <button className='text-white px-10 py-2 hover:bg-green-400 transition ease-out bg-green-500 rounded-lg'>
+                <button
+                    onClick={handleGenerateClick}  // Add click handler for "Generate Post"
+                    className='text-white px-10 py-2 hover:bg-green-400 transition ease-out bg-green-500 rounded-lg'>
                     Generate Post
                 </button>
-                <button className='text-white px-7 py-2 border hover:bg-green-400 transition ease-out border-white rounded-lg'>
+                <button
+                    onClick={handleExploreClick}  // Add click handler for "Explore LinkGenie"
+                    className='text-white px-7 py-2 border hover:bg-green-400 transition ease-out border-white rounded-lg'>
                     Explore LinkGenie
                 </button>
             </div>
@@ -56,7 +66,6 @@ function Main() {
                     </p>
                 </div>
 
-
                 <div className='w-full md:w-[421.3px] py-5 rounded-lg bg-authgray px-6 border items-center'>
                     <Image src='/card/profile-2user.png' width={20} height={20} alt='Hero' />
                     <h1 className='text-white text-lg font-bold mt-2'>Create Engaging Content</h1>
@@ -64,7 +73,6 @@ function Main() {
                         Grow your professional network sharply with AI-generated posts that spark meaningful connections and foster lasting relationships.
                     </p>
                 </div>
-
 
                 <div className='w-full md:w-[421.3px] py-5 rounded-lg bg-authgray px-6 border items-center'>
                     <Image src='/card/crown.png' width={20} height={20} alt='Hero' />
@@ -75,7 +83,6 @@ function Main() {
                 </div>
             </div>
         </div>
-
     );
 }
 
