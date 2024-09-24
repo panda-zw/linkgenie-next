@@ -14,7 +14,7 @@ export default function ClientForm() {
     const [loading, setLoading] = useState(false);
     const [responseData, setResponseData] = useState(null);
 
-    const resultRef = useRef(null);
+    const resultRef = useRef(null); // Reference to the generated project section
 
     const messageContent = `
     Technical Interests: ${technicalInterests}
@@ -40,6 +40,7 @@ export default function ClientForm() {
             setResponseData(newData.content);
             toast.success("Project idea generated successfully!");
 
+            // Scroll to the generated post after a short delay
             setTimeout(() => {
                 resultRef.current?.scrollIntoView({ behavior: "smooth" });
             }, 100);
@@ -60,8 +61,8 @@ export default function ClientForm() {
     return (
         <div className='min-h-screen px-4 lg:px-10 bg-gray-100'>
             <div className="py-10 px-3 font-mulish">
-                <h1 className=" text-xl font-semibold">Let’s help you find a project post.</h1>
-                <p>Need an idea for your final year project? Pick one that impresses recruiters and boosts your career..</p>
+                <h1 className="text-xl font-semibold">Let’s help you find a project post.</h1>
+                <p>Need an idea for your final year project? Pick one that impresses recruiters and boosts your career.</p>
             </div>
             <form onSubmit={handleSubmit} className='border shadow-lg mx-3.5 mt-3 px-5 py-5 rounded-lg bg-white'>
                 <h1 className="text-lg text-gray-600 mt-5">Generate Project Idea</h1>
@@ -136,7 +137,7 @@ export default function ClientForm() {
             </form>
 
             {responseData && (
-                <div className="py-5">
+                <div ref={resultRef} className="py-5"> {/* Result ref here */}
                     <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
                         <h2 className="text-lg font-semibold">Generated Post:</h2>
                         <ReactMarkdown className="text-gray-700">{responseData}</ReactMarkdown>
