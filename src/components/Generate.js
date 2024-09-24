@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
@@ -23,6 +23,8 @@ const Generate = () => {
     const { data: session, update } = useSession();
     const router = useRouter();
 
+    // Ref to scroll to the generated post
+    const postRef = useRef(null);
 
     useEffect(() => {
         if (!session) return;
@@ -38,6 +40,13 @@ const Generate = () => {
         };
         fetchCredits();
     }, [session]);
+
+    // Scroll to the generated post when response updates
+    useEffect(() => {
+        if (response && postRef.current) {
+            postRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [response]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -239,7 +248,7 @@ const Generate = () => {
             </form>
 
             {response && (
-                <div className="py-5">
+                <div ref={postRef} className="py-5">
                     <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
                         <h2 className="text-lg font-semibold">Generated Post:</h2>
                         <ReactMarkdown className="text-gray-700">{response}</ReactMarkdown>
