@@ -14,8 +14,8 @@ function Customer() {
                     <div className='flex mt-5 space-x-3'>
                         <Image src='/customer/user.png' width={50} height={50} className='rounded-full' />
                         <div className='font-mulish'>
-                            <h1 className='font-bold'>John Doe</h1>
-                            <h1 className='font-light'>CEO, Designer</h1>
+                            <h1 className='font-bold'>Godknows Aresho</h1>
+                            <h1 className='font-light'>Software Developer</h1>
                         </div>
                     </div>
                 </div>
