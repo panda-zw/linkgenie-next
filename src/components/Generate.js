@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ReactMarkdown from 'react-markdown';
 
 const Generate = () => {
-    const [model, setModel] = useState('llama-3.1-8b-instant');
+    const [model, setModel] = useState('llama-3.1-70b-versatile');
     const [userMessage, setUserMessage] = useState('');
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
@@ -65,8 +65,9 @@ const Generate = () => {
         Post Format: ${postFormat}
         Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
         LinkedIn Post: Yes
-        Start with a bold promise.
-        List format with 7-9 items.
+        Start with a bold promise which is the first line.
+        The second line should support the first line.
+        then 7-9 paragraphs or lines in the body.
         Keep each item short and punchy.
         End the post with a question.
     `;
