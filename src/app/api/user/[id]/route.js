@@ -5,10 +5,10 @@ import { NextResponse } from 'next/server';
 export async function GET(req, { params }) {
     try {
         await connectDB();
-        const { id } = params; // Use 'id' instead of 'userId'
+        const { id } = params;
 
-        const user = await User.findById(id); // Now it will look for the correct user ID
-        //console.log(user);
+        const user = await User.findById(id);
+
 
         if (!user) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });
@@ -20,4 +20,3 @@ export async function GET(req, { params }) {
         return NextResponse.json({ message: "Error fetching credits", error: error.message }, { status: 500 });
     }
 }
-
