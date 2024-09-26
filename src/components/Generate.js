@@ -30,7 +30,7 @@ const Generate = () => {
         if (!session) return;
         const fetchCredits = async () => {
             try {
-                const res = await fetch(`/api/user/${session.user.id}/`);
+                const res = await fetch(`/api/user/${session.user.email}/`);
                 if (!res.ok) throw new Error('Network response was not ok');
                 const data = await res.json();
                 setCredits(data.credits);
