@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, getProviders } from "next-auth/react";
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 

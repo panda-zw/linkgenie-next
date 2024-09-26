@@ -24,7 +24,7 @@ function Navbar() {
     const fetchCredits = async () => {
         if (session) {
             try {
-                const res = await fetch(`/api/user/${session.user.id}/`);
+                const res = await fetch(`/api/user/${session.user.email}/`);
                 if (!res.ok) {
                     throw new Error('Network response was not ok');
                 }
