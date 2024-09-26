@@ -23,7 +23,7 @@ const UserSchema = mongoose.Schema(
     posts: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Post", 
+        ref: "Post",
         default: []
       },
     ],

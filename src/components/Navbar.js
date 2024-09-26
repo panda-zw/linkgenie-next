@@ -5,8 +5,6 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotate, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
-import Image from 'next/image';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 function Navbar() {
     const { data: session, status } = useSession();
@@ -63,15 +61,16 @@ function Navbar() {
     const textColor = status === 'authenticated' ? 'text-black' : 'text-white';
 
     return (
-        <div className={`flex flex-wrap justify-between items-center px-14 py-4 font-mulish ${navbarBackground}`}>
-            <div className='flex items-center space-x-1'>
+        <div className={`flex flex-wrap justify-between items-center px-10 py-4 font-mulish ${navbarBackground}`}>
+            <div className='flex items-center space-x-2'>
                 <Link href="/">
-                    <h1 className={`text-xl sm:text-xl md:text-2xl font-mulish font-bold ${logoBackground}`}>
+                    <h1 className={`text-lg sm:text-xl md:text-2xl font-bold ${logoBackground}`}>
                         Linkgenie
                     </h1>
                 </Link>
             </div>
 
+            {/* Responsive button toggle for mobile */}
             {status === 'authenticated' && (
                 <button onClick={toggleMobileNav} className={`sm:hidden ${textColor}`}>
                     <FontAwesomeIcon icon={isMobileNavOpen ? faTimes : faBars} size="lg" />
@@ -117,7 +116,7 @@ function Navbar() {
             )}
 
             {status === 'authenticated' && (
-                <nav className='hidden sm:flex items-center space-x-4 sm:space-x-6 pl-2 sm:pl-5'>
+                <nav className='hidden sm:flex items-center space-x-4 sm:space-x-6'>
                     <Link href="/Generate" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
                         Generate
                     </Link>
@@ -140,40 +139,22 @@ function Navbar() {
                         <div className='relative'>
                             <button
                                 onClick={toggleDropdown}
-                                className='w-10 h-10 sm:w-10 sm:h-10 px-1 py-1 rounded-full ring-2 ring-white bg-green-500 overflow-hidden focus:outline-none'
+                                className='w-10 h-10 sm:w-10 sm:h-10 rounded-full bg-green-500 text-white focus:outline-none'
                             >
-                                <h1 className='text-white'>
-                                    {username.charAt(0).toUpperCase()}
-                                </h1>
+                                {username.charAt(0).toUpperCase()}
                             </button>
-                            <div className={`absolute top-12 right-0 w-36 sm:w-40 bg-gray-800 rounded-lg shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
+                            <div className={`absolute top-12 right-0 bg-gray-800 rounded-lg shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
                                 <button
                                     onClick={handleProfile}
-                                    className={`block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                    disabled={loading}
+                                    className='block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700'
                                 >
-                                    {loading ? (
-                                        <span className='flex items-center justify-center'>
-                                            <FontAwesomeIcon icon={faRotate} className='animate-spin mr-2' />
-                                            Loading...
-                                        </span>
-                                    ) : (
-                                        'Profile'
-                                    )}
+                                    Profile
                                 </button>
                                 <button
                                     onClick={handleSignOut}
-                                    className={`block w-full py-2 px-4 text-left text-white hover:text-red-500 hover:bg-gray-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                    disabled={loading}
+                                    className='block w-full py-2 px-4 text-left text-white hover:text-red-500 hover:bg-gray-700'
                                 >
-                                    {loading ? (
-                                        <span className='flex items-center justify-center'>
-                                            <FontAwesomeIcon icon={faRotate} className='animate-spin mr-2' />
-                                            Loading...
-                                        </span>
-                                    ) : (
-                                        'Sign Out'
-                                    )}
+                                    Sign Out
                                 </button>
                             </div>
                         </div>
@@ -181,14 +162,10 @@ function Navbar() {
                 ) : (
                     <div className='flex space-x-4'>
                         <Link href="/auth/signin">
-                            <button className='w-28 sm:w-28 h-8 sm:h-9 text-sm sm:text-base text-white rounded-lg shadow-lg hover:bg-blue-500 hover:text-white hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
-                                Sign in
-                            </button>
+                            <button className='w-28 h-8 sm:h-9 text-sm sm:text-base text-white bg-blue-600 rounded-lg'>Sign in</button>
                         </Link>
                         <Link href="/auth/signup">
-                            <button className='w-28 sm:w-28 h-8 sm:h-9 text-sm sm:text-base text-black bg-white rounded-lg shadow-lg hover:bg-green-500 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out'>
-                                Sign up
-                            </button>
+                            <button className='w-28 h-8 sm:h-9 text-sm sm:text-base text-black bg-white rounded-lg'>Sign up</button>
                         </Link>
                     </div>
                 )}
