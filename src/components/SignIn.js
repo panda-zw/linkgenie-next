@@ -42,7 +42,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#37558C]">
+    <div className="flex items-center justify-center min-h-screen bg-custom-radial">
       <section className="w-[90%] max-w-[400px] border border-opacity-0 rounded-lg bg-authgray opacity-80 p-6">
         <h1 className="text-lg text-white font-bold text-center">Welcome back to <span className="text-green-500">LinkGenie</span></h1>
         <p className="text-center text-white mt-2">Hello! We are thrilled to have you back</p>
