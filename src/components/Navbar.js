@@ -58,7 +58,7 @@ function Navbar() {
         setIsMobileNavOpen(!isMobileNavOpen);
     };
 
-    const navbarBackground = status === 'authenticated' ? 'bg-white' : 'bg-[#37558C]';
+    const navbarBackground = status === 'authenticated' ? 'bg-white' : '';
     const logoBackground = status === 'authenticated' ? 'text-black' : 'text-gray-200';
     const textColor = status === 'authenticated' ? 'text-black' : 'text-white';
 
