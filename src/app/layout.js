@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
         <title>linkgenie</title>
         <link rel="icon" href="/favicon/favicon.png" type="image/x-icon" />
       </head>
-      <body className="bg-[#37558C]">
+      <body className='bg-custom-radial'>
         <AuthProvider>
           {children}
           <Analytics />

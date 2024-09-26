@@ -8,10 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        'oval-gradient': 'radial-gradient(ellipse 30% 20% at center, var(--tw-gradient-stops))',
-        "gradient-conic":
-          "conic-gradient(from 180deg at 20% 0%, var(--tw-gradient-stops))",
+        'custom-radial': 'radial-gradient(circle, #37558C 0%, #334F82 10%, #0F1726 100%)',
       },
 
       fontFamily: {
@@ -24,7 +21,8 @@ module.exports = {
         "tblack": "#363636",
         "tgray": "#daf1e4",
         "lgray": "#363636",
-        "lbg": "#daf1e4"
+        "lbg": "#daf1e4",
+        "max": "#0f1929",
       }
 
     },
