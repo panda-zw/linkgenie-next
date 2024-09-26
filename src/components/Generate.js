@@ -96,12 +96,12 @@ const Generate = () => {
             const postRes = await fetch(`/api/posts`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ post: data.content, id: session.user.id }),
+                body: JSON.stringify({ post: data.content, id: session.user.email }),
             });
 
             if (!postRes.ok) throw new Error('Failed to save post.');
 
-            const creditRes = await fetch(`/api/deduct-credits/${session.user.id}`, {
+            const creditRes = await fetch(`/api/deduct-credits/${session.user.email}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ postCount }),
