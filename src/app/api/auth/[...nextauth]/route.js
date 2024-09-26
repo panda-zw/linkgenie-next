@@ -41,7 +41,6 @@ export const authOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         }),
     ],
-
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
@@ -65,13 +64,34 @@ export const authOptions = {
             return baseUrl;
         },
     },
-
     pages: {
         signIn: '/SignIn',
         signUp: '/SignUp'
     },
     secret: process.env.NEXTAUTH_SECRET,
-}
+
+    async signIn(account, profile) {
+        if (account.provider === "google") {
+            try {
+                await connectDB();
+                const existingUser = await User.findOne({ email: profile.email });
+                if (!existingUser) {
+                    await User.create({
+                        username: profile.name,
+                        email: profile.email,
+                        password: null,
+                        credits: 5,
+                    });
+                }
+            } catch (error) {
+                console.error("Error signing in with Google:", error);
+                return false;
+            }
+        }
+        return true;
+    },
+
+};
 
 const handler = NextAuth(authOptions);
 

@@ -61,7 +61,7 @@ export default function SignUp() {
                 <h1 className="text-lg text-white font-bold text-center">Welcome to <span className="text-green-500">LinkGenie</span></h1>
                 <p className="text-center text-white mt-2">We are thrilled to have you onboard</p>
 
-                {/* <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center">
                     <button
                         onClick={handleGoogleSignIn}
                         className="w-full px-3 py-2 text-sm text-white bg-green-500 border rounded-lg hover:bg-green-400 flex items-center justify-center"
@@ -80,7 +80,7 @@ export default function SignUp() {
                             </>
                         )}
                     </button>
-                </div> */}
+                </div>
 
                 {/* <div className="flex items-center justify-center mt-3">
                     <button
