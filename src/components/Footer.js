@@ -6,7 +6,7 @@ import Image from 'next/image';
 function Footer() {
     return (
         <div>
-            <footer className='py-10 md:py-20 text-white bg-[#37558C]'>
+            <footer className='py-10 md:py-20 text-white bg-custom-radial'>
 
 
                 <div className='flex items-center justify-center flex-col'>
