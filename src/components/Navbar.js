@@ -66,7 +66,7 @@ function Navbar() {
         <div className={`flex flex-wrap justify-between items-center px-14 py-4 font-mulish ${navbarBackground}`}>
             <div className='flex items-center space-x-1'>
                 <Link href="/">
-                    <h1 className={`text-xl sm:text-xl md:text-2xl font-black ${logoBackground}`}>
+                    <h1 className={`text-xl sm:text-xl md:text-2xl font-mulish font-bold ${logoBackground}`}>
                         Linkgenie
                     </h1>
                 </Link>
