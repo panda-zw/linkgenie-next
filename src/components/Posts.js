@@ -34,7 +34,6 @@ function Posts() {
     const fetchPosts = async () => {
       if (session) {
         try {
-          // Update the fetch URL to use query parameters
           const res = await fetch(`/api/posts?id=${session.user.id}`);
           if (!res.ok) {
             throw new Error('Network response was not ok');

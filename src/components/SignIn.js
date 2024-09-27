@@ -74,11 +74,6 @@ export default function SignIn() {
           </div>
 
 
-
-          <div className="text-center my-3">
-            <p className="text-white text-sm">or</p>
-          </div>
-
           <div className="flex flex-col">
             <label htmlFor="email" className="text-white text-sm">Email address<span className="text-red-500">*</span></label>
             <input

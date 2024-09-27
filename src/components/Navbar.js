@@ -140,9 +140,13 @@ function Navbar() {
                         <div className='relative'>
                             <button
                                 onClick={toggleDropdown}
-                                className='w-10 h-10 sm:w-10 sm:h-10 rounded-full bg-green-500 text-white focus:outline-none'
+                                className="w-10 h-10 sm:w-10 sm:h-10 rounded-full bg-green-500 text-white focus:outline-none"
                             >
-                                {email.charAt(0).toUpperCase()}
+                                {session?.user?.email ? (
+                                    session.user.email.charAt(0).toUpperCase()
+                                ) : (
+                                    "?"
+                                )}
                             </button>
                             <div className={`absolute top-12 right-0 bg-gray-800 rounded-lg shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
                                 <button
