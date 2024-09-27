@@ -8,7 +8,9 @@ export async function POST(req, params) {
         await connectDB();
         console.log("user id: ", params.params.id);
 
-        const user = await User.findById(params.params.id);
+        
+
+        const user = await User.findOne({ email: params.params.id });
 
 
         if (!user) {

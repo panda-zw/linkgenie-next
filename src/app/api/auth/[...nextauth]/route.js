@@ -43,6 +43,45 @@ export const authOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ account, profile, user, credentials }) {
+      console.log("provider: ", account.provider);
+      
+      if (account.provider === "google") {
+        try {
+          await connectDB();
+          const user_exists = await User.findOne({ email: profile.email });
+  
+          if (!user_exists) {
+            console.log("user not found, signing up with google auth");
+            const new_user = await User.create({
+              username: profile.name.replace(" ", "").toLowerCase(),
+              email: profile.email,
+              password: 'null', // or a placeholder since you're not storing passwords for Google users
+              credits: 5,
+            });
+            console.log("user added with google: ", new_user);
+          } else {
+            console.log("user exists from google auth");
+          }
+  
+          return true;
+        } catch (error) {
+          console.log("error signing in with Google: ", error);
+          return false;
+        }
+      } else if (account.provider === "credentials") {
+        console.log("credentials auth");
+        if (user) {
+          console.log("sucessfully logged in withcredentials auth");
+          return true;
+        } else {
+          console.log("Error with credentials login");
+          return false;
+        }
+      }
+  
+      return false;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.username = user.username || null;
@@ -71,37 +110,7 @@ export const authOptions = {
     signUp: "/SignUp",
   },
   secret: process.env.NEXTAUTH_SECRET,
-  async signIn({ account, profile }) {
-    console.log("provider: ", account.provider);
-    console.log("profile: ", profile);
-    console.log("account: ", account);
-    if (account.provider === "google")
-      try {
-        await connectDB();
-        const user_exists = await User.findOne({
-          where: {
-            email: profile.email,
-          },
-        });
-
-        if (!user_exists) {
-          console.log("user not found, signing up with google auth");
-          const new_user = await User.create({
-            username: profile.name.replace(" ", "").toLowerCase(),
-            email: profile.email,
-            password: null,
-            credits: 5,
-          });
-          console.log("user added with google: ", new_user);
-        }else{
-          console.log('user exists from google auth')
-        }
-
-        return true;
-      } catch (error) {
-        console.log("error signing in: ", error);
-      }
-  },
+  
 };
 
 const handler = NextAuth(authOptions);

@@ -48,7 +48,7 @@ export default function SignIn() {
         <p className="text-center text-white mt-2">Hello! We are thrilled to have you back</p>
 
         <form onSubmit={handleSubmit}>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center py-3">
             <button
               onClick={handleGoogleSignIn}
               className="w-full px-3 py-2 text-sm text-white bg-green-500 border rounded-lg hover:bg-green-400 flex items-center justify-center"
@@ -68,30 +68,11 @@ export default function SignIn() {
               )}
             </button>
           </div>
-          {/* <div className="flex items-center justify-center mt-3">
-            <button
-              onClick={handleGoogleSignIn}
-              className="w-full px-3 py-2 text-sm text-white border rounded-lg hover:bg-green-400 flex items-center justify-center"
-              disabled={loading}
-            >
-              {loading ? 'Loading...' : (
-                <>
-                  <Image
-                    src="/social/linkedln.png"
-                    alt="LinkedIn Logo"
-                    width={20}
-                    height={20}
-                    className="mr-2"
-                  />
-                  Sign up with LinkedIn
-                </>
-              )}
-            </button>
+
+          <div className="text-center my-1">
+            <p className="text-white text-sm">or</p>
           </div>
 
-          <div className="text-center my-3">
-            <p className="text-white text-sm">or</p>
-          </div> */}
 
           <div className="flex flex-col">
             <label htmlFor="email" className="text-white text-sm">Email address<span className="text-red-500">*</span></label>

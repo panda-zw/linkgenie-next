@@ -45,15 +45,13 @@ export default function SignUp() {
 
     const handleGoogleSignIn = async () => {
         setLoading(true);
-        await signIn("google", { redirect: true });
-        setLoading(false);
+        const result = await signIn("google", { redirect: true });
+        if (result?.error) {
+            alert("Google sign-in failed");
+            setLoading(false);
+        }
     };
 
-    const handleLinkedInSignIn = async () => {
-        setLoading(true);
-        await signIn("linkedin", { redirect: true });
-        setLoading(false);
-    };
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-custom-radial">
@@ -82,30 +80,11 @@ export default function SignUp() {
                     </button>
                 </div>
 
-                {/* <div className="flex items-center justify-center mt-3">
-                    <button
-                        onClick={handleLinkedInSignIn}
-                        className="w-full px-3 py-2 text-sm text-white border rounded-lg hover:bg-green-400 flex items-center justify-center"
-                        disabled={loading}
-                    >
-                        {loading ? 'Loading...' : (
-                            <>
-                                <Image
-                                    src="/social/linkedln.png"
-                                    alt="LinkedIn Logo"
-                                    width={20}
-                                    height={20}
-                                    className="mr-2"
-                                />
-                                Sign up with LinkedIn
-                            </>
-                        )}
-                    </button>
+
+                <div className="text-center my-1">
+                    <p className="text-white text-sm">or</p>
                 </div>
 
-                <div className="text-center my-2">
-                    <p className="text-white text-sm">or</p>
-                </div> */}
 
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col">

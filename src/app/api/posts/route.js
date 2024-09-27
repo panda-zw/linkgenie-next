@@ -8,7 +8,7 @@ export async function POST(req) {
     await connectDB();
 
     const { post, id } = await req.json();
-    const userExists = await User.findById(id).populate("posts");
+    const userExists = await User.findOne({ email: id }).populate("posts");
 
     if (!userExists) {
       return NextResponse.json(
@@ -16,8 +16,8 @@ export async function POST(req) {
         { status: 404 }
       );
     }
-
-    const newPost = await Post.create({ post, user: id });
+    console.log('saving user post: ', userExists)
+    const newPost = await Post.create({ post, user: userExists._id });
 
     if (!userExists.posts) {
       userExists.posts = [];

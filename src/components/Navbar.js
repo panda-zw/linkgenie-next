@@ -13,6 +13,7 @@ function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [username, setUsername] = useState(session?.user?.username || "");
+    const [email, setEmail] = useState(session?.user?.email || "");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -70,7 +71,7 @@ function Navbar() {
                 </Link>
             </div>
 
-            {/* Responsive button toggle for mobile */}
+
             {status === 'authenticated' && (
                 <button onClick={toggleMobileNav} className={`sm:hidden ${textColor}`}>
                     <FontAwesomeIcon icon={isMobileNavOpen ? faTimes : faBars} size="lg" />
@@ -139,9 +140,13 @@ function Navbar() {
                         <div className='relative'>
                             <button
                                 onClick={toggleDropdown}
-                                className='w-10 h-10 sm:w-10 sm:h-10 rounded-full bg-green-500 text-white focus:outline-none'
+                                className="w-10 h-10 sm:w-10 sm:h-10 rounded-full bg-green-500 text-white focus:outline-none"
                             >
-                                {username.charAt(0).toUpperCase()}
+                                {session?.user?.email ? (
+                                    session.user.email.charAt(0).toUpperCase()
+                                ) : (
+                                    "?"
+                                )}
                             </button>
                             <div className={`absolute top-12 right-0 bg-gray-800 rounded-lg shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
                                 <button
@@ -162,7 +167,7 @@ function Navbar() {
                 ) : (
                     <div className='flex space-x-4'>
                         <Link href="/auth/signin">
-                            <button className='w-28 h-8 sm:h-9 text-sm sm:text-base text-white bg-blue-600 rounded-lg'>Sign in</button>
+                            <button className='w-28 h-8 sm:h-9 text-sm sm:text-base text-white bg-max'>Sign in</button>
                         </Link>
                         <Link href="/auth/signup">
                             <button className='w-28 h-8 sm:h-9 text-sm sm:text-base text-black bg-white rounded-lg'>Sign up</button>
