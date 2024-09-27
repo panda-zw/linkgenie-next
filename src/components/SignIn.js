@@ -48,7 +48,7 @@ export default function SignIn() {
         <p className="text-center text-white mt-2">Hello! We are thrilled to have you back</p>
 
         <form onSubmit={handleSubmit}>
-          <div className="flex items-center justify-center py-3">
+          {/* <div className="flex items-center justify-center py-3">
             <button
               onClick={handleGoogleSignIn}
               className="w-full px-3 py-2 text-sm text-white bg-green-500 border rounded-lg hover:bg-green-400 flex items-center justify-center"
@@ -71,7 +71,7 @@ export default function SignIn() {
 
           <div className="text-center my-1">
             <p className="text-white text-sm">or</p>
-          </div>
+          </div> */}
 
 
           <div className="flex flex-col">
