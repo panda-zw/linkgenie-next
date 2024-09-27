@@ -14,7 +14,7 @@ export default function ClientForm() {
     const [loading, setLoading] = useState(false);
     const [responseData, setResponseData] = useState(null);
 
-    const resultRef = useRef(null); // Reference to the generated project section
+    const resultRef = useRef(null);
 
     const messageContent = `
     Technical Interests: ${technicalInterests}
@@ -40,7 +40,6 @@ export default function ClientForm() {
             setResponseData(newData.content);
             toast.success("Project idea generated successfully!");
 
-            // Scroll to the generated post after a short delay
             setTimeout(() => {
                 resultRef.current?.scrollIntoView({ behavior: "smooth" });
             }, 100);
