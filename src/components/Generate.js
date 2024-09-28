@@ -76,10 +76,11 @@ const Generate = () => {
         LinkedIn Post: Yes
         Start with a bold promise which is the first line.
         The second line should support the first line.
-        then 7-9 paragraphs or lines in the body.
+        then 6-9 paragraphs or lines in the body.
         Keep each item short and punchy.
         End the post with a question.
     `;
+
 
         try {
             const res = await fetch('/api/groq', {
@@ -96,7 +97,7 @@ const Generate = () => {
             const postRes = await fetch(`/api/posts`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ post: data.content, id: session.user.email }),
+                body: JSON.stringify({ post: data.content, id: session.user.email, email: session.user.email }),
             });
 
             if (!postRes.ok) throw new Error('Failed to save post.');
