@@ -108,7 +108,7 @@ function Navbar() {
                                         Loading...
                                     </span>
                                 ) : (
-                                    'Sign Out'
+                                    'Logout'
                                 )}
                             </button>
                         </nav>
