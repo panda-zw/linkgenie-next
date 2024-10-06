@@ -159,7 +159,7 @@ function Navbar() {
                                     onClick={handleSignOut}
                                     className='block w-full py-2 px-4 text-left text-white hover:text-red-500 hover:bg-gray-700'
                                 >
-                                    Sign Out
+                                    Logout
                                 </button>
                             </div>
                         </div>
