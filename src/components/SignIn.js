@@ -74,7 +74,7 @@ export default function SignIn() {
           </div> */}
 
 
-          <div className="flex flex-col">
+          <div className="flex flex-col mt-3">
             <label htmlFor="email" className="text-white text-sm">Email address<span className="text-red-500">*</span></label>
             <input
               type="email"
@@ -83,7 +83,7 @@ export default function SignIn() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
-              className="w-full px-3 py-2 text-sm text-white bg-ingray border border-white rounded-lg focus:outline-none"
+              className="w-full px-3 py-2 text-sm mt-1 text-white bg-ingray border border-white rounded-lg focus:outline-none"
             />
           </div>
 
@@ -96,7 +96,7 @@ export default function SignIn() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-full px-3 py-2 text-sm text-white bg-ingray border border-white rounded-lg focus:outline-none"
+              className="w-full px-3 py-2 mt-1 text-sm text-white bg-ingray border border-white rounded-lg focus:outline-none"
             />
           </div>
 
