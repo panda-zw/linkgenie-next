@@ -248,15 +248,29 @@ const Generate = () => {
 
             </form>
 
-            {response && (
-                <div ref={postRef} className="py-5">
+            <div ref={postRef} className="py-5">
+                {!response && (
+                    <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
+                        <h2 className="text-lg font-mulish font-semibold">
+                            Your post generation here
+                        </h2>
+                        <p className="text-gray-700 py-1">
+                            no content generated yet
+                        </p>
+                    </div>
+                )}
+
+                {response && (
                     <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
                         <h2 className="text-lg font-semibold">Generated Post:</h2>
                         <ReactMarkdown className="text-gray-700">{response}</ReactMarkdown>
-                        <button onClick={handleCopy} className="px-5 mt-2 text-white bg-green-600 hover:bg-green-700 rounded-lg py-2">Copy to Clipboard</button>
+                        <button onClick={handleCopy} className="px-5 mt-2 text-white bg-green-600 hover:bg-green-700 rounded-lg py-2">
+                            Copy to Clipboard
+                        </button>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
+
         </div>
     );
 };
