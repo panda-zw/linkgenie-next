@@ -129,7 +129,9 @@ export default function ClientForm() {
                 </div>
 
                 <div className="flex justify-end mt-5">
-                    <button type='submit' className='px-5 text-white bg-green-600 hover:bg-green-700 rounded-lg py-2'>
+                    <button type='submit'
+                        className="px-5 text-white bg-green-600 hover:bg-green-700 rounded-lg py-2"
+                    >
                         {loading ? 'Generating...' : 'Generate'}
                     </button>
                 </div>
