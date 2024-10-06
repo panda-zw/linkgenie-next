@@ -51,7 +51,7 @@ const PostCard = ({ post, handleDeletion }) => {
                 <button
                     onClick={handlePostDeletion}
                     className="" >
-                    <Image src="/icons/bin.png" alt="Copy" width={20} height={20} className='hover:scale-150 transition duration-300 ease-in-out' />
+                    <Image src="/icons/bin.png" alt="Copy" width={25} height={25} className='hover:scale-150 transition duration-300 ease-in-out' />
                 </button>
             </div>
         </div>

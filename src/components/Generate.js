@@ -242,7 +242,7 @@ const Generate = () => {
                         className="px-5 text-white bg-green-600 hover:bg-green-700 rounded-lg py-2"
                         disabled={loading}
                     >
-                        {loading ? 'Generating...' : 'Generate Post'}
+                        {loading ? 'Generating...' : 'Generate'}
                     </button>
                 </div>
 
