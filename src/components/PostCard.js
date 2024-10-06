@@ -33,7 +33,7 @@ const PostCard = ({ post, handleDeletion }) => {
     return (
 
         <div className="block max-w-sm p-6 bg-white border border-gray-300 rounded-lg mb-14 shadow-md hover:shadow-lg transition-shadow duration-200">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-800">
+            <h5 className="mb-2 text-lg font-mulish font-semibold tracking-tight text-gray-800">
                 <ReactMarkdown>
                     {truncateContent(post.post, 100)}
                 </ReactMarkdown>
@@ -46,12 +46,12 @@ const PostCard = ({ post, handleDeletion }) => {
                     onClick={copyToClipboard}
                     className=""
                 >
-                    <Image src="/icons/copy.png" alt="Copy" width={30} height={30} />
+                    <Image src="/icons/copy.png" alt="Copy" width={30} height={30} className='hover:scale-150 transition ease-in-out duration-300' />
                 </button>
                 <button
                     onClick={handlePostDeletion}
                     className="" >
-                    <Image src="/icons/bin.png" alt="Copy" width={20} height={20} />
+                    <Image src="/icons/bin.png" alt="Copy" width={20} height={20} className='hover:scale-150 transition duration-300 ease-in-out' />
                 </button>
             </div>
         </div>
