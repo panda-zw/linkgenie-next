@@ -57,20 +57,19 @@ function Navbar() {
         setIsMobileNavOpen(!isMobileNavOpen);
     };
 
-    const navbarBackground = status === 'authenticated' ? 'bg-white' : '';
-    const logoBackground = status === 'authenticated' ? 'text-black' : 'text-gray-200';
-    const textColor = status === 'authenticated' ? 'text-black' : 'text-white';
+    const navbarBackground = status === 'authenticated' ? 'bg-white shadow-md' : 'bg-transparent';
+    const logoBackground = status === 'authenticated' ? 'text-gray-800' : 'text-white';
+    const textColor = status === 'authenticated' ? 'text-gray-700' : 'text-white';
 
     return (
-        <div className={`flex flex-wrap justify-between items-center px-10 py-4 font-mulish ${navbarBackground}`}>
+        <div className={`fixed top-0 left-0 right-0 z-50 flex flex-wrap justify-between items-center px-6 sm:px-10 py-4 font-mulish ${navbarBackground} transition-all duration-300`}>
             <div className='flex items-center space-x-2'>
                 <Link href="/">
-                    <h1 className={`text-lg sm:text-xl md:text-2xl font-bold ${logoBackground}`}>
+                    <h1 className={`text-xl sm:text-2xl font-bold ${logoBackground} hover:text-green-500 transition duration-300`}>
                         Linkgenie
                     </h1>
                 </Link>
             </div>
-
 
             {status === 'authenticated' && (
                 <button onClick={toggleMobileNav} className={`sm:hidden ${textColor}`}>
@@ -88,7 +87,7 @@ function Navbar() {
                             <Link href="/Generate" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
                                 Generate
                             </Link>
-                            <Link href="/posts" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
+                            <Link href="/Posts" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
                                 Posts
                             </Link>
                             <Link href="/Community" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
@@ -97,7 +96,7 @@ function Navbar() {
                             <Link href="/Project" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
                                 Project
                             </Link>
-                            <Link href="/audio" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
+                            <Link href="/Audio" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
                                 Audio
                             </Link>
                             <button
@@ -120,33 +119,23 @@ function Navbar() {
             )}
 
             {status === 'authenticated' && (
-                <nav className='hidden sm:flex items-center space-x-4 sm:space-x-6'>
-                    <Link href="/Generate" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
-                        Generate
-                    </Link>
-                    <Link href="/posts" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
-                        Posts
-                    </Link>
-                    <Link href="/Community" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
-                        Community
-                    </Link>
-                    <Link href="/Project" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
-                        Project
-                    </Link>
-                    <Link href="/audio" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
-                        Audio
-                    </Link>
+                <nav className='hidden sm:flex items-center space-x-6'>
+                    {['Generate', 'Posts', 'Community', 'Project', 'Audio'].map((item) => (
+                        <Link key={item} href={`/${item}`} className={`text-sm font-medium ${textColor} hover:text-green-500 transition duration-300`}>
+                            {item}
+                        </Link>
+                    ))}
                 </nav>
             )}
 
-            <div className='flex items-center space-x-2 sm:space-x-4'>
+            <div className='flex items-center space-x-4'>
                 {status === 'authenticated' ? (
                     <>
-                        <span className='text-black'>{credits} Credits</span>
+                        <span className={`text-sm font-medium ${textColor}`}>{credits} Credits</span>
                         <div className='relative'>
                             <button
                                 onClick={toggleDropdown}
-                                className="w-10 h-10 sm:w-10 sm:h-10 rounded-full bg-green-500 text-white focus:outline-none"
+                                className="w-10 h-10 rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white focus:outline-none hover:from-green-500 hover:to-blue-600 transition duration-300"
                             >
                                 {session?.user?.email ? (
                                     session.user.email.charAt(0).toUpperCase()
@@ -154,16 +143,16 @@ function Navbar() {
                                     "?"
                                 )}
                             </button>
-                            <div className={`absolute top-12 right-0 bg-gray-800 rounded-lg shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
+                            <div className={`absolute top-12 right-0 bg-white rounded-lg shadow-xl ${isDropdownOpen ? 'block' : 'hidden'}`}>
                                 <button
                                     onClick={handleProfile}
-                                    className='block w-full py-2 px-4 text-left text-gray-200 hover:text-green-500 hover:bg-gray-700'
+                                    className='block w-full py-2 px-4 text-left text-gray-700 hover:bg-gray-100 transition duration-300'
                                 >
                                     Profile
                                 </button>
                                 <button
                                     onClick={handleSignOut}
-                                    className='block w-full py-2 px-4 text-left text-white hover:text-red-500 hover:bg-gray-700'
+                                    className='block w-full py-2 px-4 text-left text-red-600 hover:bg-gray-100 transition duration-300'
                                 >
                                     Logout
                                 </button>
@@ -173,10 +162,10 @@ function Navbar() {
                 ) : (
                     <div className='flex space-x-4'>
                         <Link href="/auth/signin">
-                            <button className='w-28 h-8 sm:h-9 text-sm sm:text-base text-white bg-max'>Sign in</button>
+                            <button className='px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-full hover:bg-green-600 transition duration-300'>Sign in</button>
                         </Link>
                         <Link href="/auth/signup">
-                            <button className='w-28 h-8 sm:h-9 text-sm sm:text-base text-black bg-white rounded-lg'>Sign up</button>
+                            <button className='px-4 py-2 text-sm font-medium text-green-500 bg-white rounded-full hover:bg-gray-100 transition duration-300'>Sign up</button>
                         </Link>
                     </div>
                 )}
