@@ -63,6 +63,10 @@ function Audio() {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Error transcribing audio. Please try again.',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
             });
         } finally {
             setIsLoading(false);
@@ -80,6 +84,10 @@ function Audio() {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'No file selected',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
             });
             return;
         }
@@ -106,6 +114,10 @@ function Audio() {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Error transcribing audio file. Please try again.',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
             });
         } finally {
             setIsLoading(false);
@@ -131,6 +143,10 @@ function Audio() {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Failed to copy text. Please try again.',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
             });
         });
     };

@@ -22,10 +22,7 @@ export async function POST(req) {
             messages: [
                 {
                     role: "user",
-                    content: [
-                        { type: "text", text: textMessage },
-                        imageUrl ? { type: "image_url", image_url: { url: imageUrl } } : null
-                    ].filter(Boolean)
+                    content: textMessage + (imageUrl ? `\n[Image](${imageUrl})` : "")
                 }
             ],
             model: "llava-v1.5-7b-4096-preview",

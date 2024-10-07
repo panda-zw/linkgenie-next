@@ -2,40 +2,28 @@
 
 import React, { useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function ClientForm() {
+export default function ImageForm() {
     const [imageFile, setImageFile] = useState(null);
-    const [imageUrl, setImageUrl] = useState("");
+    const [textMessage, setTextMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [responseData, setResponseData] = useState(null);
     const resultRef = useRef(null);
 
-    const handleImageUpload = async (e) => {
+    const handleImageUpload = (e) => {
         const file = e.target.files[0];
         if (file) {
             setImageFile(file);
-            const formData = new FormData();
-            formData.append('file', file);
-
-            try {
-                const uploadResponse = await fetch('/api/imagey', {
-                    method: 'POST',
-                    body: formData,
-                });
-
-                const uploadData = await uploadResponse.json();
-                if (uploadResponse.ok) {
-                    setImageUrl(uploadData.url);
-                    toast.success("Image uploaded successfully!");
-                } else {
-                    throw new Error(uploadData.error || "Upload failed");
-                }
-            } catch (error) {
-                console.error("Image upload error:", error);
-                toast.error("Failed to upload image.");
-            }
+            Swal.fire({
+                icon: 'success',
+                title: 'Image selected successfully!',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+            });
         }
     };
 
@@ -44,17 +32,29 @@ export default function ClientForm() {
         setLoading(true);
         setResponseData(null);
 
+        const formData = new FormData();
+        formData.append('textMessage', textMessage);
+        if (imageFile) {
+            formData.append('imageUrl', imageFile);
+        }
+
         try {
-            const res = await fetch('/api/imagey', {
+            const res = await fetch('/api/image', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userMessage: "Your message here", imageUrl, model: "llava-v1.5-7b-4096-preview" }),
+                body: formData,
             });
 
             const newData = await res.json();
             if (res.ok) {
                 setResponseData(newData.content);
-                toast.success("Response generated successfully!");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Response generated successfully!',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                });
 
                 setTimeout(() => {
                     resultRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -64,7 +64,14 @@ export default function ClientForm() {
             }
         } catch (error) {
             console.error("Error:", error);
-            toast.error("Error generating the response.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error generating the response.',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+            });
         } finally {
             setLoading(false);
         }
@@ -72,29 +79,104 @@ export default function ClientForm() {
 
     const handleCopy = () => {
         navigator.clipboard.writeText(responseData || 'No content generated.')
-            .then(() => toast.success('Response copied to clipboard!'))
+            .then(() => Swal.fire({
+                icon: 'success',
+                title: 'Response copied to clipboard!',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+            }))
             .catch(err => console.error('Failed to copy response:', err));
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Let’s help you find a project post.</h2>
+        <div className='min-h-screen px-4 lg:px-10 bg-gray-100 py-20'>
+            <div className="py-10 px-3 font-mulish">
+                <h1 className="text-xl font-semibold">Image Analysis</h1>
+                <p>Upload an image and enter a message for analysis.</p>
+            </div>
 
-            <input type="file" onChange={handleImageUpload} />
-
-            <button type="submit" disabled={loading}>
-                {loading ? 'Generating...' : 'Generate'}
-            </button>
-
-            {!responseData && <p>Your post generation here</p>}
-
-            {responseData && (
-                <div>
-                    <h3>Generated Post:</h3>
-                    <ReactMarkdown>{responseData}</ReactMarkdown>
-                    <button onClick={handleCopy}>Copy to Clipboard</button>
+            <div className='border shadow-lg mx-3.5 px-5 py-2 rounded-lg bg-white'>
+                <h2 className="text-xl text-gray-600 mt-5">Analyze Image</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-5">
+                    <div>
+                        <label htmlFor="uploadImage" className="block mb-2">Upload Image File</label>
+                        <input
+                            id="uploadImage"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageUpload}
+                            className="block w-full text-sm text-gray-500
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-md file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-indigo-50 file:text-indigo-700
+                            hover:file:bg-indigo-100"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="textMessage" className="block mb-2">Enter Message</label>
+                        <textarea
+                            id="textMessage"
+                            value={textMessage}
+                            onChange={(e) => setTextMessage(e.target.value)}
+                            placeholder="Enter your message here..."
+                            rows={4}
+                            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+                        />
+                    </div>
                 </div>
-            )}
-        </form>
+
+                <div className="flex justify-end mt-5">
+                    <button
+                        onClick={handleSubmit}
+                        disabled={loading || (!imageFile && !textMessage)}
+                        className="px-5 text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {loading ? 'Analyzing...' : 'Analyze'}
+                    </button>
+                </div>
+            </div>
+
+            <div className="py-5">
+                {loading && (
+                    <div className="flex items-center justify-center space-x-2 mb-4">
+                        <div className="w-4 h-4 bg-indigo-500 rounded-full animate-pulse"></div>
+                        <div className="w-4 h-4 bg-indigo-500 rounded-full animate-pulse delay-75"></div>
+                        <div className="w-4 h-4 bg-indigo-500 rounded-full animate-pulse delay-150"></div>
+                        <span className="text-indigo-500 font-medium">Analyzing...</span>
+                    </div>
+                )}
+
+                {!responseData && !loading && (
+                    <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
+                        <h2 className="text-lg font-mulish font-semibold">
+                            Your analysis result will appear here
+                        </h2>
+                        <p className="text-gray-700 py-1">
+                            No content analyzed yet
+                        </p>
+                    </div>
+                )}
+
+                {responseData && (
+                    <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
+                        <div className="flex justify-between items-center mb-2">
+                            <h2 className="text-lg font-semibold">Analysis Result:</h2>
+                            <button
+                                onClick={handleCopy}
+                                className="px-5 text-white bg-green-600 hover:bg-green-700 rounded-lg py-2"
+                            >
+                                Copy to Clipboard
+                            </button>
+                        </div>
+                        <div className="text-gray-700 whitespace-pre-wrap">
+                            <ReactMarkdown>{responseData}</ReactMarkdown>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
     );
 }
