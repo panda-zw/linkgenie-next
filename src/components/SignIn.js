@@ -36,7 +36,7 @@ export default function SignIn() {
     <div className="flex items-center justify-center min-h-screen bg-custom-radial">
       <section className="w-[90%] max-w-[400px] border border-opacity-0 rounded-lg bg-authgray opacity-80 p-8">
         <h1 className="text-2xl font-bold text-center mb-2 text-white">Welcome back to <span className="text-green-500">LinkGenie</span></h1>
-        <p className="text-center text-white mb-6">We're thrilled to have you back!</p>
+        <p className="text-center text-white mb-6">We&apos;re thrilled to have you back!</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -85,7 +85,7 @@ export default function SignIn() {
         </form>
 
         <p className="mt-8 text-center text-sm text-white">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link href="/auth/signup" className="underline hover:underline font-semibold">
             Create account
           </Link>
