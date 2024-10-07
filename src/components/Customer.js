@@ -7,12 +7,12 @@ function Customer() {
             <div className='flex flex-col md:flex-row space-x-0 md:space-x-5 mb-24 md:px-32'>
                 <div className='mt-0 md:mt-28' id='1'>
                     <h1 className='font-bold text-2xl text-black'>Customer Stories</h1>
-                    <Image src='/customer/stars.png' width={250} height={250} className='py-5' />
+                    <Image src='/customer/stars.png' alt='Meek' width={250} height={250} className='py-5' />
                     <h1 className='font-mulish text-xl mt-5 w-10/12'>The best AI tool I’ve ever secured.
                         Professional, efficient, and integrates perfectly with everything I want.
                         Highly recommended!</h1>
                     <div className='flex mt-5 space-x-3'>
-                        <Image src='/customer/user.png' width={50} height={50} className='rounded-full' />
+                        <Image src='/customer/user.png' width={50} height={50} alt='Meek' className='rounded-full' />
                         <div className='font-mulish'>
                             <h1 className='font-bold'>Godknows Aresho</h1>
                             <h1 className='font-light'>Software Developer</h1>
