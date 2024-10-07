@@ -97,6 +97,9 @@ function Navbar() {
                             <Link href="/Project" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
                                 Project
                             </Link>
+                            <Link href="/audio" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
+                                Audio
+                            </Link>
                             <button
                                 onClick={handleSignOut}
                                 className={`w-28 h-10 text-sm sm:text-base text-white bg-gradient-to-r from-red-400 to-red-600 rounded-full shadow-lg hover:from-red-500 hover:to-red-700 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -129,6 +132,9 @@ function Navbar() {
                     </Link>
                     <Link href="/Project" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
                         Project
+                    </Link>
+                    <Link href="/audio" className='text-sm sm:text-lg text-gray-800 hover:text-green-500 transition duration-300'>
+                        Audio
                     </Link>
                 </nav>
             )}

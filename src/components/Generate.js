@@ -2,8 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
 import ReactMarkdown from 'react-markdown';
 
 const Generate = () => {
@@ -53,13 +52,21 @@ const Generate = () => {
         setLoading(true);
 
         if (credits < 1) {
-            toast.error("Not enough credits to generate posts.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Not enough credits to generate posts.',
+            });
             setLoading(false);
             return;
         }
 
         if (!userMessage || !topic || !field) {
-            toast.error("Please fill in all required fields.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill in all required fields.',
+            });
             setLoading(false);
             return;
         }
@@ -108,15 +115,32 @@ const Generate = () => {
             const creditData = await creditRes.json();
             if (creditRes.ok) {
                 setCredits(creditData.credits);
-                toast.success(`Post generated! ${postCount} credit(s) deducted.`);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: `Post generated! ${postCount} credit(s) deducted.`,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
                 update();
             } else {
-                toast.error(creditData.message || "Error deducting credits.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: creditData.message || "Error deducting credits.",
+                });
                 if (creditData.message === "Unauthorized") router.push("/auth/signin");
             }
         } catch (error) {
             console.error('Error generating post or deducting credits:', error);
-            toast.error("Failed to generate post.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Failed to generate post.',
+            });
         } finally {
             setLoading(false);
         }
@@ -124,27 +148,45 @@ const Generate = () => {
 
     const handleCopy = () => {
         navigator.clipboard.writeText(response || 'No content generated.')
-            .then(() => toast.success('Post copied to clipboard!'))
-            .catch(err => console.error('Failed to copy post:', err));
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Copied!',
+                    text: 'Post copied to clipboard',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+            })
+            .catch(err => {
+                console.error('Failed to copy post:', err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Failed to copy post.',
+                });
+            });
     };
 
     return (
-        <div className='min-h-screen px-4 lg:px-10 bg-gray-100'>
-            <div className="py-10 px-3 font-mulish">
-                <h1 className=" text-xl font-semibold">Let’s generate your LinkedIn post.</h1>
-                <p>Your results may vary. We are working on fine-tuning results to match your style. Here are some tips to create better posts.</p>
+        <div className='min-h-screen px-2 lg:px-4 bg-gray-100'>
+            <div className="py-4 px-2 font-mulish">
+                <h1 className="text-lg font-semibold">Let's generate your LinkedIn post.</h1>
+                <p className="text-sm">Your results may vary. We are working on fine-tuning results to match your style. Here are some tips to create better posts.</p>
             </div>
 
-            <form onSubmit={handleSubmit} className='border shadow-lg mx-3.5 px-5 py-2 rounded-lg bg-white'>
-                <h1 className="text-xl text-gray-600 mt-5">Generate Post</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-5">
+            <form onSubmit={handleSubmit} className='border shadow-lg mx-2 px-3 py-2 rounded-lg bg-white'>
+                <h1 className="text-lg text-gray-600 mt-2">Generate Post</h1>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 py-3">
                     <div>
                         <label htmlFor="userInput" className="block mb-2">Describe your post</label>
                         <input
                             type="text"
                             value={userMessage}
                             onChange={(e) => setUserMessage(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
                             placeholder="Describe the post you want to generate"
                         />
                     </div>
@@ -153,7 +195,7 @@ const Generate = () => {
                         <select
                             value={writingStyle}
                             onChange={(e) => setWritingStyle(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
                         >
                             <option value="professional">Professional</option>
                             <option value="casual">Casual</option>
@@ -166,7 +208,7 @@ const Generate = () => {
                         <select
                             value={voiceType}
                             onChange={(e) => setVoiceType(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
                         >
                             <option value="authoritative">Authoritative</option>
                             <option value="friendly">Friendly</option>
@@ -178,7 +220,7 @@ const Generate = () => {
                         <select
                             value={postFormat}
                             onChange={(e) => setPostFormat(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
                         >
                             <option value="paragraph">Paragraph</option>
                             <option value="list">List</option>
@@ -190,7 +232,7 @@ const Generate = () => {
                             type="text"
                             value={topic}
                             onChange={(e) => setTopic(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
                             placeholder="Enter the topic"
                         />
                     </div>
@@ -199,7 +241,7 @@ const Generate = () => {
                         <select
                             value={field}
                             onChange={(e) => setField(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
                         >
                             <option value="Tech">Tech</option>
                             <option value="Health">Health</option>
@@ -213,7 +255,7 @@ const Generate = () => {
                         <select
                             value={includeHashtags ? 'yes' : 'no'}
                             onChange={(e) => setIncludeHashtags(e.target.value === 'yes')}
-                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
                         >
                             <option value="yes">Yes</option>
                             <option value="no">No</option>
@@ -224,7 +266,7 @@ const Generate = () => {
                         <select
                             value={postLength}
                             onChange={(e) => setPostLength(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
                         >
                             <option value="short">Short</option>
                             <option value="medium">Medium</option>
@@ -233,41 +275,48 @@ const Generate = () => {
                     </div>
                 </div>
 
-                <div className="flex justify-end mt-5">
+                <div className="flex justify-end mt-3">
                     <button
                         type="submit"
-                        className="px-5 text-white bg-green-600 hover:bg-green-700 rounded-lg py-2"
+                        className="px-4 text-sm text-white bg-green-600 hover:bg-green-700 rounded-lg py-1.5"
                         disabled={loading}
                     >
                         {loading ? 'Generating...' : 'Generate'}
                     </button>
                 </div>
-
             </form>
 
-            <div ref={postRef} className="py-5">
+            {loading && (
+                <div className="flex items-center justify-center space-x-2 mt-2">
+                    <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
+                    <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse delay-75"></div>
+                    <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse delay-150"></div>
+                    <span className="text-green-500 font-medium">Generating post...</span>
+                </div>
+            )}
+
+            <div ref={postRef} className="py-3">
                 {!response && (
-                    <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
-                        <h2 className="text-lg font-mulish font-semibold">
+                    <div className="mt-3 mb-8 p-3 bg-white shadow-lg rounded-lg mx-2">
+                        <h2 className="text-base font-mulish font-semibold">
                             Your post generation here
                         </h2>
-                        <p className="text-gray-700 py-1">
+                        <p className="text-sm text-gray-700 py-1">
                             no content generated yet
                         </p>
                     </div>
                 )}
 
                 {response && (
-                    <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
-                        <h2 className="text-lg font-semibold">Generated Post:</h2>
-                        <ReactMarkdown className="text-gray-700">{response}</ReactMarkdown>
-                        <button onClick={handleCopy} className="px-5 mt-2 text-white bg-green-600 hover:bg-green-700 rounded-lg py-2">
+                    <div className="mt-3 mb-8 p-3 bg-white shadow-lg rounded-lg mx-2">
+                        <h2 className="text-base font-semibold">Generated Post:</h2>
+                        <ReactMarkdown className="text-sm text-gray-700">{response}</ReactMarkdown>
+                        <button onClick={handleCopy} className="px-4 mt-2 text-sm text-white bg-green-600 hover:bg-green-700 rounded-lg py-1.5">
                             Copy to Clipboard
                         </button>
                     </div>
                 )}
             </div>
-
         </div>
     );
 };
