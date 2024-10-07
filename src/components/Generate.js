@@ -182,7 +182,7 @@ const Generate = () => {
     };
 
     return (
-        <div className='min-h-screen px-2 lg:px-4 bg-gray-100'>
+        <div className='min-h-screen px-2 lg:px-4 bg-gray-100 py-20'>
             <div className="py-4 px-2 font-mulish">
                 <h1 className="text-lg font-semibold">Let's generate your LinkedIn post.</h1>
                 <p className="text-sm">Your results may vary. We are working on fine-tuning results to match your style. Here are some tips to create better posts.</p>

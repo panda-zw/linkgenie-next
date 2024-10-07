@@ -136,7 +136,7 @@ function Audio() {
     };
 
     return (
-        <div className='min-h-screen px-4 lg:px-10 bg-gray-100'>
+        <div className='min-h-screen px-4 lg:px-10 bg-gray-100 py-20'>
             <div className="py-10 px-3 font-mulish">
                 <h1 className="text-xl font-semibold">Audio Transcription</h1>
                 <p>Record audio or upload an audio file to transcribe.</p>

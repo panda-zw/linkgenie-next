@@ -58,7 +58,7 @@ export default function ClientForm() {
     };
 
     return (
-        <div className='min-h-screen px-2 lg:px-4 bg-gray-100'>
+        <div className='min-h-screen px-2 lg:px-4 bg-gray-100 py-20'>
             <div className="py-4 px-2 font-mulish">
                 <h1 className="text-lg font-semibold">Let’s help you find a project post.</h1>
                 <p>Need an idea for your final year project? Pick one that impresses recruiters and boosts your career.</p>

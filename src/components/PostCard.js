@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 
 const PostCard = ({ post, handleDeletion }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+
     const truncateContent = (content, maxLength) => {
         if (content.length > maxLength) {
             return content.substring(0, maxLength) + '...';
@@ -30,12 +32,18 @@ const PostCard = ({ post, handleDeletion }) => {
         });
     };
 
-    return (
+    const toggleExpand = () => {
+        setIsExpanded(!isExpanded);
+    };
 
-        <div className="block max-w-sm p-6 bg-white border border-gray-300 rounded-lg mb-14 shadow-md hover:shadow-lg transition-shadow duration-200">
+    return (
+        <div
+            className={`block p-6 bg-white border border-gray-300 rounded-lg mb-14 shadow-md hover:shadow-lg transition-shadow duration-200 ${isExpanded ? 'max-w-2xl' : 'max-w-sm'}`}
+            onClick={toggleExpand}
+        >
             <h5 className="mb-2 text-lg font-mulish font-semibold tracking-tight text-gray-800">
                 <ReactMarkdown>
-                    {truncateContent(post.post, 100)}
+                    {isExpanded ? post.post : truncateContent(post.post, 100)}
                 </ReactMarkdown>
             </h5>
             <p className="text-sm text-gray-600">
@@ -43,16 +51,25 @@ const PostCard = ({ post, handleDeletion }) => {
             </p>
             <div className='flex space-x-2 mt-4'>
                 <button
-                    onClick={copyToClipboard}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        copyToClipboard();
+                    }}
                     className=""
                 >
                     <Image src="/icons/copy.png" alt="Copy" width={30} height={30} className='hover:scale-150 transition ease-in-out duration-300' />
                 </button>
-                <button
-                    onClick={handlePostDeletion}
-                    className="" >
-                    <Image src="/icons/bin.png" alt="Copy" width={25} height={25} className='hover:scale-150 transition duration-300 ease-in-out' />
-                </button>
+                {!isExpanded && (
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handlePostDeletion();
+                        }}
+                        className=""
+                    >
+                        <Image src="/icons/bin.png" alt="Delete" width={25} height={25} className='hover:scale-150 transition duration-300 ease-in-out' />
+                    </button>
+                )}
             </div>
         </div>
     );

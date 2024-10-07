@@ -41,63 +41,55 @@ export default function Profile() {
     };
 
     return (
-        <section className="py-10 my-auto dark:bg-gray-900">
-            <div className="lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto flex gap-4">
-                <div className="lg:w-[88%] md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-gray-800/40">
-                    <div>
-                        <h1 className="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl font-sans font-extrabold mb-2 dark:text-white">
-                            Profile
-                        </h1>
-                        <h2 className="text-gray-400 text-sm mb-4 dark:text-gray-400">Update Profile</h2>
-
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="flex flex-col items-center">
-                                <div className="flex flex-col items-center">
-                                    <div className="w-[141px] h-[141px] bg-blue-300/20 rounded-full flex items-center justify-center text-4xl font-bold text-white">
-                                        {username.charAt(0).toUpperCase()}
-                                    </div>
-                                </div>
-
+        <div className='min-h-screen px-2 lg:px-4 bg-gray-200 font-mulish'>
+            <div className="container mx-auto px-4 py-8 mb-20">
+                <h1 className="text-3xl font-bold mb-6 text-gray-800">Profile</h1>
+                <div className="bg-white shadow-md rounded-lg p-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="flex items-center justify-center mb-6">
+                            <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center text-3xl font-bold text-white">
+                                {username.charAt(0).toUpperCase()}
                             </div>
+                        </div>
 
-
-                            <div className="mb-4">
-                                <label htmlFor="username" className="mb-2 dark:text-gray-300">Username</label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-700">Username</label>
                                 <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}
-                                    className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-800"
                                     required />
                             </div>
 
-
-                            <div className="mb-4">
-                                <label htmlFor="email" className="mb-2 dark:text-gray-300">Email</label>
+                            <div>
+                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">Email</label>
                                 <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                                    className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-800"
                                     required />
                             </div>
 
-
-                            <div className="mb-4">
-                                <label htmlFor="password" className="mb-2 dark:text-gray-300">Password</label>
+                            <div>
+                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-700">New Password</label>
                                 <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                                    className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-white text-gray-800"
                                     placeholder="Enter new password (optional)" />
                             </div>
 
-                            <div className="mb-6">
-                                <label htmlFor="confirm_password" className="mb-2 dark:text-gray-300">Confirm Password</label>
+                            <div>
+                                <label htmlFor="confirm_password" className="block mb-2 text-sm font-medium text-gray-700">Confirm New Password</label>
                                 <input type="password" id="confirm_password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                                    className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-white text-gray-800"
                                     placeholder="Confirm new password" />
                             </div>
+                        </div>
 
-                            <div className="w-full rounded-lg bg-green-500 mt-4 text-white text-lg font-semibold">
-                                <button type="submit" className="w-full p-4">Update Profile</button>
-                            </div>
-                        </form>
-                    </div>
+                        <div>
+                            <button type="submit" className="w-full bg-green-500 mb-10 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition duration-200">
+                                Update Profile
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </section>
+        </div>
     );
 }
