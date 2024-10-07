@@ -19,6 +19,10 @@ const Generate = () => {
     const [includeHashtags, setIncludeHashtags] = useState(false);
     const [postLength, setPostLength] = useState('medium');
     const [credits, setCredits] = useState(0);
+    const [hookType, setHookType] = useState('question');
+    const [includeStatistics, setIncludeStatistics] = useState(true);
+    const [callToAction, setCallToAction] = useState('ask_question');
+    const [emotionalTone, setEmotionalTone] = useState('inspiring');
     const { data: session, update } = useSession();
     const router = useRouter();
 
@@ -80,9 +84,16 @@ const Generate = () => {
         Post Length: ${postLength}
         Post Format: ${postFormat}
         Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
+        Hook Type: ${hookType}
+        Include Statistics: ${includeStatistics ? 'Yes' : 'No'}
+        Call to Action: ${callToAction}
+        Emotional Tone: ${emotionalTone}
         LinkedIn Post: Yes
-        Start with a bold promise which is the first line.
-        End the post with a question.
+        Start with a powerful hook based on the selected hook type.
+        Include relevant statistics or data points if applicable.
+        Use short paragraphs and line breaks for readability.
+        End with a strong call to action based on the selected type.
+        Optimize for maximum engagement and virality.
     `;
 
 
@@ -178,7 +189,7 @@ const Generate = () => {
             </div>
 
             <form onSubmit={handleSubmit} className='border shadow-lg mx-2 px-3 py-2 rounded-lg bg-white'>
-                <h1 className="text-lg text-gray-600 mt-2">Generate Post</h1>
+                <h1 className="text-lg text-gray-600 mt-2">Generate Viral LinkedIn Post</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 py-3">
                     <div>
                         <label htmlFor="userInput" className="block mb-2">Describe your post</label>
@@ -271,6 +282,56 @@ const Generate = () => {
                             <option value="short">Short</option>
                             <option value="medium">Medium</option>
                             <option value="long">Long</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="hookType" className="block mb-2">Hook Type</label>
+                        <select
+                            value={hookType}
+                            onChange={(e) => setHookType(e.target.value)}
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                        >
+                            <option value="question">Question</option>
+                            <option value="statistic">Surprising Statistic</option>
+                            <option value="story">Personal Story</option>
+                            <option value="controversial">Controversial Statement</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="includeStatistics" className="block mb-2">Include Statistics</label>
+                        <select
+                            value={includeStatistics ? 'yes' : 'no'}
+                            onChange={(e) => setIncludeStatistics(e.target.value === 'yes')}
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                        >
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="callToAction" className="block mb-2">Call to Action</label>
+                        <select
+                            value={callToAction}
+                            onChange={(e) => setCallToAction(e.target.value)}
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                        >
+                            <option value="ask_question">Ask a Question</option>
+                            <option value="share_experience">Share Experience</option>
+                            <option value="request_opinion">Request Opinion</option>
+                            <option value="challenge_audience">Challenge Audience</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="emotionalTone" className="block mb-2">Emotional Tone</label>
+                        <select
+                            value={emotionalTone}
+                            onChange={(e) => setEmotionalTone(e.target.value)}
+                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                        >
+                            <option value="inspiring">Inspiring</option>
+                            <option value="thought_provoking">Thought-provoking</option>
+                            <option value="surprising">Surprising</option>
+                            <option value="empowering">Empowering</option>
                         </select>
                     </div>
                 </div>
