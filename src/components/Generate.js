@@ -75,9 +75,6 @@ const Generate = () => {
         Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
         LinkedIn Post: Yes
         Start with a bold promise which is the first line.
-        The second line should support the first line.
-        then 6-9 paragraphs or lines in the body.
-        Keep each item short and punchy.
         End the post with a question.
     `;
 
