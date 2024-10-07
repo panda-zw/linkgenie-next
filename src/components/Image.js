@@ -1,16 +1,43 @@
 "use client";
+
 import React, { useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function ClientForm() {
-    const [textMessage, setTextMessage] = useState("");
     const [imageFile, setImageFile] = useState(null);
+    const [imageUrl, setImageUrl] = useState("");
     const [loading, setLoading] = useState(false);
     const [responseData, setResponseData] = useState(null);
-
     const resultRef = useRef(null);
+
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImageFile(file);
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const uploadResponse = await fetch('/api/imagey', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const uploadData = await uploadResponse.json();
+                if (uploadResponse.ok) {
+                    setImageUrl(uploadData.url);
+                    toast.success("Image uploaded successfully!");
+                } else {
+                    throw new Error(uploadData.error || "Upload failed");
+                }
+            } catch (error) {
+                console.error("Image upload error:", error);
+                toast.error("Failed to upload image.");
+            }
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,25 +45,23 @@ export default function ClientForm() {
         setResponseData(null);
 
         try {
-            const formData = new FormData();
-            formData.append("textMessage", textMessage);
-            if (imageFile) {
-                formData.append("imageUrl", imageFile);
-            }
-
-
-            const res = await fetch('/api/image', {
+            const res = await fetch('/api/imagey', {
                 method: 'POST',
-                body: formData,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userMessage: "Your message here", imageUrl, model: "llava-v1.5-7b-4096-preview" }),
             });
 
             const newData = await res.json();
-            setResponseData(newData.content);
-            toast.success("Response generated successfully!");
+            if (res.ok) {
+                setResponseData(newData.content);
+                toast.success("Response generated successfully!");
 
-            setTimeout(() => {
-                resultRef.current?.scrollIntoView({ behavior: "smooth" });
-            }, 100);
+                setTimeout(() => {
+                    resultRef.current?.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+            } else {
+                throw new Error(newData.error || "Response generation failed");
+            }
         } catch (error) {
             console.error("Error:", error);
             toast.error("Error generating the response.");
@@ -52,55 +77,24 @@ export default function ClientForm() {
     };
 
     return (
-        <div className='min-h-screen px-4 lg:px-10 bg-gray-900'>
-            <div className='mt-5 max-w-full lg:max-w-3xl mx-auto'>
-                <h1 className='text-3xl lg:text-5xl text-gray-200 text-center lg:text-left'>Text and Image Query</h1>
-                <p className='mt-5 text-gray-200 text-center lg:text-left text-lg'>
-                    Submit a text message and upload an image to get a response.
-                </p>
+        <form onSubmit={handleSubmit}>
+            <h2>Let’s help you find a project post.</h2>
 
-                <form onSubmit={handleSubmit} className='mt-5 space-y-3 lg:space-y-8'>
-                    <div>
-                        <textarea
-                            value={textMessage}
-                            onChange={(e) => setTextMessage(e.target.value)}
-                            className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
-                            placeholder="Enter your message"
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => setImageFile(e.target.files[0])}  // Capture the file
-                            className='mt-2 w-full p-3 text-gray-200 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500'
-                        />
-                    </div>
+            <input type="file" onChange={handleImageUpload} />
 
-                    <button type='submit' className='mt-5 w-full py-3 bg-green-500 text-white text-lg lg:text-xl rounded hover:bg-green-600 transition'>
-                        Submit
-                    </button>
-                </form>
+            <button type="submit" disabled={loading}>
+                {loading ? 'Generating...' : 'Generate'}
+            </button>
 
-                <div className='mt-10'>
-                    {loading ? (
-                        <div className='flex justify-center items-center'>
-                            <p className='text-gray-200 text-lg'>Loading...</p>
-                        </div>
-                    ) : (
-                        <div ref={resultRef} className='p-4 bg-gray-800 rounded-lg shadow-lg'>
-                            <h2 className='text-xl text-gray-300 mb-2'>Generated Response:</h2>
-                            <ReactMarkdown className='text-gray-200'>{responseData || "No content generated."}</ReactMarkdown>
-                            <button
-                                onClick={handleCopy}
-                                className='mt-4 py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition'
-                            >
-                                Copy Response
-                            </button>
-                        </div>
-                    )}
+            {!responseData && <p>Your post generation here</p>}
+
+            {responseData && (
+                <div>
+                    <h3>Generated Post:</h3>
+                    <ReactMarkdown>{responseData}</ReactMarkdown>
+                    <button onClick={handleCopy}>Copy to Clipboard</button>
                 </div>
-            </div>
-        </div>
+            )}
+        </form>
     );
 }
