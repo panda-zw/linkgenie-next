@@ -41,7 +41,7 @@
     "react-toastify": "^10.0.5",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
-    "sweetalert2": "^11.13.3",
+    "sweetalert2": "^11.14.1",
     "sweetalert2-react-content": "^5.0.7",
     "toast": "^0.5.4"
   },
