@@ -187,7 +187,7 @@ function Audio() {
                     </div>
                 </div>
 
-                <div className="flex justify-end mt-5">
+                <div className="flex justify-end mt-5 mb-5">
                     <button
                         onClick={handleFileUpload}
                         disabled={!selectedFile || isLoading}
@@ -209,7 +209,7 @@ function Audio() {
                 )}
 
                 {!transcription && !isLoading && (
-                    <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
+                    <div className="mt-5 mb-16 p-7 bg-white shadow-lg rounded-lg mx-3.5">
                         <h2 className="text-lg font-mulish font-semibold">
                             Your transcription will appear here
                         </h2>

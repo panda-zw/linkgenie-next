@@ -124,7 +124,7 @@ export default function ImageForm() {
                             onChange={(e) => setTextMessage(e.target.value)}
                             placeholder="Enter your message here..."
                             rows={4}
-                            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+                            className="w-full px-3 py-2 text-gray-700 border-2 border-gray-500 rounded-lg focus:outline-none focus:border-indigo-500"
                         />
                     </div>
                 </div>
@@ -151,7 +151,7 @@ export default function ImageForm() {
                 )}
 
                 {!responseData && !loading && (
-                    <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
+                    <div className="mt-5 mb-16 p-7 bg-white shadow-lg rounded-lg mx-3.5">
                         <h2 className="text-lg font-mulish font-semibold">
                             Your analysis result will appear here
                         </h2>
