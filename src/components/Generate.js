@@ -358,7 +358,7 @@ const Generate = () => {
 
             <div ref={postRef} className="py-3">
                 {!response && (
-                    <div className="mt-3 mb-8 p-3 bg-white shadow-lg rounded-lg mx-2">
+                    <div className="mt-3 mb-8 p-7 bg-white shadow-lg rounded-lg mx-2">
                         <h2 className="text-base font-mulish font-semibold">
                             Your post generation here
                         </h2>
