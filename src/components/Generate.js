@@ -76,26 +76,47 @@ const Generate = () => {
         }
 
         const messageContent = `
-            Generate a LinkedIn post following this structure:
-            1. Start with a positive hook about a popular subject related to: ${topic}
-            2. Introduce a bold opinion in the rehook.
-            3. Flip the script in the body of the post, providing a unique perspective.
-            4. End with a basic call to action for reach.
+            Generate a highly engaging and viral LinkedIn post using this structure:
+
+            1. Hook: Start with a powerful, attention-grabbing statement or question related to: ${topic}
+            2. Intrigue: Follow up with a surprising fact or bold claim that challenges conventional wisdom
+            3. Personal angle: Share a brief, relatable personal story or insight
+            4. Value: Provide actionable advice or a unique perspective that adds immediate value to the reader
+            5. Engagement: End with a thought-provoking question or call-to-action that encourages comments and shares
+
+            Key principles for viral content:
+            • Be controversial (but not offensive)
+            • Use simple language and short sentences
+            • Create "aha" moments that make people want to share
+            • Tap into current trends or timely issues
+            • Use power words that evoke emotion
+            • Break up text with emojis and line breaks for easy scanning
+            • Start each line with a capital letter for better readability
+       
+            
 
             Additional details:
-            ${userMessage}
+            Topic: ${topic}
             Writing Style: ${writingStyle}
             Voice Type: ${voiceType}
             Field: ${field}
             Post Length: ${postLength}
             Post Format: ${postFormat}
-            Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
+            Include Hashtags: ${includeHashtags ? 'Yes (use 3-5 relevant, trending hashtags)' : 'No'}
             Emotional Tone: ${emotionalTone}
 
-            Use short paragraphs and line breaks for readability.
-            Optimize for maximum engagement and virality on LinkedIn.
-            
-            Important: Do not use asterisks (**) for bold text. Instead, use plain text for emphasis.
+            Incorporate these elements for maximum engagement:
+            • Use numbers or statistics to add credibility
+            • Include a counterintuitive insight or "pattern interrupt"
+            • Add a touch of humor or wit where appropriate
+            • Create a sense of urgency or FOMO (fear of missing out)
+            • Use the "Before vs. After" or "Problem vs. Solution" framework
+            • Leverage the power of storytelling to make your point memorable
+            • No emojis
+
+            Remember: The goal is to stop the scroll, spark curiosity, and compel action. Every word should serve a purpose in achieving virality and engagement.
+
+            Important: Do not use asterisks (**) for emphasis. Instead, use ALL CAPS sparingly for key points or use 👉 emoji to draw attention to important ideas.
         `;
 
         try {
