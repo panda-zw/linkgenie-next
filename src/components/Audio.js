@@ -187,13 +187,18 @@ function Audio() {
                     </div>
                 </div>
 
-                <div className="flex justify-end mt-5 mb-5">
+                <div className="flex justify-end mt-3">
                     <button
                         onClick={handleFileUpload}
                         disabled={!selectedFile || isLoading}
-                        className="px-5 text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex items-center rounded-md border border-slate-300 py-2 px-4 mb-3 mx-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-green-500 hover:border-green-500 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     >
                         {isLoading ? 'Transcribing...' : 'Transcribe'}
+                        {!isLoading && (
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 ml-1.5">
+                                <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
+                            </svg>
+                        )}
                     </button>
                 </div>
             </div>

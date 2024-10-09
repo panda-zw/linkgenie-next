@@ -26,7 +26,7 @@ const Generate = () => {
     const { data: session, update } = useSession();
     const router = useRouter();
 
-    // Ref to scroll to the generated post
+
     const postRef = useRef(null);
 
     useEffect(() => {
@@ -76,26 +76,27 @@ const Generate = () => {
         }
 
         const messageContent = `
-        ${userMessage}
-        Writing Style: ${writingStyle}
-        Voice Type: ${voiceType}
-        Topic: ${topic}
-        Field: ${field}
-        Post Length: ${postLength}
-        Post Format: ${postFormat}
-        Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
-        Hook Type: ${hookType}
-        Include Statistics: ${includeStatistics ? 'Yes' : 'No'}
-        Call to Action: ${callToAction}
-        Emotional Tone: ${emotionalTone}
-        LinkedIn Post: Yes
-        Start with a powerful hook based on the selected hook type.
-        Include relevant statistics or data points if applicable.
-        Use short paragraphs and line breaks for readability.
-        End with a strong call to action based on the selected type.
-        Optimize for maximum engagement and virality.
-    `;
+            Generate a LinkedIn post following this structure:
+            1. Start with a positive hook about a popular subject related to: ${topic}
+            2. Introduce a bold opinion in the rehook.
+            3. Flip the script in the body of the post, providing a unique perspective.
+            4. End with a basic call to action for reach.
 
+            Additional details:
+            ${userMessage}
+            Writing Style: ${writingStyle}
+            Voice Type: ${voiceType}
+            Field: ${field}
+            Post Length: ${postLength}
+            Post Format: ${postFormat}
+            Include Hashtags: ${includeHashtags ? 'Yes' : 'No'}
+            Emotional Tone: ${emotionalTone}
+
+            Use short paragraphs and line breaks for readability.
+            Optimize for maximum engagement and virality on LinkedIn.
+            
+            Important: Do not use asterisks (**) for bold text. Instead, use plain text for emphasis.
+        `;
 
         try {
             const res = await fetch('/api/groq', {
@@ -189,8 +190,8 @@ const Generate = () => {
             </div>
 
             <form onSubmit={handleSubmit} className='border shadow-lg mx-2 px-3 py-2 rounded-lg bg-white'>
-                <h1 className="text-lg text-gray-600 mt-2">Generate Viral LinkedIn Post</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 py-3">
+                <h1 className="text-lg text-gray-600 px-4 mt-2">Generate Viral LinkedIn Post</h1>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 py-3 px-5">
                     <div>
                         <label htmlFor="userInput" className="block mb-2">Describe your post</label>
                         <input
@@ -339,10 +340,15 @@ const Generate = () => {
                 <div className="flex justify-end mt-3">
                     <button
                         type="submit"
-                        className="px-4 text-sm text-white bg-green-600 hover:bg-green-700 rounded-lg py-1.5"
+                        className="flex items-center rounded-md border border-slate-300 py-2 px-4 mb-3 mx-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-green-500 hover:border-green-500 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         disabled={loading}
                     >
                         {loading ? 'Generating...' : 'Generate'}
+                        {!loading && (
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 ml-1.5">
+                                <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
+                            </svg>
+                        )}
                     </button>
                 </div>
             </form>

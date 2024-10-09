@@ -64,8 +64,8 @@ export default function ClientForm() {
                 <p>Need an idea for your final year project? Pick one that impresses recruiters and boosts your career.</p>
             </div>
             <form onSubmit={handleSubmit} className='border shadow-lg mx-2 px-3 py-2 rounded-lg bg-white'>
-                <h1 className="text-lg text-gray-600 mt-2">Generate Project Idea</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 py-3">
+                <h1 className="text-lg text-gray-600 mt-2 px-4">Generate Project Idea</h1>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 py-3 px-5">
                     <div>
                         <label htmlFor="technicalInterests" className="block mb-1 text-sm">Technical Interests</label>
                         <input
@@ -129,11 +129,17 @@ export default function ClientForm() {
                 </div>
 
                 <div className="flex justify-end mt-3">
-                    <button type='submit'
-                        className="px-4 text-sm text-white bg-green-600 hover:bg-green-700 rounded-lg py-1.5"
+                    <button
+                        type="submit"
+                        className="flex items-center rounded-md border border-slate-300 py-2 px-4 mb-3 mx-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-green-500 hover:border-green-500 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         disabled={loading}
                     >
                         {loading ? 'Generating...' : 'Generate'}
+                        {!loading && (
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 ml-1.5">
+                                <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
+                            </svg>
+                        )}
                     </button>
                 </div>
             </form>
