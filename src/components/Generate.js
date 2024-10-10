@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Swal from 'sweetalert2';
 import ReactMarkdown from 'react-markdown';
-
+import Image from "next/image";
 const Generate = () => {
     const [model, setModel] = useState('llama-3.1-70b-versatile');
     const [userMessage, setUserMessage] = useState('');
@@ -92,8 +92,6 @@ const Generate = () => {
             • Use power words that evoke emotion
             • Break up text with emojis and line breaks for easy scanning
             • Start each line with a capital letter for better readability
-       
-            
 
             Additional details:
             Topic: ${topic}
@@ -211,7 +209,6 @@ const Generate = () => {
             </div>
 
             <form onSubmit={handleSubmit} className='border shadow-lg mx-2 px-3 py-2 rounded-lg bg-white'>
-                <h1 className="text-lg text-gray-600 px-4 mt-2">Generate Viral LinkedIn Post</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 py-3 px-5">
                     <div>
                         <label htmlFor="userInput" className="block mb-2">Describe your post</label>
@@ -399,8 +396,14 @@ const Generate = () => {
                     <div className="mt-3 mb-8 p-3 bg-white shadow-lg rounded-lg mx-2">
                         <h2 className="text-base font-semibold">Generated Post:</h2>
                         <ReactMarkdown className="text-sm text-gray-700">{response}</ReactMarkdown>
-                        <button onClick={handleCopy} className="px-4 mt-2 text-sm text-white bg-green-600 hover:bg-green-700 rounded-lg py-1.5">
-                            Copy to Clipboard
+                        <button
+                            onClick={handleCopy}
+                        >
+                            <div className="flex items-center space-x-2 mt-2 cursor-pointer bg-gray-100 hover:bg-gray-200 p-1 px-2 rounded-lg transition ease-in-out duration-300">
+                                <Image src="/icons/copy.png" alt="Copy" width={30} height={30} className='hover:scale-150 transition ease-in-out duration-300' />
+                                <p className="text-sm text-gray-700">Copy to Clipboard</p>
+                            </div>
+
                         </button>
                     </div>
                 )}

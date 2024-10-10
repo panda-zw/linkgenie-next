@@ -162,7 +162,15 @@ export default function ClientForm() {
                         <div className="mt-3 mb-8 p-3 bg-white shadow-lg rounded-lg mx-2">
                             <h2 className="text-base font-semibold">Generated Post:</h2>
                             <ReactMarkdown className="text-sm text-gray-700">{responseData}</ReactMarkdown>
-                            <button onClick={handleCopy} className="px-4 mt-2 text-sm text-white bg-green-600 hover:bg-green-700 rounded-lg py-1.5">Copy to Clipboard</button>
+                            <button
+                                onClick={handleCopy}
+                            >
+                                <div className="flex items-center space-x-2 mt-2 cursor-pointer bg-gray-100 hover:bg-gray-200 p-1 px-2 rounded-lg transition ease-in-out duration-300">
+                                    <Image src="/icons/copy.png" alt="Copy" width={30} height={30} className='hover:scale-150 transition ease-in-out duration-300' />
+                                    <p className="text-sm text-gray-700">Copy to Clipboard</p>
+                                </div>
+
+                            </button>
                         </div>
                     </div>
                 )}
