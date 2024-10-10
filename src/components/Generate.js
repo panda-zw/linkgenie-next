@@ -203,211 +203,212 @@ const Generate = () => {
 
     return (
         <div className='min-h-screen px-2 lg:px-4 bg-gray-100 py-20'>
-            <div className="py-4 px-2 font-mulish">
-                <h1 className="text-lg font-semibold">Let&apos;s generate your LinkedIn post.</h1>
-                <p className="text-sm">Your results may vary. We are working on fine-tuning results to match your style. Here are some tips to create better posts.</p>
-            </div>
-
-            <form onSubmit={handleSubmit} className='border shadow-lg mx-2 px-3 py-2 rounded-lg bg-white'>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 py-3 px-5">
-                    <div>
-                        <label htmlFor="userInput" className="block mb-2">Describe your post</label>
-                        <input
-                            type="text"
-                            value={userMessage}
-                            onChange={(e) => setUserMessage(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            placeholder="Describe the post you want to generate"
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="writingStyle" className="block mb-2">Writing Style</label>
-                        <select
-                            value={writingStyle}
-                            onChange={(e) => setWritingStyle(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                        >
-                            <option value="professional">Professional</option>
-                            <option value="casual">Casual</option>
-                            <option value="persuasive">Persuasive</option>
-                            <option value="informative">Informative</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="voiceType" className="block mb-2">Voice Type</label>
-                        <select
-                            value={voiceType}
-                            onChange={(e) => setVoiceType(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                        >
-                            <option value="authoritative">Authoritative</option>
-                            <option value="friendly">Friendly</option>
-                            <option value="inspirational">Inspirational</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="postFormat" className="block mb-2">Post Format</label>
-                        <select
-                            value={postFormat}
-                            onChange={(e) => setPostFormat(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                        >
-                            <option value="paragraph">Paragraph</option>
-                            <option value="list">List</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="topic" className="block mb-2">Topic</label>
-                        <input
-                            type="text"
-                            value={topic}
-                            onChange={(e) => setTopic(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            placeholder="Enter the topic"
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="field" className="block mb-2">Field</label>
-                        <select
-                            value={field}
-                            onChange={(e) => setField(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                        >
-                            <option value="Tech">Tech</option>
-                            <option value="Health">Health</option>
-                            <option value="Finance">Finance</option>
-                            <option value="Education">Education</option>
-                            <option value="Business">Business</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="includeHashtags" className="block mb-2">Include Hashtags</label>
-                        <select
-                            value={includeHashtags ? 'yes' : 'no'}
-                            onChange={(e) => setIncludeHashtags(e.target.value === 'yes')}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                        >
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="postLength" className="block mb-2">Post Length</label>
-                        <select
-                            value={postLength}
-                            onChange={(e) => setPostLength(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                        >
-                            <option value="short">Short</option>
-                            <option value="medium">Medium</option>
-                            <option value="long">Long</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="hookType" className="block mb-2">Hook Type</label>
-                        <select
-                            value={hookType}
-                            onChange={(e) => setHookType(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                        >
-                            <option value="question">Question</option>
-                            <option value="statistic">Surprising Statistic</option>
-                            <option value="story">Personal Story</option>
-                            <option value="controversial">Controversial Statement</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="includeStatistics" className="block mb-2">Include Statistics</label>
-                        <select
-                            value={includeStatistics ? 'yes' : 'no'}
-                            onChange={(e) => setIncludeStatistics(e.target.value === 'yes')}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                        >
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="callToAction" className="block mb-2">Call to Action</label>
-                        <select
-                            value={callToAction}
-                            onChange={(e) => setCallToAction(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                        >
-                            <option value="ask_question">Ask a Question</option>
-                            <option value="share_experience">Share Experience</option>
-                            <option value="request_opinion">Request Opinion</option>
-                            <option value="challenge_audience">Challenge Audience</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="emotionalTone" className="block mb-2">Emotional Tone</label>
-                        <select
-                            value={emotionalTone}
-                            onChange={(e) => setEmotionalTone(e.target.value)}
-                            className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                        >
-                            <option value="inspiring">Inspiring</option>
-                            <option value="thought_provoking">Thought-provoking</option>
-                            <option value="surprising">Surprising</option>
-                            <option value="empowering">Empowering</option>
-                        </select>
-                    </div>
+            <div className='py-10'>
+                <div className="py-2 px-2 font-mulish">
+                    <h1 className="text-lg font-semibold">Let&apos;s generate your LinkedIn post.</h1>
+                    <p className="text-sm mt-2">Your results may vary. We are working on fine-tuning results to match your style. Here are some tips to create better posts.</p>
                 </div>
 
-                <div className="flex justify-end mt-3">
-                    <button
-                        type="submit"
-                        className="flex items-center rounded-md border border-slate-300 py-2 px-4 mb-3 mx-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-green-500 hover:border-green-500 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                        disabled={loading}
-                    >
-                        {loading ? 'Generating...' : 'Generate'}
-                        {!loading && (
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 ml-1.5">
-                                <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
-                            </svg>
-                        )}
-                    </button>
-                </div>
-            </form>
-
-            {loading && (
-                <div className="flex items-center justify-center space-x-2 mt-2">
-                    <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
-                    <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse delay-75"></div>
-                    <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse delay-150"></div>
-                    <span className="text-green-500 font-medium">Generating post...</span>
-                </div>
-            )}
-
-            <div ref={postRef} className="py-3">
-                {!response && (
-                    <div className="mt-3 mb-8 p-7 bg-white shadow-lg rounded-lg mx-2">
-                        <h2 className="text-base font-mulish font-semibold">
-                            Your post generation here
-                        </h2>
-                        <p className="text-sm text-gray-700 py-1">
-                            no content generated yet
-                        </p>
+                <form onSubmit={handleSubmit} className='border mt-2 shadow-lg mx-2 px-3 py-2 rounded-lg bg-white'>
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 py-2 px-3">
+                        <div className="md:col-span-3 lg:col-span-4">
+                            <label htmlFor="userInput" className="block mb-1 text-sm font-medium">Describe your post</label>
+                            <textarea
+                                id="userInput"
+                                value={userMessage}
+                                onChange={(e) => setUserMessage(e.target.value)}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5"
+                                placeholder="Describe the post you want to generate"
+                                rows="3"
+                            ></textarea>
+                        </div>
+                        <div>
+                            <label htmlFor="writingStyle" className="block mb-1 text-sm font-medium">Writing Style</label>
+                            <select
+                                value={writingStyle}
+                                onChange={(e) => setWritingStyle(e.target.value)}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                            >
+                                <option value="professional">Professional</option>
+                                <option value="casual">Casual</option>
+                                <option value="persuasive">Persuasive</option>
+                                <option value="informative">Informative</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="voiceType" className="block mb-1 text-sm font-medium">Voice Type</label>
+                            <select
+                                value={voiceType}
+                                onChange={(e) => setVoiceType(e.target.value)}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                            >
+                                <option value="authoritative">Authoritative</option>
+                                <option value="friendly">Friendly</option>
+                                <option value="inspirational">Inspirational</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="postFormat" className="block mb-1 text-sm font-medium">Post Format</label>
+                            <select
+                                value={postFormat}
+                                onChange={(e) => setPostFormat(e.target.value)}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                            >
+                                <option value="paragraph">Paragraph</option>
+                                <option value="list">List</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="topic" className="block mb-1 text-sm font-medium">Topic</label>
+                            <input
+                                type="text"
+                                value={topic}
+                                onChange={(e) => setTopic(e.target.value)}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                                placeholder="Enter the topic"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="field" className="block mb-1 text-sm font-medium">Field</label>
+                            <select
+                                value={field}
+                                onChange={(e) => setField(e.target.value)}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                            >
+                                <option value="Tech">Tech</option>
+                                <option value="Health">Health</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Education">Education</option>
+                                <option value="Business">Business</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="includeHashtags" className="block mb-1 text-sm font-medium">Include Hashtags</label>
+                            <select
+                                value={includeHashtags ? 'yes' : 'no'}
+                                onChange={(e) => setIncludeHashtags(e.target.value === 'yes')}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                            >
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="postLength" className="block mb-1 text-sm font-medium">Post Length</label>
+                            <select
+                                value={postLength}
+                                onChange={(e) => setPostLength(e.target.value)}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                            >
+                                <option value="short">Short</option>
+                                <option value="medium">Medium</option>
+                                <option value="long">Long</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="hookType" className="block mb-1 text-sm font-medium">Hook Type</label>
+                            <select
+                                value={hookType}
+                                onChange={(e) => setHookType(e.target.value)}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                            >
+                                <option value="question">Question</option>
+                                <option value="statistic">Surprising Statistic</option>
+                                <option value="story">Personal Story</option>
+                                <option value="controversial">Controversial Statement</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="includeStatistics" className="block mb-1 text-sm font-medium">Include Statistics</label>
+                            <select
+                                value={includeStatistics ? 'yes' : 'no'}
+                                onChange={(e) => setIncludeStatistics(e.target.value === 'yes')}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                            >
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="callToAction" className="block mb-1 text-sm font-medium">Call to Action</label>
+                            <select
+                                value={callToAction}
+                                onChange={(e) => setCallToAction(e.target.value)}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                            >
+                                <option value="ask_question">Ask a Question</option>
+                                <option value="share_experience">Share Experience</option>
+                                <option value="request_opinion">Request Opinion</option>
+                                <option value="challenge_audience">Challenge Audience</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="emotionalTone" className="block mb-1 text-sm font-medium">Emotional Tone</label>
+                            <select
+                                value={emotionalTone}
+                                onChange={(e) => setEmotionalTone(e.target.value)}
+                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
+                            >
+                                <option value="inspiring">Inspiring</option>
+                                <option value="thought_provoking">Thought-provoking</option>
+                                <option value="surprising">Surprising</option>
+                                <option value="empowering">Empowering</option>
+                            </select>
+                        </div>
                     </div>
-                )}
 
-                {response && (
-                    <div className="mt-3 mb-8 p-3 bg-white shadow-lg rounded-lg mx-2">
-                        <h2 className="text-base font-semibold">Generated Post:</h2>
-                        <ReactMarkdown className="text-sm text-gray-700">{response}</ReactMarkdown>
+                    <div className="flex justify-end mt-2">
                         <button
-                            onClick={handleCopy}
+                            type="submit"
+                            className="flex items-center rounded-md border border-slate-300 py-2 px-4 mb-2 mx-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-green-500 hover:border-green-500 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            disabled={loading}
                         >
-                            <div className="flex items-center space-x-2 mt-2 cursor-pointer bg-gray-100 hover:bg-gray-200 p-1 px-2 rounded-lg transition ease-in-out duration-300">
-                                <Image src="/icons/copy.png" alt="Copy" width={30} height={30} className='hover:scale-150 transition ease-in-out duration-300' />
-                                <p className="text-sm text-gray-700">Copy to Clipboard</p>
-                            </div>
-
+                            {loading ? 'Generating...' : 'Generate'}
+                            {!loading && (
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 ml-1.5">
+                                    <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
+                                </svg>
+                            )}
                         </button>
                     </div>
+                </form>
+
+                {loading && (
+                    <div className="flex items-center justify-center space-x-2 mt-2">
+                        <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
+                        <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse delay-75"></div>
+                        <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse delay-150"></div>
+                        <span className="text-green-500 font-medium">Generating post...</span>
+                    </div>
                 )}
+
+                <div ref={postRef} className="py-2">
+                    {!response && (
+                        <div className="mt-2 mb-4 p-4 bg-white shadow-lg rounded-lg mx-2">
+                            <h2 className="text-base font-mulish font-semibold">
+                                Your post generation here
+                            </h2>
+                            <p className="text-sm text-gray-700 py-1">
+                                no content generated yet
+                            </p>
+                        </div>
+                    )}
+
+                    {response && (
+                        <div className="mt-2 mb-4 p-3 bg-white shadow-lg rounded-lg mx-2">
+                            <h2 className="text-base font-semibold">Generated Post:</h2>
+                            <ReactMarkdown className="text-sm text-gray-700">{response}</ReactMarkdown>
+                            <button onClick={handleCopy}>
+                                <div className="flex items-center space-x-2 mt-2 cursor-pointer bg-gray-100 hover:bg-gray-200 p-1 px-2 rounded-lg transition ease-in-out duration-300">
+                                    <Image src="/icons/copy.png" alt="Copy" width={24} height={24} className='hover:scale-150 transition ease-in-out duration-300' />
+                                    <p className="text-sm text-gray-700">Copy to Clipboard</p>
+                                </div>
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
+
         </div>
     );
 };
