@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Image from "next/image";
 
 export default function ClientForm() {
     const [technicalInterests, setTechnicalInterests] = useState("");
