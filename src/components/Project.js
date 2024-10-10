@@ -62,7 +62,7 @@ export default function ClientForm() {
         <div className='min-h-screen px-2 lg:px-4 bg-gray-100 py-20'>
             <div className='py-10'>
                 <div className="py-2 px-2 font-mulish">
-                    <h1 className="text-lg font-semibold">Let's help you find a project post.</h1>
+                    <h1 className="text-lg font-semibold">Let&apos;s help you find a project post.</h1>
                     <p className="text-sm mt-2">Need an idea for your final year project? Pick one that impresses recruiters and boosts your career.</p>
                 </div>
                 <form onSubmit={handleSubmit} className='border shadow-lg mx-2 px-3 mt-2 py-2 rounded-lg bg-white'>

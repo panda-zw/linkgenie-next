@@ -172,7 +172,7 @@ export default function ImageForm() {
                             <h2 className="text-lg font-semibold">Analysis Result:</h2>
                             <button onClick={handleCopy}>
                                 <div className="flex items-center space-x-2 mt-2 cursor-pointer bg-gray-100 hover:bg-gray-200 p-1 px-2 rounded-lg transition ease-in-out duration-300">
-                                    <Image src="/icons/copy.png" alt="Copy" width={24} height={24} className='hover:scale-150 transition ease-in-out duration-300' />
+                                    <Image src="/icons/copy.png" alt="no image found" width={24} height={24} className='hover:scale-150 transition ease-in-out duration-300' />
                                     <p className="text-sm text-gray-700">Copy to Clipboard</p>
                                 </div>
                             </button>
