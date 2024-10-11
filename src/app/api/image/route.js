@@ -1,26 +1,42 @@
-import { NextResponse } from 'next/server';
-import { analyzeImage } from '@/utils/imageAnalysis'; // Implement this function
+import Groq from "groq-sdk";
+import { uploadImage } from '@/lib/uploadImage';
+
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function POST(req) {
+    const formData = await req.formData();
+    const textMessage = formData.get('textMessage');
+    const imageFile = formData.get('imageUrl');
+
+    if (!textMessage && !imageFile) {
+        return new Response(JSON.stringify({ error: 'Text message or image is required' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
+
     try {
-        const formData = await req.formData();
-        const image = formData.get('image');
-        const textMessage = formData.get('textMessage');
+        const imageUrl = imageFile ? await uploadImage(imageFile) : null;
 
-        if (!image) {
-            return NextResponse.json({ error: 'No image uploaded' }, { status: 400 });
-        }
+        const chatCompletion = await groq.chat.completions.create({
+            messages: [
+                {
+                    role: "user",
+                    content: textMessage + (imageUrl ? `\n[Image](${imageUrl})` : "")
+                }
+            ],
+            model: "llava-v1.5-7b-4096-preview",
+        });
 
-        // Convert the image to a buffer
-        const imageBuffer = await image.arrayBuffer();
-        const buffer = Buffer.from(imageBuffer);
-
-        // Analyze the image (implement this function based on your requirements)
-        const analysisResult = await analyzeImage(buffer, textMessage);
-
-        return NextResponse.json({ content: analysisResult });
+        return new Response(JSON.stringify({ content: chatCompletion.choices[0]?.message?.content || "" }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+        });
     } catch (error) {
-        console.error('Error processing image:', error);
-        return NextResponse.json({ error: 'Error processing image' }, { status: 500 });
+        console.error("Error fetching data from GROQ: ", error);
+        return new Response(JSON.stringify({ error: 'Failed to fetch data from GROQ' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 }

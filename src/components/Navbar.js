@@ -99,9 +99,9 @@ function Navbar() {
                             <Link href="/Audio" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
                                 Audio
                             </Link>
-                            <Link href="/Image" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
+                            {/* <Link href="/Image" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
                                 Image
-                            </Link>
+                            </Link> */}
                             <Link href="/Improve" onClick={toggleMobileNav} className='text-xl text-gray-200 hover:text-green-500 transition duration-300'>
                                 Improve
                             </Link>
@@ -126,7 +126,7 @@ function Navbar() {
 
             {status === 'authenticated' && (
                 <nav className='hidden sm:flex items-center space-x-6'>
-                    {['Generate', 'Posts', 'Community', 'Project', 'Audio', 'Image', 'Improve'].map((item) => (
+                    {['Generate', 'Posts', 'Community', 'Project', 'Audio', 'Improve'].map((item) => (
                         <Link key={item} href={`/${item}`} className={`text-sm font-medium ${textColor} hover:text-green-500 transition duration-300`}>
                             {item}
                         </Link>
