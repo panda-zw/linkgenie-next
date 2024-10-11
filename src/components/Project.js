@@ -62,7 +62,7 @@ export default function ClientForm() {
         <div className='min-h-screen px-2 lg:px-4 bg-gray-100 py-20'>
             <div className='py-10'>
                 <div className="py-2 px-2 font-mulish">
-                    <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-800 bg-gray-100 shadow-sm">
+                    <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-800 bg-gray-100">
                         <span className="inline-block pb-2 border-b-4 border-blue-500">
                             Let&apos;s help you find a project.
                         </span>
