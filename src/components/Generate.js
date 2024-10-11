@@ -205,8 +205,11 @@ const Generate = () => {
         <div className='min-h-screen px-2 lg:px-4 bg-gray-100 py-20'>
             <div className='py-10'>
                 <div className="py-2 px-2 font-mulish">
-                    <h1 className="text-lg font-semibold">Let&apos;s generate your LinkedIn post.</h1>
-                    <p className="text-sm mt-2">Your results may vary. We are working on fine-tuning results to match your style. Here are some tips to create better posts.</p>
+                    <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-800 bg-gray-100 shadow-sm">
+                        <span className="inline-block pb-2 border-b-4 border-blue-500">
+                            Let&apos;s generate your LinkedIn post.
+                        </span>
+                    </h1>
                 </div>
 
                 <form onSubmit={handleSubmit} className='border mt-2 shadow-lg mx-2 px-3 py-2 rounded-lg bg-white'>
