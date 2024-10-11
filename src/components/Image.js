@@ -36,7 +36,7 @@ export default function ImageForm() {
         const formData = new FormData();
         formData.append('textMessage', textMessage);
         if (imageFile) {
-            formData.append('imageUrl', imageFile);
+            formData.append('image', imageFile);
         }
 
         try {
@@ -45,24 +45,25 @@ export default function ImageForm() {
                 body: formData,
             });
 
-            const newData = await res.json();
-            if (res.ok) {
-                setResponseData(newData.content);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Response generated successfully!',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                });
-
-                setTimeout(() => {
-                    resultRef.current?.scrollIntoView({ behavior: "smooth" });
-                }, 100);
-            } else {
-                throw new Error(newData.error || "Response generation failed");
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || "Response generation failed");
             }
+
+            const newData = await res.json();
+            setResponseData(newData.content);
+            Swal.fire({
+                icon: 'success',
+                title: 'Response generated successfully!',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+            });
+
+            setTimeout(() => {
+                resultRef.current?.scrollIntoView({ behavior: "smooth" });
+            }, 100);
         } catch (error) {
             console.error("Error:", error);
             Swal.fire({

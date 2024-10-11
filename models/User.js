@@ -16,6 +16,10 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: [false, "Must provide a password."],
     },
+    plan: {
+      type: String,
+      default: "Free"
+    },
     credits: {
       type: Number,
       default: 5,
