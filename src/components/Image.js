@@ -36,7 +36,7 @@ export default function ImageForm() {
         const formData = new FormData();
         formData.append('textMessage', textMessage);
         if (imageFile) {
-            formData.append('image', imageFile);
+            formData.append('image', imageFile); // Pass the image file as-is
         }
 
         try {
@@ -78,6 +78,7 @@ export default function ImageForm() {
             setLoading(false);
         }
     };
+
 
     const handleCopy = () => {
         navigator.clipboard.writeText(responseData || 'No content generated.')
