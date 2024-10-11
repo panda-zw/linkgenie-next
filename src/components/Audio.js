@@ -154,6 +154,13 @@ function Audio() {
 
     return (
         <div className='min-h-screen px-4 lg:px-10 bg-gray-100 py-20'>
+            <div className="py-2 px-2 font-mulish">
+                <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-800 bg-gray-100">
+                    <span className="inline-block pb-2 border-b-4 border-blue-500">
+                        Generate Post from Audio
+                    </span>
+                </h1>
+            </div>
             <div className="py-10 px-3 font-mulish">
                 <h1 className="text-xl font-semibold">Audio Transcription</h1>
                 <p>Record audio or upload an audio file to transcribe.</p>

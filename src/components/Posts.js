@@ -56,12 +56,14 @@ function Posts() {
   );
 
   return (
-    <div>
-      <h1 className="text-3xl mt-10 md:text-3xl lg:text-4xl font-bold text-gray-800 px-6 md:px-12 lg:px-28 py-12 bg-gray-100 shadow-sm">
-        <span className="inline-block pb-2 border-b-4 border-blue-500">
-          All Generated Posts
-        </span>
-      </h1>
+    <div className='min-h-screen px-2 lg:px-4 bg-gray-100 py-20'>
+      <div className="py-10 px-24 font-mulish">
+        <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-800 bg-gray-100">
+          <span className="inline-block pb-2 border-b-4 border-blue-500">
+            All Generated Posts
+          </span>
+        </h1>
+      </div>
       <div className="search-container px-6 md:px-12 lg:px-28 py-8 bg-gray-100">
         <div className="relative max-w-md mx-auto">
           <input
