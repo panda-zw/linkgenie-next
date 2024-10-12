@@ -79,7 +79,7 @@ const Generate = () => {
             Generate a highly engaging and viral LinkedIn post using this structure:
 
             1. Hook: Start with a powerful, attention-grabbing statement or question related to: ${topic}
-            2. Intrigue: Follow up with a surprising fact or bold claim that challenges conventional wisdom supporting the hook
+            2. Intrigue: Follow up with a surprising fact or bold claim that challenges conventional wisdom supporting the hook not more than 1 line
             3. Personal angle: Share a brief, relatable personal story or insight
             4. Value: Provide actionable advice or a unique perspective that adds immediate value to the reader
             5. Engagement: End with a thought-provoking question or call-to-action that encourages comments and shares
