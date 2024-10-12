@@ -8,7 +8,7 @@ const Community = () => {
                 <div className="py-2 px-2 font-mulish">
                     <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-800">
                         <span className="inline-block pb-2 border-b-4 border-blue-500">
-                            Let&apos;s help you find a project.
+                            Be Part of Our Community
                         </span>
                     </h1>
                 </div>
