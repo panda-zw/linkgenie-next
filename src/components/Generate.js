@@ -78,7 +78,16 @@ const Generate = () => {
         const messageContent = `
             Generate a highly engaging and viral LinkedIn post using this structure:
 
-            1. Hook: Start with a powerful, attention-grabbing statement or question related to: ${topic}
+            1. Hook: Craft an irresistible opening line that instantly grabs attention:
+               - Use power words, shocking statistics, or provocative questions
+               - Create a pattern interrupt or challenge a common belief
+               - Spark curiosity or FOMO (fear of missing out)
+               - Make a bold, counterintuitive statement
+               - Start with "Unpopular opinion:" or "Plot twist:"
+               - Use "I quit my job to..." or similar personal stakes
+               - Leverage timely events or trending topics
+               The hook should be directly related to: ${topic}
+
             2. Intrigue: Follow up with a surprising fact or bold claim that challenges conventional wisdom supporting the hook not more than 1 line
             3. Personal angle: Share a brief, relatable personal story or insight
             4. Value: Provide actionable advice or a unique perspective that adds immediate value to the reader
@@ -96,19 +105,16 @@ const Generate = () => {
             • The post must solve a problem
             • Not more than 3 lines in a paragraph 
 
+            Engagement boosters:
+            • Use the "Problem vs. Solution" framework
+            • Leverage storytelling to make your point memorable
+            • Include a "hot take" or unique perspective on a common issue
+            • Use role-play or dialogue to illustrate a point
+            • Add a touch of humor or wit where appropriate
+            • Create a sense of urgency or FOMO (fear of missing out)
+            • No emojis
 
-
-            Additional details:
-            Topic: ${topic}
-            Writing Style: ${writingStyle}
-            Voice Type: ${voiceType}
-            Field: ${field}
-            Post Length: ${postLength}
-            Post Format: ${postFormat}
-            Include Hashtags: ${includeHashtags ? 'Yes (use 3-5 relevant, trending hashtags)' : 'No'}
-            Emotional Tone: ${emotionalTone}
-
-            Incorporate these elements for maximum engagement:
+          Incorporate these elements for maximum engagement:
             • Use numbers or statistics to add credibility
             • Include a counterintuitive insight or "pattern interrupt"
             • Add a touch of humor or wit where appropriate
@@ -120,6 +126,17 @@ const Generate = () => {
             Remember: The goal is to stop the scroll, spark curiosity, and compel action. Every word should serve a purpose in achieving virality and engagement.
 
             Important: Do not use asterisks (**) for emphasis.
+
+            Additional details:
+            Topic: ${topic}
+            Writing Style: ${writingStyle}
+            Voice Type: ${voiceType}
+            Field: ${field}
+            Post Length: ${postLength}
+            Post Format: ${postFormat}
+            Include Hashtags: ${includeHashtags ? 'Yes (use 3-5 relevant, trending hashtags)' : 'No'}
+            Emotional Tone: ${emotionalTone}
+
         `;
 
         try {
