@@ -78,14 +78,17 @@ const Generate = () => {
         const messageContent = `
             Generate a highly engaging and viral LinkedIn post using this structure:
 
-            1. Hook: Craft an irresistible opening line that instantly grabs attention:
-               - Use power words, shocking statistics, or provocative questions
-               - Create a pattern interrupt or challenge a common belief
-               - Spark curiosity or FOMO (fear of missing out)
-               - Make a bold, counterintuitive statement
-               - Start with "Unpopular opinion:" or "Plot twist:"
-               - Use "I quit my job to..." or similar personal stakes
-               - Leverage timely events or trending topics
+            1. Hook: Craft an irresistible opening line that instantly grabs attention. Use one of these proven formats:
+               - Start with a surprising statement or statistic
+               - Use a bold, counterintuitive claim
+               - Begin with "I remember..." or a personal anecdote
+               - Mention a significant achievement or milestone
+               - Ask a thought-provoking question
+               - Use "Today, we celebrate..." for milestones
+               - Start with "The most..." to highlight importance
+               - Use "I've never..." to create intrigue
+               - Begin with a current trend or timely event
+               - Use "Your LinkedIn..." to directly address the audience
                The hook should be directly related to: ${topic}
 
             2. Intrigue: Follow up with a surprising fact or bold claim that challenges conventional wisdom supporting the hook not more than 1 line
