@@ -31,12 +31,17 @@ function Improve() {
 
             "${originalPost}"
 
-            Use this structure:
-            1. Hook: Start with a powerful, attention-grabbing statement or question related to the post's topic
-            2. Intrigue: Follow up with a surprising fact or bold claim that challenges conventional wisdom
-            3. Personal angle: Share a brief, relatable personal story or insight
-            4. Value: Provide actionable advice or a unique perspective that adds immediate value to the reader
-            5. Engagement: End with a thought-provoking question or call-to-action that encourages comments and shares
+            Ensure the post meets these criteria:
+            1. The hook (first line) must be engaging.
+            2. The hook must be educational, entertaining, or scroll-stopping.
+            3. The rehook (second line) must increase reader interest. It's separated by an empty line and no longer than 8 words.
+            4. The post must use a "how-to", "how I", or typical viral post format for engagement.
+            5. The post must be written at a grade 3 or lower reading level.
+            6. The post must be formatted for easy reading with no paragraphs and plenty of space. The hook is one sentence, maximum 8 words.
+            7. The post must include a list.
+            8. The post must end with a call-to-action question.
+            9. The post must convey strong emotion.
+            10. The post must include strong wording.
 
             Key principles for viral content:
             • Be controversial (but not offensive)
