@@ -96,35 +96,27 @@ const Generate = () => {
             4. Value: Provide actionable advice or a unique perspective that adds immediate value to the reader
             5. Engagement: End with a thought-provoking question or call-to-action that encourages comments and shares
 
-            Key principles for viral content:
+            Key principles for viral content and engagement:
             • Be controversial (but not offensive)
             • Use simple language and short sentences
             • Create "aha" moments that make people want to share
             • Tap into current trends or timely issues
             • Use power words that evoke emotion
-            • Break up text with emojis and line breaks for easy scanning
+            • Break up text with line breaks for easy scanning (no emojis)
             • Start each line with a capital letter for better readability
             • Make sure people will be able to relate to the post
             • The post must solve a problem
             • Not more than 3 lines in a paragraph 
-
-            Engagement boosters:
-            • Use the "Problem vs. Solution" framework
+            • Start with "How I" and end with a "how you" moment to build authority
+            • Always use singular noun forms
+            • Use the "Problem vs. Solution" or "Before vs. After" framework
             • Leverage storytelling to make your point memorable
             • Include a "hot take" or unique perspective on a common issue
             • Use role-play or dialogue to illustrate a point
             • Add a touch of humor or wit where appropriate
             • Create a sense of urgency or FOMO (fear of missing out)
-            • No emojis
-
-          Incorporate these elements for maximum engagement:
             • Use numbers or statistics to add credibility
             • Include a counterintuitive insight or "pattern interrupt"
-            • Add a touch of humor or wit where appropriate
-            • Create a sense of urgency or FOMO (fear of missing out)
-            • Use the "Before vs. After" or "Problem vs. Solution" framework
-            • Leverage the power of storytelling to make your point memorable
-            • No emojis
 
             Remember: The goal is to stop the scroll, spark curiosity, and compel action. Every word should serve a purpose in achieving virality and engagement.
 

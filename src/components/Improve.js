@@ -31,9 +31,10 @@ function Improve() {
 
             "${originalPost}"
 
+
             Ensure the post meets these criteria:
             1. The hook (first line) must be engaging.
-            2. The hook must be educational, entertaining, or scroll-stopping.
+            2. The hook must be educational, entertaining, or scroll-stopping .
             3. The rehook (second line) must increase reader interest. It's separated by an empty line and no longer than 8 words.
             4. The post must use a "how-to", "how I", or typical viral post format for engagement.
             5. The post must be written at a grade 3 or lower reading level.
@@ -51,6 +52,9 @@ function Improve() {
             • Use power words that evoke emotion
             • Break up text with line breaks for easy scanning
             • Start each line with a capital letter for better readability
+            • Start with "How I" and end with a "how you" moment. This builds sooo much authority!
+            • Always use singular noun forms
+
 
             Incorporate these elements for maximum engagement:
             • Use numbers or statistics to add credibility
