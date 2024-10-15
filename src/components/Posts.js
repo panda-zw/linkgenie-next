@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import PostCard from './PostCard';
-import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 function Posts() {
   const { data: session } = useSession();
@@ -23,7 +23,12 @@ function Posts() {
       if (!res.ok) {
         throw new Error("Failed to delete");
       } else {
-        toast(`Post deleted successfully`);
+        Swal.fire({
+          icon: 'success',
+          title: 'Post deleted successfully',
+          showConfirmButton: false,
+          timer: 1500
+        });
         setPosts(posts.filter((post) => post.id !== postId))
 
       }
@@ -57,11 +62,9 @@ function Posts() {
 
   return (
     <div className='min-h-screen px-2 lg:px-4 bg-gray-100 py-20'>
-      <div className="py-10 px-24 font-mulish">
-        <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-800 bg-gray-100">
-          <span className="inline-block pb-2 border-b-4 border-blue-500">
-            All Generated Posts
-          </span>
+      <div className="px-24 font-mulish">
+        <h1 className="text-2xl font-extrabold mb-8 mt-16 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          All Generated Posts
         </h1>
       </div>
       <div className="search-container px-6 md:px-12 lg:px-28 py-8 bg-gray-100">

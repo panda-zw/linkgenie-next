@@ -70,8 +70,8 @@ export default function ClientForm() {
 
     return (
         <div className="min-h-screen px-4 py-8 bg-background">
-            <div className="max-w-8xl mx-auto">
-                <h1 className="text-2xl font-bold text-foreground mb-6 mt-16">
+            <div className="max-w-8xl mx-auto px-5">
+                <h1 className="text-2xl font-extrabold mb-8 mt-16 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                     Let&apos;s help you find a project
                 </h1>
 

@@ -299,11 +299,9 @@ const Generate = () => {
     return (
         <div className="min-h-screen px-4 py-8 bg-background">
             <div className="max-w-8xl mx-auto px-5">
-
-                <h1 className="text-2xl font-extrabold mb-8 mt-16 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <h1 className="text-2xl font-extrabold mb-8 mt-16 bg-gradient-to-r from-primary to-green-500 bg-clip-text text-transparent">
                     Generate Your Viral LinkedIn Post
                 </h1>
-
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <Card>
                         <CardHeader className="pb-2">

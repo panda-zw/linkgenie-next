@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
-import Image from 'next/image';
+import Swal from 'sweetalert2';
 import ReactMarkdown from 'react-markdown';
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Button } from "./ui/button";
@@ -19,19 +18,37 @@ const PostCard = ({ post, handleDeletion }) => {
     const handlePostDeletion = async () => {
         try {
             handleDeletion(post._id);
-            toast.success('Post deleted successfully');
+            Swal.fire({
+                icon: 'success',
+                title: 'Post deleted successfully',
+                showConfirmButton: false,
+                timer: 1500
+            });
         } catch (error) {
-            toast.error('Failed to delete post');
-            console.log("Failed to delete:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed to delete post',
+                showConfirmButton: false,
+                timer: 1500
+            });
         }
     };
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(post.post).then(() => {
-            toast.success('Post content copied to clipboard!');
+            Swal.fire({
+                icon: 'success',
+                title: 'Post content copied to clipboard!',
+                showConfirmButton: false,
+                timer: 1500
+            });
         }).catch((error) => {
-            toast.error('Failed to copy post content');
-            console.error('Error copying text: ', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed to copy post content',
+                showConfirmButton: false,
+                timer: 1500
+            });
         });
     };
 
