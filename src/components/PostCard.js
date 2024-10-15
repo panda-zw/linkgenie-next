@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
+import { Card, CardContent, CardFooter } from "./ui/card";
+import { Button } from "./ui/button";
+import { Copy, Trash2 } from "lucide-react";
 
 const PostCard = ({ post, handleDeletion }) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -37,41 +40,45 @@ const PostCard = ({ post, handleDeletion }) => {
     };
 
     return (
-        <div
-            className={`block p-6 bg-white border border-gray-300 rounded-lg mb-14 shadow-md hover:shadow-lg transition-shadow duration-200 ${isExpanded ? 'max-w-2xl' : 'max-w-sm'}`}
+        <Card
+            className={`mb-6 cursor-pointer transition-all duration-200 ${isExpanded ? 'max-w-2xl' : 'max-w-sm'}`}
             onClick={toggleExpand}
         >
-            <h5 className="mb-2 text-lg font-mulish font-semibold tracking-tight text-gray-800">
-                <ReactMarkdown>
-                    {isExpanded ? post.post : truncateContent(post.post, 100)}
-                </ReactMarkdown>
-            </h5>
-            <p className="text-sm text-gray-600">
-                {new Date(post.createdAt).toLocaleDateString()}
-            </p>
-            <div className='flex space-x-2 mt-4'>
-                <button
+            <CardContent className="pt-6">
+                <div className="mb-2 text-lg font-semibold tracking-tight">
+                    <ReactMarkdown>
+                        {isExpanded ? post.post : truncateContent(post.post, 100)}
+                    </ReactMarkdown>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                    {new Date(post.createdAt).toLocaleDateString()}
+                </p>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+                <Button
+                    variant="ghost"
+                    size="icon"
                     onClick={(e) => {
                         e.stopPropagation();
                         copyToClipboard();
                     }}
-                    className=""
                 >
-                    <Image src="/icons/copy.png" alt="Copy" width={30} height={30} className='hover:scale-150 transition ease-in-out duration-300' />
-                </button>
+                    <Copy className="h-4 w-4" />
+                </Button>
                 {!isExpanded && (
-                    <button
+                    <Button
+                        variant="ghost"
+                        size="icon"
                         onClick={(e) => {
                             e.stopPropagation();
                             handlePostDeletion();
                         }}
-                        className=""
                     >
-                        <Image src="/icons/bin.png" alt="Delete" width={25} height={25} className='hover:scale-150 transition duration-300 ease-in-out' />
-                    </button>
+                        <Trash2 className="h-4 w-4" />
+                    </Button>
                 )}
-            </div>
-        </div>
+            </CardFooter>
+        </Card>
     );
 };
 

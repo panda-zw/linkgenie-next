@@ -1,7 +1,11 @@
 "use client"
 import React, { useState, useRef, useCallback } from 'react';
 import Swal from 'sweetalert2';
-import Image from 'next/image';
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Loader2, Mic, MicOff, Upload, Copy } from "lucide-react";
 
 function Audio() {
     const [isRecording, setIsRecording] = useState(false);
@@ -26,6 +30,11 @@ function Audio() {
             setIsRecording(true);
         } catch (error) {
             console.error('Error accessing microphone:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Error accessing microphone',
+            });
         }
     };
 
@@ -58,16 +67,17 @@ function Audio() {
 
             const data = await response.json();
             setTranscription(data.transcription);
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Audio transcribed successfully',
+            });
         } catch (error) {
             console.error('Error transcribing audio:', error);
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Error transcribing audio. Please try again.',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
             });
         } finally {
             setIsLoading(false);
@@ -85,10 +95,6 @@ function Audio() {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'No file selected',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
             });
             return;
         }
@@ -109,16 +115,17 @@ function Audio() {
 
             const data = await response.json();
             setTranscription(data.transcription);
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Audio file transcribed successfully',
+            });
         } catch (error) {
             console.error('Error transcribing audio file:', error);
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Error transcribing audio file. Please try again.',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
             });
         } finally {
             setIsLoading(false);
@@ -127,124 +134,120 @@ function Audio() {
     }, [selectedFile]);
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(transcription).then(() => {
-            Swal.fire({
+        navigator.clipboard.writeText(transcription)
+            .then(() => Swal.fire({
                 icon: 'success',
-                title: 'Copied!',
+                title: 'Success',
                 text: 'Transcription copied to clipboard',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-            });
-        }).catch((err) => {
-            console.error('Failed to copy text: ', err);
-            Swal.fire({
+            }))
+            .catch(() => Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Failed to copy text. Please try again.',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-            });
-        });
+            }));
     };
 
     return (
-        <div className='min-h-screen px-4 lg:px-10 bg-gray-100 py-20'>
-            <div className="py-2 px-2 font-mulish">
-                <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-800 bg-gray-100">
-                    <span className="inline-block pb-2 border-b-4 border-blue-500">
-                        Generate Post from Audio
-                    </span>
+        <div className="min-h-screen px-4 py-8 bg-background">
+            <div className="max-w-8xl mx-auto px-5">
+                <h1 className="text-2xl font-extrabold mb-8 mt-16 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Generate Post from Audio
                 </h1>
-            </div>
-            <div className="py-10 px-3 font-mulish">
-                <h1 className="text-xl font-semibold">Audio Transcription</h1>
-                <p>Record audio or upload an audio file to transcribe.</p>
-            </div>
 
-            <div className='border shadow-lg mx-3.5 px-5 py-2 rounded-lg bg-white'>
-                <h2 className="text-xl text-gray-600 mt-5">Transcribe Audio</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-5">
-                    <div>
-                        <label htmlFor="recordAudio" className="block mb-2">Record Audio</label>
-                        <button
-                            onClick={isRecording ? stopRecording : startRecording}
-                            className={`w-full py-2 px-4 rounded-md text-white font-medium transition duration-300 ${isRecording ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'
-                                }`}
-                        >
-                            {isRecording ? 'Stop Recording' : 'Start Recording'}
-                        </button>
-                    </div>
-                    <div>
-                        <label htmlFor="uploadAudio" className="block mb-2">Upload Audio File</label>
-                        <input
-                            type="file"
-                            accept="audio/*"
-                            onChange={handleFileChange}
-                            className="block w-full text-sm text-gray-500
-                            file:mr-4 file:py-2 file:px-4
-                            file:rounded-md file:border-0
-                            file:text-sm file:font-semibold
-                            file:bg-indigo-50 file:text-indigo-700
-                            hover:file:bg-indigo-100"
-                        />
-                    </div>
-                </div>
+                <Card className="mb-6">
+                    <CardHeader>
+                        <CardTitle>Audio Transcription</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground mb-4">Record audio or upload an audio file to transcribe.</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <Label htmlFor="recordAudio">Record Audio</Label>
+                                <Button
+                                    onClick={isRecording ? stopRecording : startRecording}
+                                    className="w-full mt-2"
+                                    variant={isRecording ? "destructive" : "default"}
+                                >
+                                    {isRecording ? (
+                                        <>
+                                            <MicOff className="mr-2 h-4 w-4" />
+                                            Stop Recording
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Mic className="mr-2 h-4 w-4" />
+                                            Start Recording
+                                        </>
+                                    )}
+                                </Button>
+                            </div>
+                            <div>
+                                <Label htmlFor="uploadAudio">Upload Audio File</Label>
+                                <Input
+                                    id="uploadAudio"
+                                    type="file"
+                                    accept="audio/*"
+                                    onChange={handleFileChange}
+                                    className="mt-2"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex justify-end mt-4">
+                            <Button
+                                onClick={handleFileUpload}
+                                disabled={!selectedFile || isLoading}
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Transcribing...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Upload className="mr-2 h-4 w-4" />
+                                        Transcribe
+                                    </>
+                                )}
+                            </Button>
+                        </div>
+                    </CardContent>
+                </Card>
 
-                <div className="flex justify-end mt-3">
-                    <button
-                        onClick={handleFileUpload}
-                        disabled={!selectedFile || isLoading}
-                        className="flex items-center rounded-md border border-slate-300 py-2 px-4 mb-3 mx-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-green-500 hover:border-green-500 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    >
-                        {isLoading ? 'Transcribing...' : 'Transcribe'}
-                        {!isLoading && (
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 ml-1.5">
-                                <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
-                            </svg>
-                        )}
-                    </button>
-                </div>
-            </div>
-
-            <div className="py-5">
                 {isLoading && (
                     <div className="flex items-center justify-center space-x-2 mb-4">
-                        <div className="w-4 h-4 bg-indigo-500 rounded-full animate-pulse"></div>
-                        <div className="w-4 h-4 bg-indigo-500 rounded-full animate-pulse delay-75"></div>
-                        <div className="w-4 h-4 bg-indigo-500 rounded-full animate-pulse delay-150"></div>
-                        <span className="text-indigo-500 font-medium">Transcribing...</span>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <span className="text-muted-foreground">Transcribing...</span>
                     </div>
                 )}
 
                 {!transcription && !isLoading && (
-                    <div className="mt-5 mb-16 p-7 bg-white shadow-lg rounded-lg mx-3.5">
-                        <h2 className="text-lg font-mulish font-semibold">
-                            Your transcription will appear here
-                        </h2>
-                        <p className="text-gray-700 py-1">
-                            No content transcribed yet
-                        </p>
-                    </div>
+                    <Card>
+                        <CardContent className="pt-6">
+                            <h2 className="text-lg font-semibold mb-2">
+                                Your transcription will appear here
+                            </h2>
+                            <p className="text-muted-foreground">
+                                No content transcribed yet
+                            </p>
+                        </CardContent>
+                    </Card>
                 )}
 
                 {transcription && (
-                    <div className="mt-5 mb-16 p-5 bg-white shadow-lg rounded-lg mx-3.5">
-                        <div className="flex justify-between items-center mb-2">
-                            <h2 className="text-lg font-semibold">Transcription:</h2>
-                            <button onClick={copyToClipboard}>
-                                <div className="flex items-center space-x-2 mt-2 cursor-pointer bg-gray-100 hover:bg-gray-200 p-1 px-2 rounded-lg transition ease-in-out duration-300">
-                                    <Image src="/icons/copy.png" alt="Copy" width={24} height={24} className='hover:scale-150 transition ease-in-out duration-300' />
-                                    <p className="text-sm text-gray-700">Copy to Clipboard</p>
-                                </div>
-                            </button>
-                        </div>
-                        <p className="text-gray-700 whitespace-pre-wrap">{transcription}</p>
-                    </div>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex justify-between items-center">
+                                Transcription
+                                <Button variant="outline" size="sm" onClick={copyToClipboard}>
+                                    <Copy className="mr-2 h-4 w-4" />
+                                    Copy to Clipboard
+                                </Button>
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="whitespace-pre-wrap">{transcription}</p>
+                        </CardContent>
+                    </Card>
                 )}
             </div>
         </div>

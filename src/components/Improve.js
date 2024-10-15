@@ -5,6 +5,11 @@ import { useRouter } from "next/navigation";
 import Swal from 'sweetalert2';
 import ReactMarkdown from 'react-markdown';
 import Image from "next/image";
+import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
+import { Textarea } from "./ui/textarea";
+import { Label } from "./ui/label";
+import { Loader2, Copy } from "lucide-react";
 
 function Improve() {
     const [originalPost, setOriginalPost] = useState('');
@@ -127,56 +132,61 @@ function Improve() {
     };
 
     return (
-        <div className='min-h-screen px-2 lg:px-4 bg-gray-100 py-20'>
-            <div className='py-10'>
-                <div className="py-2 px-2 font-mulish">
-                    <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-800 bg-gray-100">
-                        <span className="inline-block pb-2 border-b-4 border-blue-500">
-                            Improve your LinkedIn post
-                        </span>
-                    </h1>
-                </div>
+        <div className="min-h-screen px-4 py-8 bg-background">
+            <div className="max-w-8xl mx-auto px-5">
+                <h1 className="text-2xl font-extrabold mb-8 mt-16 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Improve your LinkedIn post
+                </h1>
 
-                <div className='border mt-2 shadow-lg mx-2 px-3 py-2 rounded-lg bg-white'>
-                    <textarea
-                        value={originalPost}
-                        onChange={(e) => setOriginalPost(e.target.value)}
-                        className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 mb-4"
-                        placeholder="Paste your original LinkedIn post here..."
-                        rows="5"
-                    ></textarea>
-                    <button
-                        onClick={handleImprove}
-                        className="flex items-center rounded-md border border-slate-300 py-2 px-4 mb-2 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-green-500 hover:border-green-500 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                        disabled={loading}
-                    >
-                        {loading ? 'Improving...' : 'Improve Post'}
-                    </button>
-                </div>
+                <Card>
+                    <CardHeader className="pb-2">
+                        <CardTitle>Original Post</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                        <div>
+                            <Label htmlFor="originalPost" className="text-sm">Paste your original LinkedIn post</Label>
+                            <Textarea
+                                id="originalPost"
+                                value={originalPost}
+                                onChange={(e) => setOriginalPost(e.target.value)}
+                                placeholder="Paste your original LinkedIn post here..."
+                                className="mt-1 h-40"
+                            />
+                        </div>
+                        <Button onClick={handleImprove} disabled={loading}>
+                            {loading ?
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Improving...
+                                </> :
+                                "Improve Post"}
+                        </Button>
+                    </CardContent>
+                </Card>
 
                 {loading && (
-                    <div className="flex items-center justify-center space-x-2 mt-2">
-                        <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
-                        <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse delay-75"></div>
-                        <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse delay-150"></div>
-                        <span className="text-green-500 font-medium">Improving post...</span>
+                    <div className="flex items-center justify-center space-x-2 mt-4">
+                        <div className="w-4 h-4 bg-primary rounded-full animate-pulse"></div>
+                        <div className="w-4 h-4 bg-primary rounded-full animate-pulse delay-75"></div>
+                        <div className="w-4 h-4 bg-primary rounded-full animate-pulse delay-150"></div>
+                        <span className="text-primary font-medium">Improving post...</span>
                     </div>
                 )}
 
-                <div className="mt-2 mb-4 p-3 bg-white shadow-lg rounded-lg mx-2">
-                    <h2 className="text-base font-semibold">Improved Post:</h2>
-                    {improvedPost ? (
-                        <ReactMarkdown className="text-sm text-gray-700">{improvedPost}</ReactMarkdown>
-                    ) : (
-                        <p className="text-sm text-gray-500 italic">Your improved post will appear here after generation.</p>
-                    )}
-                    <button onClick={handleCopy} disabled={!improvedPost}>
-                        <div className={`flex items-center space-x-2 mt-2 cursor-pointer ${improvedPost ? 'bg-gray-100 hover:bg-gray-200' : 'bg-gray-50 cursor-not-allowed'} p-1 px-2 rounded-lg transition ease-in-out duration-300`}>
-                            <Image src="/icons/copy.png" alt="Copy" width={24} height={24} className={`${improvedPost ? 'hover:scale-150' : ''} transition ease-in-out duration-300`} />
-                            <p className="text-sm text-gray-700">Copy to Clipboard</p>
-                        </div>
-                    </button>
-                </div>
+                {improvedPost && (
+                    <Card className="mt-6">
+                        <CardHeader className="pb-2">
+                            <CardTitle>Improved Post</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ReactMarkdown className="prose dark:prose-invert text-sm">{improvedPost}</ReactMarkdown>
+                            <Button onClick={handleCopy} className="mt-4">
+                                <Copy className="mr-2 h-4 w-4" />
+                                Copy to Clipboard
+                            </Button>
+                        </CardContent>
+                    </Card>
+                )}
             </div>
         </div>
     );

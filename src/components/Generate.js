@@ -4,7 +4,16 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Swal from 'sweetalert2';
 import ReactMarkdown from 'react-markdown';
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Loader2, Copy } from "lucide-react";
+
 const Generate = () => {
     const [model, setModel] = useState('llama-3.1-70b-versatile');
     const [userMessage, setUserMessage] = useState('');
@@ -12,17 +21,24 @@ const Generate = () => {
     const [loading, setLoading] = useState(false);
     const [postCount, setPostCount] = useState(1);
     const [writingStyle, setWritingStyle] = useState('professional');
+    const [customWritingStyle, setCustomWritingStyle] = useState("");
     const [voiceType, setVoiceType] = useState('authoritative');
+    const [customVoiceType, setCustomVoiceType] = useState("");
     const [postFormat, setPostFormat] = useState('paragraph');
+
     const [topic, setTopic] = useState('');
     const [field, setField] = useState('Tech');
+    const [customField, setCustomField] = useState("");
     const [includeHashtags, setIncludeHashtags] = useState(false);
-    const [postLength, setPostLength] = useState('medium');
+    const [postLength, setPostLength] = useState(150);
     const [credits, setCredits] = useState(0);
     const [hookType, setHookType] = useState('question');
+    const [customHookType, setCustomHookType] = useState("");
     const [includeStatistics, setIncludeStatistics] = useState(true);
     const [callToAction, setCallToAction] = useState('ask_question');
+    const [customCallToAction, setCustomCallToAction] = useState("");
     const [emotionalTone, setEmotionalTone] = useState('inspiring');
+    const [customEmotionalTone, setCustomEmotionalTone] = useState("");
     const { data: session, update } = useSession();
     const router = useRouter();
 
@@ -78,20 +94,8 @@ const Generate = () => {
         const messageContent = `
             Generate a highly engaging and viral LinkedIn post using this structure:
 
-            1. Hook: Craft an irresistible opening line that instantly grabs attention. Use one of these proven formats:
-               - Start with a surprising statement or statistic
-               - Use a bold, counterintuitive claim
-               - Begin with "I remember..." or a personal anecdote
-               - Mention a significant achievement or milestone
-               - Ask a thought-provoking question
-               - Use "Today, we celebrate..." for milestones
-               - Start with "The most..." to highlight importance
-               - Use "I've never..." to create intrigue
-               - Begin with a current trend or timely event
-               - Use "Your LinkedIn..." to directly address the audience
-               The hook should be directly related to: ${topic}
-
-            2. Intrigue: Follow up with a surprising fact or bold claim that challenges conventional wisdom supporting the hook not more than 1 line
+            1. Hook: ${getHookPrompt()}
+            2. Intrigue: Follow up with a surprising fact or bold claim that challenges conventional wisdom supporting the hook (1 line)
             3. Personal angle: Share a brief, relatable personal story or insight
             4. Value: Provide actionable advice or a unique perspective that adds immediate value to the reader
             5. Engagement: End with a thought-provoking question or call-to-action that encourages comments and shares
@@ -115,23 +119,35 @@ const Generate = () => {
             • Use role-play or dialogue to illustrate a point
             • Add a touch of humor or wit where appropriate
             • Create a sense of urgency or FOMO (fear of missing out)
-            • Use numbers or statistics to add credibility
+            • Use numbers or statistics to add credibility (if includeStatistics is true)
             • Include a counterintuitive insight or "pattern interrupt"
 
             Remember: The goal is to stop the scroll, spark curiosity, and compel action. Every word should serve a purpose in achieving virality and engagement.
 
-            Important: Do not use asterisks (**) for emphasis.
-
             Additional details:
             Topic: ${topic}
-            Writing Style: ${writingStyle}
-            Voice Type: ${voiceType}
-            Field: ${field}
-            Post Length: ${postLength}
+            Writing Style: ${writingStyle === "custom" ? customWritingStyle : writingStyle}
+            Voice Type: ${voiceType === "custom" ? customVoiceType : voiceType}
+            Field: ${field === "custom" ? customField : field}
+            Post Length: ${postLength} words
             Post Format: ${postFormat}
-            Include Hashtags: ${includeHashtags ? 'Yes (use 3-5 relevant, trending hashtags)' : 'No'}
-            Emotional Tone: ${emotionalTone}
+            Include Hashtags: ${includeHashtags ? "Yes (use 3-5 relevant, trending hashtags)" : "No"}
+            Emotional Tone: ${emotionalTone === "custom" ? customEmotionalTone : emotionalTone}
+            Call to Action: ${getCallToActionPrompt()}
 
+            Latest LinkedIn algorithm preferences:
+            • Posts with high dwell time (time spent reading) perform better
+            • Native content (text posts) often outperforms external links
+            • Posts that encourage meaningful conversations and debates are favored
+            • Use of relevant and trending hashtags can increase visibility
+            • Posts that provide value and insights specific to your industry are prioritized
+            • Consistency in posting schedule is rewarded by the algorithm
+            • Posts that tag relevant people or companies (when appropriate) can expand reach
+            • The first hour after posting is crucial for engagement and visibility
+            • Posts with a clear and compelling call-to-action tend to perform better
+            • LinkedIn favors "dwell time" over quick likes, so aim for content that makes people stop and read
+
+            Generate the post now, adhering to these guidelines and the specified structure.
         `;
 
         try {
@@ -218,218 +234,276 @@ const Generate = () => {
             });
     };
 
+    const getHookPrompt = () => {
+        const hooks = {
+            question: "Craft an irresistible opening question that instantly grabs attention",
+            statistic: "Start with a surprising statistic that challenges common assumptions",
+            story: "Begin with a brief, intriguing personal anecdote that relates to the main point",
+            controversial: "Open with a bold, slightly controversial statement to spark interest",
+            storytelling: "Use a storytelling hook that immediately draws the reader in",
+            emotional: "Start with an emotional appeal that resonates with your target audience",
+            authority: "Begin with an authority-establishing statement that showcases your expertise",
+            broad_appeal: "Open with a universally relatable statement or question",
+            curiosity: "Craft a curiosity-inducing opening that leaves readers wanting more",
+            numbers: "Start with a compelling number or statistic that grabs attention",
+            custom: customHookType,
+        };
+        return hooks[hookType] || hooks.question;
+    };
+
+    const getCallToActionPrompt = () => {
+        const ctas = {
+            ask_question: "End with a thought-provoking question that encourages comments",
+            share_experience: "Invite readers to share their own experiences or insights",
+            request_opinion: "Ask for opinions on a specific aspect of the topic",
+            challenge_audience: "Challenge the audience to take a specific action related to the post",
+            custom: customCallToAction,
+        };
+        return ctas[callToAction] || ctas.ask_question;
+    };
+
+    const renderSelectWithCustomOption = (
+        label,
+        value,
+        onChange,
+        options,
+        customValue,
+        setCustomValue
+    ) => (
+        <div>
+            <Label htmlFor={label}>{label}</Label>
+            <Select value={value} onValueChange={onChange}>
+                <SelectTrigger>
+                    <SelectValue placeholder={`Select ${label.toLowerCase()}`} />
+                </SelectTrigger>
+                <SelectContent>
+                    {options.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                        </SelectItem>
+                    ))}
+                    <SelectItem value="custom">Custom</SelectItem>
+                </SelectContent>
+            </Select>
+            {value === "custom" && (
+                <Input
+                    value={customValue}
+                    onChange={(e) => setCustomValue(e.target.value)}
+                    placeholder={`Enter custom ${label.toLowerCase()}`}
+                    className="mt-2"
+                />
+            )}
+        </div>
+    );
+
     return (
-        <div className='min-h-screen px-2 lg:px-4 bg-gray-100 py-20'>
-            <div className='py-10'>
-                <div className="py-2 px-2 font-mulish">
-                    <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-800 bg-gray-100">
-                        <span className="inline-block pb-2 border-b-4 border-blue-500">
-                            Let&apos;s generate your LinkedIn post.
-                        </span>
-                    </h1>
-                </div>
+        <div className="min-h-screen px-4 py-8 bg-background">
+            <div className="max-w-8xl mx-auto px-5">
 
-                <form onSubmit={handleSubmit} className='border mt-2 shadow-lg mx-2 px-3 py-2 rounded-lg bg-white'>
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 py-2 px-3">
-                        <div className="md:col-span-3 lg:col-span-4">
-                            <label htmlFor="userInput" className="block mb-1 text-sm font-medium">Describe your post</label>
-                            <textarea
-                                id="userInput"
-                                value={userMessage}
-                                onChange={(e) => setUserMessage(e.target.value)}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5"
-                                placeholder="Describe the post you want to generate"
-                                rows="3"
-                            ></textarea>
-                        </div>
-                        <div>
-                            <label htmlFor="writingStyle" className="block mb-1 text-sm font-medium">Writing Style</label>
-                            <select
-                                value={writingStyle}
-                                onChange={(e) => setWritingStyle(e.target.value)}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            >
-                                <option value="professional">Professional</option>
-                                <option value="casual">Casual</option>
-                                <option value="persuasive">Persuasive</option>
-                                <option value="informative">Informative</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="voiceType" className="block mb-1 text-sm font-medium">Voice Type</label>
-                            <select
-                                value={voiceType}
-                                onChange={(e) => setVoiceType(e.target.value)}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            >
-                                <option value="authoritative">Authoritative</option>
-                                <option value="friendly">Friendly</option>
-                                <option value="inspirational">Inspirational</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="postFormat" className="block mb-1 text-sm font-medium">Post Format</label>
-                            <select
-                                value={postFormat}
-                                onChange={(e) => setPostFormat(e.target.value)}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            >
-                                <option value="paragraph">Paragraph</option>
-                                <option value="list">List</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="topic" className="block mb-1 text-sm font-medium">Topic</label>
-                            <input
-                                type="text"
-                                value={topic}
-                                onChange={(e) => setTopic(e.target.value)}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                                placeholder="Enter the topic"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="field" className="block mb-1 text-sm font-medium">Field</label>
-                            <select
-                                value={field}
-                                onChange={(e) => setField(e.target.value)}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            >
-                                <option value="Tech">Tech</option>
-                                <option value="Health">Health</option>
-                                <option value="Finance">Finance</option>
-                                <option value="Education">Education</option>
-                                <option value="Business">Business</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="includeHashtags" className="block mb-1 text-sm font-medium">Include Hashtags</label>
-                            <select
-                                value={includeHashtags ? 'yes' : 'no'}
-                                onChange={(e) => setIncludeHashtags(e.target.value === 'yes')}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            >
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="postLength" className="block mb-1 text-sm font-medium">Post Length</label>
-                            <select
-                                value={postLength}
-                                onChange={(e) => setPostLength(e.target.value)}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            >
-                                <option value="short">Short</option>
-                                <option value="medium">Medium</option>
-                                <option value="long">Long</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="hookType" className="block mb-1 text-sm font-medium">Hook Type</label>
-                            <select
-                                value={hookType}
-                                onChange={(e) => setHookType(e.target.value)}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            >
-                                <option value="question">Question</option>
-                                <option value="statistic">Surprising Statistic</option>
-                                <option value="story">Personal Story</option>
-                                <option value="controversial">Controversial Statement</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="includeStatistics" className="block mb-1 text-sm font-medium">Include Statistics</label>
-                            <select
-                                value={includeStatistics ? 'yes' : 'no'}
-                                onChange={(e) => setIncludeStatistics(e.target.value === 'yes')}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            >
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="callToAction" className="block mb-1 text-sm font-medium">Call to Action</label>
-                            <select
-                                value={callToAction}
-                                onChange={(e) => setCallToAction(e.target.value)}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            >
-                                <option value="ask_question">Ask a Question</option>
-                                <option value="share_experience">Share Experience</option>
-                                <option value="request_opinion">Request Opinion</option>
-                                <option value="challenge_audience">Challenge Audience</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="emotionalTone" className="block mb-1 text-sm font-medium">Emotional Tone</label>
-                            <select
-                                value={emotionalTone}
-                                onChange={(e) => setEmotionalTone(e.target.value)}
-                                className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2"
-                            >
-                                <option value="inspiring">Inspiring</option>
-                                <option value="thought_provoking">Thought-provoking</option>
-                                <option value="surprising">Surprising</option>
-                                <option value="empowering">Empowering</option>
-                            </select>
-                        </div>
-                    </div>
+                <h1 className="text-2xl font-extrabold mb-8 mt-16 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Generate Your Viral LinkedIn Post
+                </h1>
 
-                    <div className="flex justify-end mt-2">
-                        <button
-                            type="submit"
-                            className="flex items-center rounded-md border border-slate-300 py-2 px-4 mb-2 mx-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-green-500 hover:border-green-500 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                            disabled={loading}
-                        >
-                            {loading ? 'Generating...' : 'Generate'}
-                            {!loading && (
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 ml-1.5">
-                                    <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
-                                </svg>
-                            )}
-                        </button>
-                    </div>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <Card>
+                        <CardHeader className="pb-2">
+                            <CardTitle>Post Details</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-3">
+                            <div>
+                                <Label htmlFor="userInput" className="text-sm">Describe your post</Label>
+                                <Textarea
+                                    id="userInput"
+                                    value={userMessage}
+                                    onChange={(e) => setUserMessage(e.target.value)}
+                                    placeholder="Describe the post you want to generate"
+                                    className="mt-1 h-20"
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div>
+                                    <Label htmlFor="topic" className="text-sm">Topic</Label>
+                                    <Input
+                                        id="topic"
+                                        value={topic}
+                                        onChange={(e) => setTopic(e.target.value)}
+                                        placeholder="Enter the topic"
+                                        className="mt-1"
+                                    />
+                                </div>
+                                {renderSelectWithCustomOption(
+                                    "Field",
+                                    field,
+                                    setField,
+                                    [
+                                        { value: "Tech", label: "Tech" },
+                                        { value: "Health", label: "Health" },
+                                        { value: "Finance", label: "Finance" },
+                                        { value: "Education", label: "Education" },
+                                        { value: "Business", label: "Business" },
+                                        { value: "Marketing", label: "Marketing" },
+                                        { value: "Entrepreneurship", label: "Entrepreneurship" },
+                                        { value: "Leadership", label: "Leadership" },
+                                        { value: "Productivity", label: "Productivity" },
+                                        { value: "Design", label: "Design" },
+                                        { value: "Writing", label: "Writing" },
+                                        { value: "Sales", label: "Sales" },
+                                    ],
+                                    customField,
+                                    setCustomField
+                                )}
+                                {renderSelectWithCustomOption(
+                                    "Writing Style",
+                                    writingStyle,
+                                    setWritingStyle,
+                                    [
+                                        { value: "professional", label: "Professional" },
+                                        { value: "casual", label: "Casual" },
+                                        { value: "persuasive", label: "Persuasive" },
+                                        { value: "informative", label: "Informative" },
+                                        { value: "humorous", label: "Humorous" },
+                                        { value: "inspirational", label: "Inspirational" },
+                                        { value: "thoughtful", label: "Thoughtful" },
+                                        { value: "engaging", label: "Engaging" },
+                                        { value: "challenging", label: "Challenging" },
+                                    ],
+                                    customWritingStyle,
+                                    setCustomWritingStyle
+                                )}
+                                {renderSelectWithCustomOption(
+                                    "Voice Type",
+                                    voiceType,
+                                    setVoiceType,
+                                    [
+                                        { value: "authoritative", label: "Authoritative" },
+                                        { value: "friendly", label: "Friendly" },
+                                        { value: "inspirational", label: "Inspirational" },
+                                        { value: "thoughtful", label: "Thoughtful" },
+                                        { value: "engaging", label: "Engaging" },
+                                        { value: "challenging", label: "Challenging" },
+                                    ],
+                                    customVoiceType,
+                                    setCustomVoiceType
+                                )}
+                                {renderSelectWithCustomOption(
+                                    "Hook Type",
+                                    hookType,
+                                    setHookType,
+                                    [
+                                        { value: "question", label: "Question" },
+                                        { value: "statistic", label: "Surprising Statistic" },
+                                        { value: "story", label: "Personal Story" },
+                                        { value: "controversial", label: "Controversial Statement" },
+                                        { value: "storytelling", label: "Storytelling" },
+                                        { value: "emotional", label: "Emotional" },
+                                        { value: "authority", label: "Authority" },
+                                        { value: "broad_appeal", label: "Broad Appeal" },
+                                        { value: "curiosity", label: "Curiosity" },
+                                        { value: "numbers", label: "Numbers" },
+                                    ],
+                                    customHookType,
+                                    setCustomHookType
+                                )}
+                                {renderSelectWithCustomOption(
+                                    "Call to Action",
+                                    callToAction,
+                                    setCallToAction,
+                                    [
+                                        { value: "ask_question", label: "Ask a Question" },
+                                        { value: "share_experience", label: "Share Experience" },
+                                        { value: "request_opinion", label: "Request Opinion" },
+                                        { value: "challenge_audience", label: "Challenge Audience" },
+                                    ],
+                                    customCallToAction,
+                                    setCustomCallToAction
+                                )}
+                                {renderSelectWithCustomOption(
+                                    "Emotional Tone",
+                                    emotionalTone,
+                                    setEmotionalTone,
+                                    [
+                                        { value: "inspiring", label: "Inspiring" },
+                                        { value: "thought_provoking", label: "Thought-provoking" },
+                                        { value: "surprising", label: "Surprising" },
+                                        { value: "empowering", label: "Empowering" },
+                                    ],
+                                    customEmotionalTone,
+                                    setCustomEmotionalTone
+                                )}
+                                <div>
+                                    <Label htmlFor="postFormat" className="text-sm">Post Format</Label>
+                                    <Select value={postFormat} onValueChange={setPostFormat}>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Select a post format" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="paragraph">Paragraph</SelectItem>
+                                            <SelectItem value="list">List</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div>
+                                    <Label htmlFor="postLength" className="text-sm">Post Length (words)</Label>
+                                    <div className="flex items-center space-x-2">
+                                        <Slider
+                                            id="postLength"
+                                            min={50}
+                                            max={300}
+                                            step={10}
+                                            value={[postLength]}
+                                            onValueChange={(value) => setPostLength(value[0])}
+                                            className="flex-grow"
+                                        />
+                                        <span className="text-sm text-muted-foreground w-12 text-right">{postLength}</span>
+                                    </div>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Switch
+                                        id="includeHashtags"
+                                        checked={includeHashtags}
+                                        onCheckedChange={setIncludeHashtags}
+                                    />
+                                    <Label htmlFor="includeHashtags" className="text-sm">Include Hashtags</Label>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Switch
+                                        id="includeStatistics"
+                                        checked={includeStatistics}
+                                        onCheckedChange={setIncludeStatistics}
+                                    />
+                                    <Label htmlFor="includeStatistics" className="text-sm">Include Statistics</Label>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Button type="submit" disabled={loading}>
+                        {loading ?
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Generating...
+                            </> :
+                            "Generate Post"}
+                    </Button>
                 </form>
 
-                {loading && (
-                    <div className="flex items-center justify-center space-x-2 mt-2">
-                        <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
-                        <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse delay-75"></div>
-                        <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse delay-150"></div>
-                        <span className="text-green-500 font-medium">Generating post...</span>
-                    </div>
+
+                {response && (
+                    <Card className="mt-6" ref={postRef}>
+                        <CardHeader className="pb-2">
+                            <CardTitle>Generated Post</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ReactMarkdown className="prose dark:prose-invert text-sm">{response}</ReactMarkdown>
+                            <Button onClick={handleCopy} className="mt-4">
+                                <Copy className="mr-2 h-4 w-4" />
+                                Copy to Clipboard
+                            </Button>
+                        </CardContent>
+                    </Card>
                 )}
-
-                <div ref={postRef} className="py-2">
-                    {!response && (
-                        <div className="mt-2 mb-4 p-4 bg-white shadow-lg rounded-lg mx-2">
-                            <h2 className="text-base font-mulish font-semibold">
-                                Your post generation here
-                            </h2>
-                            <p className="text-sm text-gray-700 py-1">
-                                no content generated yet
-                            </p>
-                        </div>
-                    )}
-
-                    {response && (
-                        <div className="mt-2 mb-4 p-3 bg-white shadow-lg rounded-lg mx-2">
-                            <h2 className="text-base font-semibold">Generated Post:</h2>
-                            <ReactMarkdown className="text-sm text-gray-700">{response}</ReactMarkdown>
-                            <button onClick={handleCopy}>
-                                <div className="flex items-center space-x-2 mt-2 cursor-pointer bg-gray-100 hover:bg-gray-200 p-1 px-2 rounded-lg transition ease-in-out duration-300">
-                                    <Image src="/icons/copy.png" alt="Copy" width={24} height={24} className='hover:scale-150 transition ease-in-out duration-300' />
-                                    <p className="text-sm text-gray-700">Copy to Clipboard</p>
-                                </div>
-                            </button>
-                        </div>
-                    )}
-                </div>
             </div>
-
-        </div>
+        </div >
     );
 };
 
