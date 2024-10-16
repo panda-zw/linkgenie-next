@@ -3,7 +3,6 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import Image from 'next/image';
 import Swal from 'sweetalert2';
 
 export default function SignUp() {
