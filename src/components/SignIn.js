@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, getProviders } from "next-auth/react";
-import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 import Image from 'next/image';
 
 export default function SignIn() {
@@ -25,10 +25,19 @@ export default function SignIn() {
     setLoading(false);
 
     if (result?.error) {
-      toast.error("Failed to login: Incorrect email or password");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Incorrect email or password',
+      });
       console.error("Error signing in:", result.error);
     } else {
       router.push("/Generate");
+      Swal.fire({
+        icon: 'success',
+        title: 'Welcome back!',
+        text: 'You have successfully logged in.',
+      });
     }
   };
 

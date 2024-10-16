@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Image from 'next/image';
+import Swal from 'sweetalert2';
 
 export default function SignUp() {
     const router = useRouter();
@@ -33,11 +34,26 @@ export default function SignUp() {
 
             if (response.ok) {
                 router.push("/auth/signin");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Welcome to LinkGenie!',
+                    text: 'Sign in to continue.',
+                });
             } else {
                 console.error("Error signing up:", await response.json());
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Failed to sign up',
+                });
             }
         } catch (error) {
             console.error("Error:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Failed to sign up',
+            });
         } finally {
             setLoading(false);
         }
@@ -47,7 +63,11 @@ export default function SignUp() {
         setLoading(true);
         const result = await signIn("google", { redirect: true });
         if (result?.error) {
-            alert("Google sign-in failed");
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Google sign-in failed',
+            });
             setLoading(false);
         }
     };
