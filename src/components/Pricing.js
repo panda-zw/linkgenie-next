@@ -1,5 +1,8 @@
 "use client";
+
 import React from "react";
+import Link from "next/link";
+
 
 const Pricing = () => {
     return (
@@ -47,9 +50,11 @@ const PricingCard = ({ type, description, price, features, bgColor }) => {
             <h2 className="text-2xl font-bold mb-4">{type}</h2>
             <p className="mb-6">{description}</p>
             <h3 className="text-4xl font-bold mb-6">{price}<span className="text-lg font-normal">/month</span></h3>
-            <button className="w-full border-2 border-white text-white py-2 px-4 rounded-full hover:bg-white hover:text-black transition duration-300">
-                Get started
-            </button>
+            <Link href='/auth/signin'>
+                <button className="w-full border-2 border-white text-white py-2 px-4 rounded-full hover:bg-white hover:text-black transition duration-300">
+                    Get started
+                </button>
+            </Link>
             <div className="mt-8">
                 <h4 className="text-lg font-semibold mb-4">Features</h4>
                 <ul className="space-y-2">

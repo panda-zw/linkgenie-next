@@ -1,7 +1,7 @@
 import Main from "@/components/Main";
 import About from "@/components/About";
 import Review from "@/components/Reviews";
-// import Pricing from "@/components/Pricing";
+import Pricing from "@/components/Pricing";
 import Navbar from "@/components/Navbar";
 import Team from "@/components/Team";
 import Customer from "@/components/Customer";
@@ -16,7 +16,7 @@ export default function HomePage() {
       <About />
       <Review />
       <Team />
-      {/* <Pricing /> */}
+      <Pricing />
       <Customer />
       <Footer />
     </div>
