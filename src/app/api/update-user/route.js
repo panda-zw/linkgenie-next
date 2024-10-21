@@ -1,46 +1,41 @@
 import { connectDB } from "@/utils/connect";
 import User from "../../../../models/User";
 import { NextResponse } from 'next/server';
-import bcrypt from 'bcrypt';
 
-export async function PUT(req) {
+export async function PUT(request) {
     try {
         await connectDB();
 
-        const { userId, username, email, password } = await req.json();
+        const { userId, updateCredits, updatePlan } = await request.json();
 
-        // Find the user by ID
+        if (!userId) {
+            return NextResponse.json({ message: "userId is required" }, { status: 400 });
+        }
+
         const user = await User.findById(userId);
 
         if (!user) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });
         }
 
-        // Check for existing username or email conflicts
-        if (username || email) {
-            const exists = await User.findOne({
-                $or: [{ email }, { username }],
-                _id: { $ne: userId }, // Exclude current user
-            });
-
-            if (exists) {
-                return NextResponse.json({ message: "Username or email already exists." }, { status: 409 });
-            }
+        if (updateCredits) {
+            user.credits += 100;
         }
-
-        // Update user fields if provided
-        if (username) user.username = username;
-        if (email) user.email = email;
-        if (password) {
-            const hashedPassword = await bcrypt.hash(password, 10);
-            user.password = hashedPassword;
+        if (updatePlan) {
+            user.plan = 'Paid';
         }
 
         await user.save();
 
-        return NextResponse.json({ message: "Profile updated successfully" }, { status: 200 });
+        return NextResponse.json({ message: "Profile updated successfully", user }, { status: 200 });
     } catch (error) {
-        console.error("Error while updating profile", error);
-        return NextResponse.json({ message: "Error while updating profile" }, { status: 500 });
+        console.error("Error updating user:", error);
+        return NextResponse.json({ message: "Error updating user" }, { status: 500 });
     }
+}
+
+// Add a GET method for testing
+export async function GET() {
+    console.log("GET request received in update-user API");
+    return NextResponse.json({ message: "Update user API is working" }, { status: 200 });
 }

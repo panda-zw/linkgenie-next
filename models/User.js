@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const UserSchema = mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -14,12 +14,12 @@ const UserSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: [false, "Must provide a password."],
+      required: [true, "Must provide a password."],
     },
     plan: {
       type: String,
-      enum: ['free', 'paid'],
-      default: 'free'
+      enum: ['Free', 'Paid'],
+      default: 'Free'
     },
     credits: {
       type: Number,
@@ -29,7 +29,6 @@ const UserSchema = mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post",
-        default: []
       },
     ],
   },
@@ -38,6 +37,9 @@ const UserSchema = mongoose.Schema(
   }
 );
 
-const User = mongoose.models.User || mongoose.model("User", UserSchema);
+// Add this line to clear the model cache
+mongoose.models = {};
+
+const User = mongoose.model("User", UserSchema);
 
 export default User;
