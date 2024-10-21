@@ -1,4 +1,5 @@
 const { Pesepay } = require("pesepay");
+import { NextResponse } from 'next/server';
 
 const pesepay = new Pesepay(
     process.env.NEXT_PUBLIC_PESEPAY_INTEGRATION_KEY,
@@ -6,10 +7,31 @@ const pesepay = new Pesepay(
 );
 
 pesepay.resultUrl = 'https://localhost:3000/api/payment-callback';
-pesepay.returnUrl = 'http://localhost:3000/';
+pesepay.returnUrl = 'http://localhost:3000/Generate';
+
+async function updateUserPlan(userId) {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/update-user-plan/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to update user plan');
+        }
+
+        const result = await response.json();
+        console.log('User plan update result:', result);
+    } catch (error) {
+        console.error('Error updating user plan:', error);
+    }
+}
 
 export async function POST(req) {
-    const { amount, currencyCode, email } = await req.json();
+    const { amount, currencyCode, userId } = await req.json();
 
     // Generate a unique reference for each transaction
     const uniqueReference = `TS${Date.now()}`;
@@ -35,7 +57,14 @@ export async function POST(req) {
             throw new Error("Missing redirect URL or reference number");
         }
 
-        return new Response(JSON.stringify({ redirectUrl, referenceNumber, pollUrl }), { status: 200 });
+        // Start polling for payment status, passing the user's ID
+        startPollingPaymentStatus(referenceNumber, userId);
+
+        return NextResponse.json({
+            redirectUrl,
+            referenceNumber,
+            pollUrl
+        }, { status: 200 });
 
     } catch (error) {
         console.error("Error processing transaction:", error);
@@ -52,4 +81,55 @@ export async function POST(req) {
             headers: { 'Content-Type': 'application/json' }
         });
     }
+}
+
+async function checkPaymentStatus(referenceNumber, userId) {
+    try {
+        const response = await pesepay.checkPayment(referenceNumber);
+        console.log("Payment check response:", response);
+
+        if (response.success) {
+            if (response.paid) {
+                console.log("Payment successful for reference:", referenceNumber);
+
+                // Call the new API to update user plan and credits
+                await updateUserPlan(userId);
+
+                return true;
+            } else {
+                console.log("Payment still pending for reference:", referenceNumber);
+                return false;
+            }
+        } else {
+            console.log("Error checking payment status:", response.message);
+            return false;
+        }
+    } catch (error) {
+        console.error("Error checking payment status:", error);
+        return false;
+    }
+}
+
+function startPollingPaymentStatus(referenceNumber, userId) {
+    const pollInterval = 10000; // 10 seconds
+    const maxAttempts = 30; // 5 minutes total
+    let attempts = 0;
+
+    const poll = async () => {
+        if (attempts >= maxAttempts) {
+            console.log("Max polling attempts reached for reference:", referenceNumber);
+            return;
+        }
+
+        const isPaid = await checkPaymentStatus(referenceNumber, userId);
+        if (isPaid) {
+            console.log("Payment completed for reference:", referenceNumber);
+            // The user plan update is now handled in checkPaymentStatus
+        } else {
+            attempts++;
+            setTimeout(poll, pollInterval);
+        }
+    };
+
+    poll();
 }

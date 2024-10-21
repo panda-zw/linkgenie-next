@@ -18,11 +18,12 @@ const UserSchema = mongoose.Schema(
     },
     plan: {
       type: String,
-      default: "Free"
+      enum: ['free', 'paid'],
+      default: 'free'
     },
     credits: {
       type: Number,
-      default: 5,
+      default: 5
     },
     posts: [
       {
