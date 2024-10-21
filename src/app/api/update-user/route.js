@@ -1,5 +1,3 @@
-// /app/api/auth/update-profile/route.js
-
 import { connectDB } from "@/utils/connect";
 import User from "../../../../models/User";
 import { NextResponse } from 'next/server';
@@ -10,19 +8,16 @@ export async function PUT(req) {
         await connectDB();
 
         const { userId, username, email, password } = await req.json();
-
-        // Find the user by ID
         const user = await User.findById(userId);
 
         if (!user) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });
         }
 
-        // Check for existing username or email conflicts
         if (username || email) {
             const exists = await User.findOne({
                 $or: [{ email }, { username }],
-                _id: { $ne: userId }, // Exclude current user
+                _id: { $ne: userId },
             });
 
             if (exists) {
@@ -30,7 +25,6 @@ export async function PUT(req) {
             }
         }
 
-        // Update user fields if provided
         if (username) user.username = username;
         if (email) user.email = email;
         if (password) {

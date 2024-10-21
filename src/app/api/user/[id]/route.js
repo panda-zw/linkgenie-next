@@ -6,7 +6,7 @@ export async function GET(req, { params }) {
     try {
         await connectDB();
         const { id } = params;
-        // console.log('id email: ',id)
+        // console.log('id email: ', id)
         const user = await User.findOne({ email: id });
         // console.log('the user: ', user)
 
