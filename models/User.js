@@ -37,7 +37,6 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-// Add this line to clear the model cache
 mongoose.models = {};
 
 const User = mongoose.model("User", UserSchema);
