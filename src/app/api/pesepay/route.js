@@ -5,8 +5,8 @@ const pesepay = new Pesepay(
     process.env.NEXT_PUBLIC_PESEPAY_ENCRYPTION_KEY
 );
 
-pesepay.resultUrl = 'https://localhost:3000/api/payment-callback';
-pesepay.returnUrl = 'http://localhost:3000/Generate';
+pesepay.resultUrl = 'https://www.linkgenie.one/api/payment-callback';
+pesepay.returnUrl = 'https://www.linkgenie.one/Generate';
 
 export async function POST(request) {
     const { amount, currencyCode, email, userId } = await request.json();
@@ -70,7 +70,7 @@ export async function POST(request) {
 
 
 async function checkPaymentStatus(reference, userId, maxAttempts = 10, interval = 5000) {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.linkgenie.one';
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
         try {
