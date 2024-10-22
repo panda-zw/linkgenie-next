@@ -88,17 +88,20 @@ export const authOptions = {
         token.email = user.email || null;
         token.id = user._id ? user._id.toString() : null;
         token.credits = user.credits || 0;
+        token.plan = user.plan || null; // Add plan to the token
       }
       return token;
     },
     async session({ session, token }) {
-      // console.log('session: ', session);
+      console.log('Token:', token); // Log the token
       if (session) {
         session.user.username = token.username || null;
         session.user.email = token.email || null;
         session.user.id = token.id || null;
         session.user.credits = token.credits || 0;
+        session.user.plan = token.plan || null; // Ensure plan is set
       }
+      console.log('Session:', session); // Log the session
       return session;
     },
     async redirect({ url, baseUrl }) {

@@ -29,6 +29,10 @@ export default function SignIn() {
         icon: 'error',
         title: 'Oops...',
         text: 'Incorrect email or password',
+        toast: true,
+        position: 'top-end',
+        timer: 3000,
+        timerProgressBar: true,
       });
       console.error("Error signing in:", result.error);
     } else {
@@ -37,6 +41,10 @@ export default function SignIn() {
         icon: 'success',
         title: 'Welcome back!',
         text: 'You have successfully logged in.',
+        toast: true,
+        position: 'top-end',
+        timer: 3000,
+        timerProgressBar: true,
       });
     }
   };

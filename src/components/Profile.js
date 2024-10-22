@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,8 +17,28 @@ export default function Profile() {
     const [loading, setLoading] = useState(false);
 
     // Add new state variables for plan and credits
-    const [plan, setPlan] = useState(session?.user?.plan || "Paid");
     const [credits, setCredits] = useState(session?.user?.credits || 0);
+
+    // New function to fetch credits and plan
+    const fetchUserData = async () => {
+        if (session) {
+            try {
+                const res = await fetch(`/api/user/${session.user.email}/`);
+                if (!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await res.json();
+                setCredits(data.credits);
+            } catch (error) {
+                console.error('Failed to fetch user data:', error);
+            }
+        }
+    };
+
+    // Fetch user data when the component mounts or session changes
+    useEffect(() => {
+        fetchUserData();
+    }, [session]); // Add session as a dependency
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -151,14 +171,10 @@ export default function Profile() {
 
                 <Card className="mt-4">
                     <CardHeader className="pb-2">
-                        <CardTitle>Plan and Credits</CardTitle>
+                        <CardTitle>Available Credits</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <Label>Current Plan</Label>
-                                <div className="font-semibold text-lg">{plan}</div>
-                            </div>
                             <div className="space-y-2">
                                 <Label>Available Credits</Label>
                                 <div className="font-semibold text-lg">{credits}</div>

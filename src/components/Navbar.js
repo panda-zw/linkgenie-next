@@ -135,6 +135,14 @@ function Navbar() {
                 {status === 'authenticated' ? (
                     <>
                         <div className="flex items-center space-x-2">
+
+                            <button
+                                onClick={fetchCredits}
+                                className="text-gray-500 hover:text-green-500 transition duration-300"
+                                aria-label="Refresh Credits"
+                            >
+                                <FontAwesomeIcon icon={faRotate} />
+                            </button>
                             <span className={`text-sm font-medium ${textColor}`}>{credits} Credits</span>
                             <Link href="/buy-credits">
                                 <button className="px-3 py-1 text-xs font-medium text-white bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300">
