@@ -92,7 +92,7 @@ async function checkPaymentStatus(reference, userId, maxAttempts = 10, interval 
                 console.log("Update body:", updateBody);
 
                 const updateResponse = await fetch(updateUrl, {
-                    method: 'PUT',
+                    method: 'PUT', // Ensure this method is correct
                     headers: {
                         'Content-Type': 'application/json',
                     },
