@@ -33,9 +33,3 @@ export async function PUT(request) {
         return NextResponse.json({ message: "Error updating user" }, { status: 500 });
     }
 }
-
-// Add a GET method for testing
-export async function GET() {
-    console.log("GET request received in update-user API");
-    return NextResponse.json({ message: "Update user API is working" }, { status: 200 });
-}

@@ -49,14 +49,7 @@ export async function POST(request) {
             referenceNumber,
             pollUrl,
             message: "Redirect URL generated successfully. Payment status will be checked in the background."
-        }), {
-            status: 200,
-            headers: {
-                'Access-Control-Allow-Origin': '*', // Adjust as necessary for your use case
-                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', // Allow necessary methods
-                'Access-Control-Allow-Headers': 'Content-Type', // Allow necessary headers
-            }
-        });
+        }), { status: 200 });
 
     } catch (error) {
         console.error("Error processing transaction:", error);
@@ -101,9 +94,7 @@ async function checkPaymentStatus(reference, userId, maxAttempts = 10, interval 
                 const updateResponse = await fetch(updateUrl, {
                     method: 'PUT',
                     headers: {
-                        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
                         'Content-Type': 'application/json',
-
                     },
                     body: updateBody,
                 });
@@ -134,15 +125,4 @@ async function checkPaymentStatus(reference, userId, maxAttempts = 10, interval 
     }
 
     return { status: 'timeout', message: 'Payment status check timed out' };
-}
-
-export async function OPTIONS() {
-    return NextResponse.json({}, {
-        status: 204,
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
-        }
-    });
 }
