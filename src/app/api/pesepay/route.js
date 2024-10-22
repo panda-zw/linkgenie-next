@@ -68,10 +68,9 @@ export async function POST(request) {
     }
 }
 
-
-
+async function checkPaymentStatus(reference, userId, maxAttempts = 10, interval = 5000) {
     const baseUrl = 'https://www.linkgenie.one'; // Updated to production URL
- 
+
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
         try {
