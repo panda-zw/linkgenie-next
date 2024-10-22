@@ -52,6 +52,10 @@ export default function SignUp() {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Failed to sign up',
+                toast: true,
+                position: 'top-end',
+                timer: 3000,
+                timerProgressBar: true,
             });
         } finally {
             setLoading(false);
@@ -66,6 +70,10 @@ export default function SignUp() {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Google sign-in failed',
+                toast: true,
+                position: 'top-end',
+                timer: 3000,
+                timerProgressBar: true,
             });
             setLoading(false);
         }
