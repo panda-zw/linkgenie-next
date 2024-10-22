@@ -82,7 +82,7 @@ async function checkPaymentStatus(reference, userId, maxAttempts = 10, interval 
                     console.log("Payment successful for reference:", reference);
 
                     // Update user credits and plan
-                    const updateUrl = `${baseUrl}/api/update-user`;
+                    const updateUrl = 'https://www.linkgenie.one/api/update-user'; // Updated to use production URL directly
                     console.log("Update URL:", updateUrl);
 
                     const updateBody = JSON.stringify({
