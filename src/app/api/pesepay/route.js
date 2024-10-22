@@ -110,6 +110,7 @@ async function checkPaymentStatus(reference, userId, maxAttempts = 10, interval 
                     console.error("Failed to update user credits and plan");
                     const errorText = await updateResponse.text();
                     console.error("Error response:", errorText); // Enhanced error logging
+                    console.error("Response code:", updateResponse.status); // Log the response code
                 }
 
                 return { status: 'success', message: 'Payment successful' };
