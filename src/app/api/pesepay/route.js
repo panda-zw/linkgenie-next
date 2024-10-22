@@ -69,59 +69,55 @@ export async function POST(request) {
 }
 
 
-async function checkPaymentStatus(reference, userId, maxAttempts = 10, interval = 5000) {
-    const baseUrl = 'https://www.linkgenie.one'; 
+
+    const baseUrl = 'https://www.linkgenie.one'; // Updated to production URL
+ 
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
         try {
             const response = await pesepay.checkPayment(reference);
             console.log(`Payment check response (attempt ${attempt + 1}):`, response);
 
-            if (response.success) {
-                if (response.paid) {
-                    console.log("Payment successful for reference:", reference);
+            if (response.success && response.paid) {
+                console.log("Payment successful for reference:", reference);
 
-                    // Update user credits and plan
-                    const updateUrl = 'https://www.linkgenie.one/api/update-user'; // Updated to use production URL directly
-                    console.log("Update URL:", updateUrl);
+                // Update user credits and plan
+                const updateUrl = `${baseUrl}/api/update-user`; // Ensure this URL is correct in production
+                console.log("Update URL:", updateUrl);
 
-                    const updateBody = JSON.stringify({
-                        userId: userId,
-                        updateCredits: true,
-                        updatePlan: true
-                    });
-                    console.log("Update body:", updateBody);
+                const updateBody = JSON.stringify({
+                    userId: userId,
+                    updateCredits: true,
+                    updatePlan: true
+                });
+                console.log("Update body:", updateBody);
 
-                    const updateResponse = await fetch(updateUrl, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: updateBody,
-                    });
+                const updateResponse = await fetch(updateUrl, {
+                    method: 'PUT', // Ensure this method is correct
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: updateBody,
+                });
 
-                    console.log("Update response status:", updateResponse.status);
-                    console.log("Update response headers:", updateResponse.headers);
+                console.log("Update response status:", updateResponse.status);
+                console.log("Update response headers:", updateResponse.headers);
 
-                    if (updateResponse.ok) {
-                        console.log("User credits and plan updated successfully");
-                        const responseData = await updateResponse.json();
-                        console.log("Update response data:", responseData);
-                    } else {
-                        console.error("Failed to update user credits and plan");
-                        const errorText = await updateResponse.text();
-                        console.error("Error response:", errorText);
-                    }
-
-                    return { status: 'success', message: 'Payment successful' };
-                } else if (response.status === 'FAILED') {
-                    console.log("Payment failed for reference:", reference);
-                    return { status: 'failed', message: 'Payment failed' };
+                if (updateResponse.ok) {
+                    console.log("User credits and plan updated successfully");
+                    const responseData = await updateResponse.json();
+                    console.log("Update response data:", responseData);
+                } else {
+                    console.error("Failed to update user credits and plan");
+                    const errorText = await updateResponse.text();
+                    console.error("Error response:", errorText); // Enhanced error logging
                 }
-            }
 
-            console.log("Payment still pending for reference:", reference);
-            await new Promise(resolve => setTimeout(resolve, interval));
+                return { status: 'success', message: 'Payment successful' };
+            } else if (response.status === 'FAILED') {
+                console.log("Payment failed for reference:", reference);
+                return { status: 'failed', message: 'Payment failed' };
+            }
         } catch (error) {
             console.error("Error checking payment status:", error);
         }
