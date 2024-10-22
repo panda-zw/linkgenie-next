@@ -1,6 +1,6 @@
 "use client"
-import React, { useState } from 'react';
-import { useSession } from "next-auth/react";
+import React, { useState, useEffect } from 'react';
+import { useSession, update } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Swal from 'sweetalert2';
 import ReactMarkdown from 'react-markdown';
@@ -15,11 +15,38 @@ function Improve() {
     const [originalPost, setOriginalPost] = useState('');
     const [improvedPost, setImprovedPost] = useState('');
     const [loading, setLoading] = useState(false);
-    const { data: session } = useSession();
+    const [credits, setCredits] = useState(0);
+    const { data: session, update } = useSession();
     const router = useRouter();
+
+    // Add useEffect to fetch credits
+    useEffect(() => {
+        if (!session) return;
+        const fetchCredits = async () => {
+            try {
+                const res = await fetch(`/api/user/${session.user.email}/`);
+                if (!res.ok) throw new Error('Network response was not ok');
+                const data = await res.json();
+                setCredits(data.credits);
+            } catch (error) {
+                console.error('Failed to fetch credits:', error);
+            }
+        };
+        fetchCredits();
+    }, [session]);
 
     const handleImprove = async () => {
         setLoading(true);
+
+        if (credits < 1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Not enough credits to improve post.',
+            });
+            setLoading(false);
+            return;
+        }
 
         if (!originalPost) {
             Swal.fire({
@@ -85,18 +112,37 @@ function Improve() {
             const data = await res.json();
             setImprovedPost(data.content);
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: 'Post improved successfully!',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
+            // Deduct credit
+            const creditRes = await fetch(`/api/deduct-credits/${session.user.email}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ postCount: 1 }),
             });
+
+            const creditData = await creditRes.json();
+            if (creditRes.ok) {
+                setCredits(creditData.credits);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Post improved successfully! 1 credit deducted.',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+                update();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: creditData.message || "Error deducting credits.",
+                });
+                if (creditData.message === "Unauthorized") router.push("/auth/signin");
+            }
         } catch (error) {
-            console.error('Error improving post:', error);
+            console.error('Error improving post or deducting credits:', error);
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',

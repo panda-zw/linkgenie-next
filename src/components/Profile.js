@@ -1,12 +1,12 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
+import Swal from "sweetalert2";
 
 export default function Profile() {
     const { data: session } = useSession();
@@ -16,12 +16,16 @@ export default function Profile() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
+    // Add new state variables for plan and credits
+    const [plan, setPlan] = useState(session?.user?.plan || "Paid");
+    const [credits, setCredits] = useState(session?.user?.credits || 0);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            const response = await fetch("/api/update-user", {
+            const response = await fetch("/api/user-update", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -37,9 +41,25 @@ export default function Profile() {
             const data = await response.json();
 
             if (response.ok) {
-                toast.success(data.message);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Updated!',
+                    text: 'Profile updated suceessfully',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
             } else {
-                toast.error(data.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    toast: true,
+                    position: 'top-end',
+                    text: 'Failed to generate post.',
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
             }
         } catch (error) {
             toast.error("An error occurred while updating the profile.");
@@ -56,6 +76,7 @@ export default function Profile() {
                     Update Your Profile
                 </h1>
 
+                {/* Existing Profile Details Card */}
                 <Card>
                     <CardHeader className="pb-2">
                         <CardTitle>Profile Details</CardTitle>
@@ -124,6 +145,26 @@ export default function Profile() {
                                 )}
                             </Button>
                         </form>
+                    </CardContent>
+                </Card>
+
+
+                <Card className="mt-4">
+                    <CardHeader className="pb-2">
+                        <CardTitle>Plan and Credits</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <Label>Current Plan</Label>
+                                <div className="font-semibold text-lg">{plan}</div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label>Available Credits</Label>
+                                <div className="font-semibold text-lg">{credits}</div>
+                            </div>
+                        </div>
+                        <Button className="mt-4 w-full">Upgrade Plan</Button>
                     </CardContent>
                 </Card>
             </div>

@@ -134,7 +134,14 @@ function Navbar() {
             <div className='flex items-center space-x-4'>
                 {status === 'authenticated' ? (
                     <>
-                        <span className={`text-sm font-medium ${textColor}`}>{credits} Credits</span>
+                        <div className="flex items-center space-x-2">
+                            <span className={`text-sm font-medium ${textColor}`}>{credits} Credits</span>
+                            <Link href="/buy-credits">
+                                <button className="px-3 py-1 text-xs font-medium text-white bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300">
+                                    Buy Credits
+                                </button>
+                            </Link>
+                        </div>
                         <div className='relative'>
                             <button
                                 onClick={toggleDropdown}

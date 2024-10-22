@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 
 const Pricing = () => {
@@ -45,13 +46,19 @@ const Pricing = () => {
 };
 
 const PricingCard = ({ type, description, price, features, bgColor }) => {
+    const { data: session } = useSession();
+
+    const getStartedHref = session ? '/buy-credits' : '/auth/signin';
+
     return (
         <div className={`${bgColor} rounded-lg p-8 text-white max-w-sm w-full`}>
             <h2 className="text-2xl font-bold mb-4">{type}</h2>
             <p className="mb-6">{description}</p>
             <h3 className="text-4xl font-bold mb-6">{price}<span className="text-lg font-normal">/month</span></h3>
-            <Link href='/auth/signin'>
-                <button className="w-full border-2 border-white text-white py-2 px-4 rounded-full hover:bg-white hover:text-black transition duration-300">
+            <Link href={getStartedHref}>
+                <button
+                    className="w-full border-2 border-white text-white py-2 px-4 rounded-full hover:bg-white hover:text-black transition duration-300"
+                >
                     Get started
                 </button>
             </Link>
