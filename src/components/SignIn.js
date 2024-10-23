@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, getProviders } from "next-auth/react";
 import Swal from 'sweetalert2';
-import Image from 'next/image';
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 export default function SignIn() {
   const router = useRouter();
@@ -58,31 +59,31 @@ export default function SignIn() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-white">Email address<span className="text-red-500">*</span></label>
-            <input
+            <Input
               type="email"
               id="email"
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
-              className="mt-1 block w-full px-3 py-2 text-sm text-white bg-ingray border border-white rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500"
+              className="mt-1 block w-full text-sm text-white bg-ingray border border-white rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500"
             />
           </div>
 
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-white">Password<span className="text-red-500">*</span></label>
-            <input
+            <Input
               type="password"
               id="password"
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="mt-1 block w-full px-3 py-2 text-sm text-white bg-ingray border border-white rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500"
+              className="mt-1 block w-full text-sm text-white bg-ingray border border-white rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500"
             />
           </div>
 
-          <button
+          <Button
             type="submit"
             className={`w-full px-4 py-2 text-sm font-medium text-black bg-white border-green-500 border-2 rounded-lg hover:bg-green-400 hover:text-white ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
             disabled={loading}
@@ -98,7 +99,7 @@ export default function SignIn() {
             ) : (
               'Log In'
             )}
-          </button>
+          </Button>
         </form>
 
         <p className="mt-8 text-center text-sm text-white">
