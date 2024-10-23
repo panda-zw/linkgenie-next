@@ -110,17 +110,10 @@ const Generate = () => {
             • Start each line with a capital letter for better readability
             • Make sure people will be able to relate to the post
             • The post must solve a problem
-            • Not more than 3 lines in a paragraph 
+            • Not more than 2 lines in a paragraph (maximum 12 words per paragraph)
             • Start with "How I" and end with a "how you" moment to build authority
             • Always use singular noun forms
-            • Use the "Problem vs. Solution" or "Before vs. After" framework
-            • Leverage storytelling to make your point memorable
-            • Include a "hot take" or unique perspective on a common issue
-            • Use role-play or dialogue to illustrate a point
-            • Add a touch of humor or wit where appropriate
-            • Create a sense of urgency or FOMO (fear of missing out)
-            • Use numbers or statistics to add credibility (if includeStatistics is true)
-            • Include a counterintuitive insight or "pattern interrupt"
+            • Ensure each paragraph is concise and impactful, ideally no longer than 3 sentences.
 
             Remember: The goal is to stop the scroll, spark curiosity, and compel action. Every word should serve a purpose in achieving virality and engagement.
 

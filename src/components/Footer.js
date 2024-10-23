@@ -28,6 +28,9 @@ function Footer() {
                     <button className='text-white px-7 hover:bg-green-400 transition ease-out  py-2 bg-green-500 rounded-lg mt-5'>
                         Start now
                     </button>
+                    <p className='mt-5 text-white'>
+                        For any issues, email <a href="mailto:fariraimasocha@linkgenie.one" className='text-green-500'>fariraimasocha@linkgenie.one</a>
+                    </p>
                 </div>
                 <div className='justify-center items-center flex space-x-10 font-semibold py-10 text-2xl'>
                     <a href="https://fariraimasocha.github.io/farirai.me">
