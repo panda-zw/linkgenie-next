@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Swal from 'sweetalert2';
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 export default function SignUp() {
     const router = useRouter();
@@ -32,12 +34,28 @@ export default function SignUp() {
             });
 
             if (response.ok) {
-                router.push("/auth/signin");
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Welcome to LinkGenie!',
-                    text: 'Sign in to continue.',
+                // Automatically sign in the user after successful registration
+                const signInResult = await signIn("credentials", {
+                    redirect: false, // Prevent automatic redirection
+                    email,
+                    password,
                 });
+
+                if (signInResult?.error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Failed to sign in after registration',
+                    });
+                } else {
+                    // User is successfully signed in, redirect to the desired page
+                    router.push("/Generate"); // Redirect to the main application page or dashboard
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Welcome to LinkGenie!',
+                        text: 'You are now signed in.',
+                    });
+                }
             } else {
                 console.error("Error signing up:", await response.json());
                 Swal.fire({
@@ -62,24 +80,6 @@ export default function SignUp() {
         }
     };
 
-    const handleGoogleSignIn = async () => {
-        setLoading(true);
-        const result = await signIn("google", { redirect: true });
-        if (result?.error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Google sign-in failed',
-                toast: true,
-                position: 'top-end',
-                timer: 3000,
-                timerProgressBar: true,
-            });
-            setLoading(false);
-        }
-    };
-
-
     return (
         <div className="flex items-center justify-center min-h-screen bg-custom-radial">
             <section className="w-[90%] max-w-[400px] border border-opacity-0 rounded-lg bg-authgray opacity-80 p-8">
@@ -89,44 +89,44 @@ export default function SignUp() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="username" className="block text-sm font-medium text-white">Username<span className="text-red-500">*</span></label>
-                        <input
+                        <Input
                             type="text"
                             id="username"
                             name="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="Username"
-                            className="mt-1 block w-full px-3 py-2 text-sm text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500"
+                            className="mt-1 block w-full text-sm text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500"
                         />
                     </div>
 
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-white">Email address<span className="text-red-500">*</span></label>
-                        <input
+                        <Input
                             type="email"
                             id="email"
                             name="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Email"
-                            className="mt-1 block w-full px-3 py-2 text-sm text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500"
+                            className="mt-1 block w-full text-sm text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500"
                         />
                     </div>
 
                     <div>
                         <label htmlFor="password" className="block text-sm font-medium text-white">Password<span className="text-red-500">*</span></label>
-                        <input
+                        <Input
                             type="password"
                             id="password"
                             name="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
-                            className="mt-1 block w-full px-3 py-2 text-sm text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500"
+                            className="mt-1 block w-full text-sm text-white bg-authgray border border-white rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500"
                         />
                     </div>
 
-                    <button
+                    <Button
                         type="submit"
                         className={`w-full px-4 py-2 text-sm font-medium text-black bg-white border-green-500 border-2 rounded-lg hover:bg-green-400 hover:text-white ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         disabled={loading}
@@ -140,7 +140,7 @@ export default function SignUp() {
                                 Signing Up...
                             </span>
                         ) : 'Sign Up'}
-                    </button>
+                    </Button>
                 </form>
 
                 <p className="mt-8 text-center text-sm text-white">
