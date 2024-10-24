@@ -104,6 +104,7 @@ const Generate = () => {
             8. The post must end with a call-to-action question.
             9. The post must convey strong emotion.
             10. The post must include strong wording.
+            11. For bullet points use →
 
 
             Key principles for viral content:
