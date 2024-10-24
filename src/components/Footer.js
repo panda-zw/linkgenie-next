@@ -2,6 +2,7 @@ import React from 'react';
 import { faGithub, faLinkedin, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
+import Link from 'next/link';
 
 function Footer() {
     return (
@@ -25,9 +26,12 @@ function Footer() {
                     <p className='mt-5 text-white w-full md:w-6/12'>
                         Effortlessly create engaging LinkedIn posts that showcase your unique style. With just a single click, our AI-powered tool generates content tailored to your voice, helping you stand out and make a lasting impression.
                     </p>
-                    <button className='text-white px-7 hover:bg-green-400 transition ease-out  py-2 bg-green-500 rounded-lg mt-5'>
-                        Start now
-                    </button>
+                    <Link href='/auth/signin'>
+                        <button className='text-white px-7 hover:bg-green-400 transition ease-out  py-2 bg-green-500 rounded-lg mt-5'>
+                            Start now
+                        </button>
+                    </Link>
+
                     <p className='mt-5 text-white'>
                         For any issues, email <a href="mailto:fariraimasocha@linkgenie.one" className='text-green-500'>fariraimasocha@linkgenie.one</a>
                     </p>
