@@ -94,26 +94,38 @@ const Generate = () => {
         const messageContent = `
             Generate a highly engaging and viral LinkedIn post using this structure:
 
-            1. Hook: ${getHookPrompt()}
-            2. Intrigue: Follow up with a surprising fact or bold claim that challenges conventional wisdom supporting the hook (1 line)
-            3. Personal angle: Share a brief, relatable personal story or insight
-            4. Value: Provide actionable advice or a unique perspective that adds immediate value to the reader
-            5. Engagement: End with a thought-provoking question or call-to-action that encourages comments and shares
+            1. The hook (first line) must be engaging ${getHookPrompt()}.
+            2. The hook must be educational, entertaining, or scroll-stopping .
+            3. The rehook (second line) must increase reader interest. It's separated by an empty line and no longer than 8 words.
+            4. The post must use a "how-to", "how I", or typical viral post format for engagement.
+            5. The post must be written at a grade 3 or lower reading level.
+            6. The post must be formatted for easy reading with no paragraphs and plenty of space. The hook is one sentence, maximum 8 words.
+            7. The post must include a list.
+            8. The post must end with a call-to-action question.
+            9. The post must convey strong emotion.
+            10. The post must include strong wording.
 
-            Key principles for viral content and engagement:
+
+            Key principles for viral content:
             • Be controversial (but not offensive)
             • Use simple language and short sentences
             • Create "aha" moments that make people want to share
             • Tap into current trends or timely issues
             • Use power words that evoke emotion
-            • Break up text with line breaks for easy scanning (no emojis)
+            • Break up text with line breaks for easy scanning
             • Start each line with a capital letter for better readability
-            • Make sure people will be able to relate to the post
-            • The post must solve a problem
-            • Not more than 2 lines in a paragraph (maximum 12 words per paragraph)
-            • Start with "How I" and end with a "how you" moment to build authority
+            • Start with "How I" and end with a "how you" moment. This builds sooo much authority!
             • Always use singular noun forms
-            • Ensure each paragraph is concise and impactful, ideally no longer than 3 sentences.
+
+            Incorporate these elements for maximum engagement:
+            • Use numbers or statistics to add credibility
+            • Include a counterintuitive insight or "pattern interrupt"
+            • Add a touch of humor or wit where appropriate
+            • Create a sense of urgency or FOMO (fear of missing out)
+            • Use the "Before vs. After" or "Problem vs. Solution" framework
+            • Leverage the power of storytelling to make your point memorable
+            • Do not use emojis
+       
 
             Remember: The goal is to stop the scroll, spark curiosity, and compel action. Every word should serve a purpose in achieving virality and engagement.
 
@@ -128,15 +140,12 @@ const Generate = () => {
             Emotional Tone: ${emotionalTone === "custom" ? customEmotionalTone : emotionalTone}
             Call to Action: ${getCallToActionPrompt()}
 
+
             Latest LinkedIn algorithm preferences:
             • Posts with high dwell time (time spent reading) perform better
-            • Native content (text posts) often outperforms external links
             • Posts that encourage meaningful conversations and debates are favored
             • Use of relevant and trending hashtags can increase visibility
             • Posts that provide value and insights specific to your industry are prioritized
-            • Consistency in posting schedule is rewarded by the algorithm
-            • Posts that tag relevant people or companies (when appropriate) can expand reach
-            • The first hour after posting is crucial for engagement and visibility
             • Posts with a clear and compelling call-to-action tend to perform better
             • LinkedIn favors "dwell time" over quick likes, so aim for content that makes people stop and read
 
