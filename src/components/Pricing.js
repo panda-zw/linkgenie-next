@@ -27,7 +27,7 @@ const Pricing = () => {
                     <PricingCard
                         type="Premium"
                         description="This package provides full access to all premium features."
-                        price="$3.99"
+                        price="$4.99"
                         features={[
                             "All Free plan features",
                             "100 Credits",

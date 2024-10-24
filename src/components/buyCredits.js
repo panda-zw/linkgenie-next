@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 
 export default function Pay() {
     const [currencyCode, setCurrencyCode] = useState('USD')
-    const fixedAmount = 3.99
+    const fixedAmount = 4.99
     const { data: session, status } = useSession()
 
     const handleSubmit = async (e) => {
