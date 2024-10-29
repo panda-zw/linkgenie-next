@@ -18,7 +18,7 @@ const Pricing = () => {
                         description="This package offers the basic features you need to get started."
                         price="$0.00"
                         features={[
-                            "5 credits",
+                            "2 credits",
                             "Save posts",
                             "View Community posts",
                         ]}
