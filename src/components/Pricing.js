@@ -10,7 +10,6 @@ const Pricing = () => {
         <div className="bg-gray-100 py-12 px-4">
             <div className="max-w-7xl mx-auto">
                 <h1 className="text-4xl font-bold text-center mb-2">Tailored Plan For You</h1>
-                <p className="text-xl text-gray-600 text-center mb-12">Flexing pricing for all and sundry.</p>
 
                 <div className="flex flex-col md:flex-row justify-center gap-8">
                     <PricingCard
@@ -18,7 +17,7 @@ const Pricing = () => {
                         description="This package offers the basic features you need to get started."
                         price="$0.00"
                         features={[
-                            "5 credits",
+                            "2 credits",
                             "Save posts",
                             "View Community posts",
                         ]}
