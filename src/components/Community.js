@@ -26,6 +26,22 @@ const Community = () => {
                     height={192}
                     className='w-full sm:w-48 md:w-52'
                 />
+                <Image
+                    src="/linkd/third.jpeg"
+                    loading='lazy'
+                    alt="Creative LinkedIn Post 3"
+                    width={192}
+                    height={192}
+                    className='w-full sm:w-48 md:w-52'
+                />
+                <Image
+                    src="/linkd/fourth.jpeg"
+                    loading='lazy'
+                    alt="Creative LinkedIn Post 4"
+                    width={192}
+                    height={192}
+                    className='w-full sm:w-48 md:w-52'
+                />
             </div>
         </div>
     );
