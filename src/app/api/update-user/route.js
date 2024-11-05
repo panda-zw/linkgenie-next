@@ -1,9 +1,17 @@
 import { connectDB } from "@/utils/connect";
 import User from "../../../../models/User";
 import { NextResponse } from 'next/server';
+import { authMiddleware } from "@/middleware";
 
 export async function PUT(request) {
     try {
+
+        const session = await authMiddleware(request);
+
+        if (session instanceof NextResponse) {
+            return session; // Return the unauthorized response if session is not valid
+        }
+
         await connectDB();
 
         const { userId, updateCredits, updatePlan } = await request.json();

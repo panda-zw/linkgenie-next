@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
+import { getSession } from "next-auth/react";
 
 export { default } from 'next-auth/middleware';
 export const config = {
@@ -17,4 +18,18 @@ export async function middleware(req) {
   }
 
   return NextResponse.next();
+}
+
+
+export async function authMiddleware(req) {
+    const session = await getSession({ req });
+
+    if (!session) {
+        return NextResponse.json(
+            { message: "Unauthorized" },
+            { status: 401 }
+        );
+    }
+
+    return session;
 }
